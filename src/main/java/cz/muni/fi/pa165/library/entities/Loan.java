@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
-class Member{};
-
 /** @author Martin Páleník 359817 */
 
 public class Loan {

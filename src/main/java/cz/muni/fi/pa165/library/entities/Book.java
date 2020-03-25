@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author Petr Janik 485122
@@ -17,6 +18,9 @@ public class Book {
     private String title;
 
     private String author;
+
+    @OneToMany(mappedBy = "book")
+    Set<SingleLoan> singleLoans;
 
     public long getId() {
         return id;
@@ -40,5 +44,13 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Set<SingleLoan> getSingleLoans() {
+        return singleLoans;
+    }
+
+    public void setSingleLoans(Set<SingleLoan> singleLoans) {
+        this.singleLoans = singleLoans;
     }
 }

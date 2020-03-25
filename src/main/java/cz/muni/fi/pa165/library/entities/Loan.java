@@ -1,29 +1,24 @@
 package cz.muni.fi.pa165.library.entities;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Set;
 
 /** @author Martin Páleník 359817 */
 
+@Entity
 public class Loan {
-    Long id;
-    LocalDateTime borrowedAt;
-    HashMap<Long, String> returnedBookCondition;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    Member member;
-    List<Book> books;
+    @OneToMany
+    Set<SingleLoan> loans;
 
-    public Loan(Member member, List<Book> books) {
-        this.member = member;
-
-        for (Book book: books){
-            this.books.add(book);
-            returnedBookCondition.put(book.getId(),null);
-        }
+    public long getId() {
+        return id;
     }
 
-    public void returnBook(Long id, String condition){
-        returnedBookCondition.put(id,condition);
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -100,5 +100,24 @@ public class MemberRepositoryTest {
             assertThat(memberRepository.count())
                     .isEqualTo(Long.valueOf(2));
         }
+
+        @Test
+        public void deleteById() {
+            // given
+            Member martin = new Member();
+            martin.setMemberId(1);
+            entityManager.persist(martin);
+            entityManager.flush();
+
+            Member librarian = new Member();
+            librarian.setMemberId(2);
+            entityManager.persist(librarian);
+            entityManager.flush();
+
+            memberRepository.deleteById(Long.valueOf(2));
+
+            assertThat(memberRepository.count())
+                    .isEqualTo(Long.valueOf(1));
+        }
     }
 }

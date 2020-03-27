@@ -77,5 +77,28 @@ public class MemberRepositoryTest {
 
             MatcherAssert.assertThat(foundMembers, CoreMatchers.hasItems(martin, librarian));
         }
+
+        @Test
+        public void count() {
+            // given
+            Member martin = new Member();
+            martin.setMemberId(1);
+            martin.setFirstName("Martin");
+            martin.setSurname("R E D A C T E D");
+            martin.setLibrarian(false);
+            entityManager.persist(martin);
+            entityManager.flush();
+
+            Member librarian = new Member();
+            librarian.setMemberId(2);
+            librarian.setFirstName("Librarian");
+            librarian.setSurname("R E D A C T E D");
+            librarian.setLibrarian(true);
+            entityManager.persist(librarian);
+            entityManager.flush();
+
+            assertThat(memberRepository.count())
+                    .isEqualTo(Long.valueOf(2));
+        }
     }
 }

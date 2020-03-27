@@ -39,11 +39,11 @@ public class MemberRepositoryTest {
         entityManager.flush();
 
         // when
-        Optional<Member> found = memberRepository.findById(martin.getMemberId());
+        Optional<Member> found = memberRepository.findById(martin.getId());
 
         // then
-        assertThat(found.get().getMemberId())
-                .isEqualTo(martin.getMemberId());
+        assertThat(found.get().getId())
+                .isEqualTo(martin.getId());
         assertThat(found.get().getFirstName())
                 .isEqualTo(martin.getFirstName());
         assertThat(found.get().getSurname())
@@ -101,7 +101,7 @@ public class MemberRepositoryTest {
         entityManager.persist(librarian);
         entityManager.flush();
 
-        memberRepository.deleteById(librarian.getMemberId());
+        memberRepository.deleteById(librarian.getId());
 
         assertThat(memberRepository.count())
                 .isEqualTo(Long.valueOf(1));

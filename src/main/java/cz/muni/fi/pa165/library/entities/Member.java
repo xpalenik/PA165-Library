@@ -16,20 +16,19 @@ public class Member {
 
     @Id
     @GeneratedValue
-    private long memberId;
+    private long id;
     private String firstName;
     private String surname;
     private boolean isLibrarian;
-
     @OneToMany(mappedBy = "member")
-    Set<SingleLoan> singleLoans;
+    private Set<SingleLoan> singleLoans;
 
-    public long getMemberId() {
-        return memberId;
+    public long getId() {
+        return id;
     }
 
-    public void setMemberId(long memberId) {
-        this.memberId = memberId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -54,5 +53,22 @@ public class Member {
 
     public void setLibrarian(boolean librarian) {
         isLibrarian = librarian;
+    }
+
+    public Set<SingleLoan> getSingleLoans() {
+        return singleLoans;
+    }
+
+    public void setSingleLoans(Set<SingleLoan> singleLoans) {
+        this.singleLoans = singleLoans;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", firstName='" + firstName +
+                "', surname='" + surname +
+                "', isLibrarian=" + isLibrarian +"}";
     }
 }

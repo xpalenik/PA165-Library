@@ -49,10 +49,20 @@ public class BookRepositoryTest {
 
     @Test
     public void testAddingTwoBooks() {
-        setBook1();
-        setBook2();
+        setTwoBooks();
         bookRepository.save(book1);
         bookRepository.save(book2);
+        long foundCount = bookRepository.count();
+        List<Book> foundBooks = bookRepository.findAll();
+
+        Assert.assertEquals(2, foundCount);
+        Assert.assertEquals(foundBooks, Arrays.asList(book1, book2));
+    }
+
+    @Test
+    public void testAddingTwoBooksInList() {
+        setTwoBooks();
+        bookRepository.saveAll(Arrays.asList(book1, book2));
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
@@ -71,11 +81,21 @@ public class BookRepositoryTest {
 
     @Test
     public void testDeletingBook() {
-        setBook1();
-        setBook2();
-        bookRepository.save(book1);
-        bookRepository.save(book2);
+        setTwoBooks();
+        bookRepository.saveAll(Arrays.asList(book1, book2));
         bookRepository.delete(book1);
+        long foundCount = bookRepository.count();
+        List<Book> foundBooks = bookRepository.findAll();
+
+        Assert.assertEquals(1, foundCount);
+        Assert.assertEquals(foundBooks, Arrays.asList(book2));
+    }
+
+    @Test
+    public void testDeletingBookInList() {
+        setTwoBooks();
+        bookRepository.saveAll(Arrays.asList(book1, book2));
+        bookRepository.deleteAll(Arrays.asList(book1));
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
@@ -88,7 +108,9 @@ public class BookRepositoryTest {
         book1.setTitle("Animal Farm");
         book1.setAuthor("George Orwell");
     }
-    private void setBook2() {
+
+    private void setTwoBooks() {
+        setBook1();
         book2 = new Book();
         book2.setTitle("1984");
         book2.setAuthor("George Orwell");

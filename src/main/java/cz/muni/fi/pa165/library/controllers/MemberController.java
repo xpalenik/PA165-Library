@@ -17,8 +17,11 @@ import java.util.List;
 @Transactional
 public class MemberController extends AbstractController{
 
-    @Autowired
     private MemberService memberService;
+
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     @GetMapping(value = "/members", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Member> findAllMembers() {

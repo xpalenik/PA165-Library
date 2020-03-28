@@ -1,12 +1,11 @@
 package cz.muni.fi.pa165.library.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
+ * class for Member entity
+ *
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
@@ -15,7 +14,7 @@ import java.util.Set;
 public class Member {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String firstName;
     private String surname;

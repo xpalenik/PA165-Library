@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * service layer class for Member methods
+ * any business logic should implemented be here
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
@@ -19,10 +21,20 @@ public class MemberService {
     private MemberRepository memberRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(MemberService.class);
 
+    /**
+     * class constructor
+     * @param memberRepository MemberDAO
+     */
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
+    /**
+     * method is looking for specific Member with given ID
+     * @param id is ID of member we are looking for
+     * @return Member object with given ID
+     * @throws IllegalArgumentException if ID less than 0
+     */
     public Member findById(long id) {
         if (id < 0) {
             throw new IllegalArgumentException("ID can not be less than 0.");
@@ -30,6 +42,11 @@ public class MemberService {
         return memberRepository.findById(id).get();
     }
 
+    /**
+     * method is looking for members with first name same as given one
+     * @param firstName is first name of members we are looking for
+     * @return list of Members with given first name or empty list if non matches or first name is illegal argument
+     */
     public List<Member> findByFirstName(String firstName) {
         List<Member> foundMembers = new ArrayList<>();
         if (firstName == null || firstName.isEmpty()) {
@@ -44,6 +61,11 @@ public class MemberService {
         return foundMembers;
     }
 
+    /**
+     * method is looking for members with surname same as given one
+     * @param surname is surname of members we are looking for
+     * @return list of Members with given surname or empty list if non matches or surname is illegal argument
+     */
     public List<Member> findBySurname(String surname) {
         List<Member> foundMembers = new ArrayList<>();
         if (surname == null || surname.isEmpty()) {
@@ -58,18 +80,34 @@ public class MemberService {
         return foundMembers;
     }
 
+    /**
+     * method is looking for members which are librarians
+     * @return list of Members which are librarians
+     */
     public List<Member> findLibrarians() {
-        return getMembersByLibraryRole(true);
+        List<Member> foundMembers = new ArrayList<>();
+
+        for (Member member: memberRepository.findAll()) {
+            if (member.isLibrarian()) {
+                foundMembers.add(member);
+            }
+        }
+        return foundMembers;
     }
 
-    public List<Member> findNonLibrarians() {
-        return getMembersByLibraryRole(false);
-    }
-
+    /**
+     * method returning all members
+     * @return list of all Members
+     */
     public List<Member> findAll() {
         return (List<Member>)memberRepository.findAll();
     }
 
+    /**
+     * method adds or updates member
+     * @param member member we want to add or update
+     * @throws IllegalArgumentException if member is null
+     */
     public void addMember(Member member) {
         if (member == null) {
             throw new IllegalArgumentException("Can not add non-existing member.");
@@ -78,6 +116,11 @@ public class MemberService {
         LOGGER.info("Member was added.");
     }
 
+    /**
+     * method deletes specific Member with given ID
+     * @param id is ID of member we are looking for
+     * @throws IllegalArgumentException if ID is less than 0
+     */
     public void deleteMember(long id) {
         if (id < 0) {
             throw new IllegalArgumentException("ID can not be less than 0.");
@@ -90,26 +133,27 @@ public class MemberService {
         }
     }
 
+    /**
+     * method deletes all members
+     */
     public void deleteAllMembers() {
         memberRepository.deleteAll();
         LOGGER.info("All members was deleted.");
     }
 
+    /**
+     * method returns count of all members
+     * @return count of all members
+     */
     public long count() {
         return memberRepository.count();
     }
 
-    private List<Member> getMembersByLibraryRole(boolean lookingLibrarians) {
-        List<Member> foundMembers = new ArrayList<>();
-
-        for (Member member: memberRepository.findAll()) {
-            if (lookingLibrarians && member.isLibrarian()) {
-                foundMembers.add(member);
-            }
-            if (!lookingLibrarians && !member.isLibrarian()) {
-                foundMembers.add(member);
-            }
-        }
-        return foundMembers;
+    /**
+     * method returns count of librarians
+     * @return count of librarians
+     */
+    public long librariansCount() {
+        return (long)findLibrarians().size();
     }
 }

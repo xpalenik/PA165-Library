@@ -2,13 +2,10 @@ package cz.muni.fi.pa165.library.repositories;
 
 import cz.muni.fi.pa165.library.entities.Book;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.List;

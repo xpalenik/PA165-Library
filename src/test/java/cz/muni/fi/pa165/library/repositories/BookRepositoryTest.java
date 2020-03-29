@@ -27,15 +27,6 @@ public class BookRepositoryTest {
     private Book book1;
     private Book book2;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Test
-    public void testAddNull() {
-        expectedException.expect(InvalidDataAccessApiUsageException.class);
-        bookRepository.save(null);
-    }
-
     @Test
     public void testAddOneBook() {
         setBook1();

@@ -23,7 +23,7 @@ public class SingleLoan {
 
     LocalDateTime registeredAt;
     LocalDateTime returnedAt;
-    
+
     public LocalDateTime getReturnedAt() { return returnedAt; }
 
     public void setReturnedAt(LocalDateTime returnedAt) { this.returnedAt = returnedAt; }

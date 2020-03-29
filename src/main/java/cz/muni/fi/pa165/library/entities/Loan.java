@@ -14,8 +14,6 @@ import java.util.Set;
  * it is not necessary for the functionality of application as
  * the loan functionality is fully implemented by SingleLoan.
  *
- * The class is not persisted intentionally.
- *
  */
 @Entity
 public class Loan {

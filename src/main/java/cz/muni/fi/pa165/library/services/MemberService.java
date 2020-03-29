@@ -5,12 +5,14 @@ import cz.muni.fi.pa165.library.repositories.MemberRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * service layer class for Member methods
  * any business logic should implemented be here
+ *
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
@@ -23,6 +25,7 @@ public class MemberService {
 
     /**
      * class constructor
+     *
      * @param memberRepository MemberDAO
      */
     public MemberService(MemberRepository memberRepository) {
@@ -31,6 +34,7 @@ public class MemberService {
 
     /**
      * method is looking for specific Member with given ID
+     *
      * @param id is ID of member we are looking for
      * @return Member object with given ID
      * @throws IllegalArgumentException if ID less than 0
@@ -44,6 +48,7 @@ public class MemberService {
 
     /**
      * method is looking for members with first name same as given one
+     *
      * @param firstName is first name of members we are looking for
      * @return list of Members with given first name or empty list if non matches or first name is illegal argument
      */
@@ -53,7 +58,7 @@ public class MemberService {
             return foundMembers;
         }
 
-        for (Member member: memberRepository.findAll()) {
+        for (Member member : memberRepository.findAll()) {
             if (member.getFirstName().equals(firstName)) {
                 foundMembers.add(member);
             }
@@ -63,6 +68,7 @@ public class MemberService {
 
     /**
      * method is looking for members with surname same as given one
+     *
      * @param surname is surname of members we are looking for
      * @return list of Members with given surname or empty list if non matches or surname is illegal argument
      */
@@ -72,7 +78,7 @@ public class MemberService {
             return foundMembers;
         }
 
-        for (Member member: memberRepository.findAll()) {
+        for (Member member : memberRepository.findAll()) {
             if (member.getSurname().equals(surname)) {
                 foundMembers.add(member);
             }
@@ -81,30 +87,17 @@ public class MemberService {
     }
 
     /**
-     * method is looking for members which are librarians
-     * @return list of Members which are librarians
-     */
-    public List<Member> findLibrarians() {
-        List<Member> foundMembers = new ArrayList<>();
-
-        for (Member member: memberRepository.findAll()) {
-            if (member.isLibrarian()) {
-                foundMembers.add(member);
-            }
-        }
-        return foundMembers;
-    }
-
-    /**
      * method returning all members
+     *
      * @return list of all Members
      */
     public List<Member> findAll() {
-        return (List<Member>)memberRepository.findAll();
+        return (List<Member>) memberRepository.findAll();
     }
 
     /**
      * method adds or updates member
+     *
      * @param member member we want to add or update
      * @throws IllegalArgumentException if member is null
      */
@@ -118,6 +111,7 @@ public class MemberService {
 
     /**
      * method deletes specific Member with given ID
+     *
      * @param id is ID of member we are looking for
      * @throws IllegalArgumentException if ID is less than 0
      */
@@ -143,17 +137,10 @@ public class MemberService {
 
     /**
      * method returns count of all members
+     *
      * @return count of all members
      */
     public long count() {
         return memberRepository.count();
-    }
-
-    /**
-     * method returns count of librarians
-     * @return count of librarians
-     */
-    public long librariansCount() {
-        return (long)findLibrarians().size();
     }
 }

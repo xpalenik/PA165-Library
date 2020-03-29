@@ -34,7 +34,6 @@ public class MemberRepositoryTest {
         Member martin = new Member();
         martin.setFirstName("Martin");
         martin.setSurname("REDACTED");
-        martin.setLibrarian(false);
         entityManager.persist(martin);
         entityManager.flush();
 
@@ -56,14 +55,12 @@ public class MemberRepositoryTest {
         Member martin = new Member();
         martin.setFirstName("Martin");
         martin.setSurname("REDACTED");
-        martin.setLibrarian(false);
         entityManager.persist(martin);
         entityManager.flush();
 
         Member librarian = new Member();
         librarian.setFirstName("Librarian");
         librarian.setSurname("REDACTED");
-        librarian.setLibrarian(true);
         entityManager.persist(librarian);
         entityManager.flush();
 

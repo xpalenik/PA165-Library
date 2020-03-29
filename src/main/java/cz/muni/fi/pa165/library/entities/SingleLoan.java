@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -13,10 +14,12 @@ public class SingleLoan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Member member;

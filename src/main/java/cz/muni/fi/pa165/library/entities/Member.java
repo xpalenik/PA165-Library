@@ -21,8 +21,6 @@ public class Member {
 
     private String surname;
 
-    private boolean isLibrarian;
-
     @OneToMany(mappedBy = "member")
     private Set<SingleLoan> singleLoans;
 
@@ -50,14 +48,6 @@ public class Member {
         this.surname = surname;
     }
 
-    public boolean isLibrarian() {
-        return isLibrarian;
-    }
-
-    public void setLibrarian(boolean librarian) {
-        isLibrarian = librarian;
-    }
-
     public Set<SingleLoan> getSingleLoans() {
         return singleLoans;
     }
@@ -70,8 +60,9 @@ public class Member {
     public String toString() {
         return "Member{" +
                 "id=" + id +
-                ", firstName='" + firstName +
-                "', surname='" + surname +
-                "', isLibrarian=" + isLibrarian +"}";
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", singleLoans=" + singleLoans +
+                '}';
     }
 }

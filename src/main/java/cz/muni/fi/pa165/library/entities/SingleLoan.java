@@ -57,20 +57,4 @@ public class SingleLoan {
     public void setRegisteredAt(LocalDateTime registeredAt) {
         this.registeredAt = registeredAt;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SingleLoan that = (SingleLoan) o;
-        return id.equals(that.id) &&
-                Objects.equals(book, that.book) &&
-                Objects.equals(member, that.member) &&
-                Objects.equals(registeredAt, that.registeredAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, book, member, registeredAt);
-    }
 }

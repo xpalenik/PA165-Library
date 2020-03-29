@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.library.controllers;
 
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.services.SingleLoanService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

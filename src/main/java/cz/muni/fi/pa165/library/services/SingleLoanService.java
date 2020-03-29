@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.library.services;
 
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.repositories.SingleLoanRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.library.entities;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -27,6 +29,7 @@ public class User {
     private String lastName;
 
     @NotNull
+    @Column(unique = true)
     private String email;
 
     @Column(length = 60)

@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -49,6 +51,7 @@ public class SingleLoanRepositoryTest {
 
         singleLoan.setBook(book);
         singleLoan.setUser(user);
+        singleLoan.setRegisteredAt(LocalDateTime.of(2020, 1,1,12,0));
 
         entityManager.persist(singleLoan);
 

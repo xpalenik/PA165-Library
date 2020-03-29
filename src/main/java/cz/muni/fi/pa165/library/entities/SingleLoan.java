@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.library.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author Petr Janik 485122
@@ -24,8 +25,10 @@ public class SingleLoan {
     @JoinColumn(name = "user_id")
     private User user;
 
-    LocalDateTime registeredAt;
-    LocalDateTime returnedAt;
+    @NotNull
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime returnedAt;
 
     public LocalDateTime getReturnedAt() { return returnedAt; }
 
@@ -61,6 +64,23 @@ public class SingleLoan {
 
     public void setRegisteredAt(LocalDateTime registeredAt) {
         this.registeredAt = registeredAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SingleLoan that = (SingleLoan) o;
+        return id == that.id &&
+                Objects.equals(book, that.book) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(registeredAt, that.registeredAt) &&
+                Objects.equals(returnedAt, that.returnedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, book, user, registeredAt, returnedAt);
     }
 
     @Override

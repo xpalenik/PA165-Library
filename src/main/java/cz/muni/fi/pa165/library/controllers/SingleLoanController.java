@@ -19,8 +19,11 @@ import java.util.List;
 @Transactional
 public class SingleLoanController extends AbstractController {
 
-    @Autowired
     private SingleLoanService singleLoanService;
+
+    public SingleLoanController(SingleLoanService singleLoanService) {
+        this.singleLoanService = singleLoanService;
+    }
 
     @GetMapping("/loans")
     public List<SingleLoan> allSingleLoans() {
@@ -33,8 +36,7 @@ public class SingleLoanController extends AbstractController {
     }
 
     @DeleteMapping("/loans/{id}")
-    public void delete(@PathVariable String id) {
-        Long singleLoanId = Long.parseLong(id);
-        singleLoanService.deleteById(singleLoanId);
+    public void delete(@PathVariable long id) {
+        singleLoanService.deleteById(id);
     }
 }

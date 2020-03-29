@@ -1,19 +1,19 @@
 package cz.muni.fi.pa165.library.repositories;
 
 import cz.muni.fi.pa165.library.entities.Book;
-import cz.muni.fi.pa165.library.entities.User;
+import cz.muni.fi.pa165.library.entities.Loan;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
+import cz.muni.fi.pa165.library.entities.User;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,37 +24,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class SingleLoanRepositoryTest {
-
+public class LoanRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
+
+    @Autowired
+    private LoanRepository loanRepository;
 
     @Autowired
     private SingleLoanRepository singleLoanRepository;
 
     @Test
-    public void createSingleLoan() {
-        SingleLoan singleLoan = new SingleLoan();
-
-        Book book = createTestBookAnimalFarm();
-        entityManager.persist(book);
-
-        User user = createTestUserPeter();
-        entityManager.persist(user);
-
-        singleLoan.setBook(book);
-        singleLoan.setUser(user);
-        singleLoan.setRegisteredAt(LocalDateTime.of(2020, 1, 1, 12, 0));
-
-        entityManager.persist(singleLoan);
-
-        List<SingleLoan> singleLoans = singleLoanRepository.findAll();
-
-        assertThat(singleLoans, CoreMatchers.hasItems(singleLoan));
-    }
-
-    @Test
-    public void multipleSingleLoansForUser() {
+    public void createLoan() {
         Book animalFarm = createTestBookAnimalFarm();
         Book book1984 = createTestBook1984();
         entityManager.persist(animalFarm);
@@ -75,10 +56,15 @@ public class SingleLoanRepositoryTest {
         secondLoan.setRegisteredAt(LocalDateTime.of(2020, 1, 1, 12, 0));
         entityManager.persist(secondLoan);
 
-        List<SingleLoan> singleLoans = singleLoanRepository.findAll();
+        Loan loan = new Loan();
+        loan.setLoans(Arrays.asList(singleLoan, secondLoan));
+        entityManager.persist(loan);
 
-        assertThat(singleLoans, CoreMatchers.hasItems(singleLoan, secondLoan));
+
+        assertThat(loanRepository.findAll(), CoreMatchers.hasItems(loan));
+        assertThat(singleLoanRepository.findAll(), CoreMatchers.hasItems(singleLoan, secondLoan));
     }
+
 
     private Book createTestBookAnimalFarm() {
         Book book = new Book();

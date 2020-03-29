@@ -22,6 +22,11 @@ public class SingleLoan {
     Member member;
 
     LocalDateTime registeredAt;
+    LocalDateTime returnedAt;
+    
+    public LocalDateTime getReturnedAt() { return returnedAt; }
+
+    public void setReturnedAt(LocalDateTime returnedAt) { this.returnedAt = returnedAt; }
 
     public Long getId() {
         return id;

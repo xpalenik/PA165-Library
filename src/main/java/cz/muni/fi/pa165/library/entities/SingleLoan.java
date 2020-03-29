@@ -1,11 +1,7 @@
 package cz.muni.fi.pa165.library.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * @author Petr Janik 485122
@@ -14,6 +10,7 @@ import java.util.Objects;
 @Entity
 public class SingleLoan {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ManyToOne

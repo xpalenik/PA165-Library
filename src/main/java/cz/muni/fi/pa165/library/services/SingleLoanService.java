@@ -13,9 +13,11 @@ import java.util.List;
 
 @Service
 public class SingleLoanService {
-
-    @Autowired
     private SingleLoanRepository singleLoanRepository;
+
+    public SingleLoanService(SingleLoanRepository singleLoanRepository) {
+        this.singleLoanRepository = singleLoanRepository;
+    }
 
     public List<SingleLoan> findAll() {
         return (List<SingleLoan>) singleLoanRepository.findAll();

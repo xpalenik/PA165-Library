@@ -5,8 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-/** @author Martin Páleník 359817
- *  based on http://zetcode.com/springboot/crudrepository/
+/**
+ * @author Martin Páleník 359817
+ * based on http://zetcode.com/springboot/crudrepository/
  */
 public interface SingleLoanRepository extends CrudRepository<SingleLoan, Long> {
     List<SingleLoan> findAll();

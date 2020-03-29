@@ -1,11 +1,12 @@
 package cz.muni.fi.pa165.library.controllers;
 
-import cz.muni.fi.pa165.library.entities.Member;
-import cz.muni.fi.pa165.library.services.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
+import cz.muni.fi.pa165.library.entities.User;
+import cz.muni.fi.pa165.library.services.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 /**
@@ -15,16 +16,16 @@ import java.util.List;
  */
 @RestController
 @Transactional
-public class MemberController extends AbstractController{
+public class MemberController extends AbstractController {
 
-    private MemberService memberService;
+    private UserService userService;
 
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
+    public MemberController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping(value = "/members", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Member> findAllMembers() {
-        return memberService.findAll();
+    public List<User> findAllMembers() {
+        return userService.findAll();
     }
 }

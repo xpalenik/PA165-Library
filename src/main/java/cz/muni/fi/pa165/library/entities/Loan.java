@@ -1,9 +1,12 @@
 package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
-/** @author Martin Páleník 359817 */
+/**
+ * @author Martin Páleník 359817
+ */
 
 @Entity
 public class Loan {
@@ -11,8 +14,9 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     @OneToMany
-    private Set<SingleLoan> loans;
+    private Collection<SingleLoan> loans;
 
     public long getId() {
         return id;

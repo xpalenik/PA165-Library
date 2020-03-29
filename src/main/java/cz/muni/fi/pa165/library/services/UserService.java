@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.library.services;
 
-import cz.muni.fi.pa165.library.entities.Member;
-import cz.muni.fi.pa165.library.repositories.MemberRepository;
+import cz.muni.fi.pa165.library.entities.User;
+import cz.muni.fi.pa165.library.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,18 +18,18 @@ import java.util.List;
  * Github katHermanova
  */
 @Service
-public class MemberService {
+public class UserService {
 
-    private MemberRepository memberRepository;
-    private static final Logger LOGGER = LoggerFactory.getLogger(MemberService.class);
+    private UserRepository userRepository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     /**
      * class constructor
      *
-     * @param memberRepository MemberDAO
+     * @param userRepository MemberDAO
      */
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     /**
@@ -39,11 +39,11 @@ public class MemberService {
      * @return Member object with given ID
      * @throws IllegalArgumentException if ID less than 0
      */
-    public Member findById(long id) {
+    public User findById(long id) {
         if (id < 0) {
             throw new IllegalArgumentException("ID can not be less than 0.");
         }
-        return memberRepository.findById(id).get();
+        return userRepository.findById(id).get();
     }
 
     /**
@@ -52,18 +52,18 @@ public class MemberService {
      * @param firstName is first name of members we are looking for
      * @return list of Members with given first name or empty list if non matches or first name is illegal argument
      */
-    public List<Member> findByFirstName(String firstName) {
-        List<Member> foundMembers = new ArrayList<>();
+    public List<User> findByFirstName(String firstName) {
+        List<User> foundUsers = new ArrayList<>();
         if (firstName == null || firstName.isEmpty()) {
-            return foundMembers;
+            return foundUsers;
         }
 
-        for (Member member : memberRepository.findAll()) {
-            if (member.getFirstName().equals(firstName)) {
-                foundMembers.add(member);
+        for (User user : userRepository.findAll()) {
+            if (user.getFirstName().equals(firstName)) {
+                foundUsers.add(user);
             }
         }
-        return foundMembers;
+        return foundUsers;
     }
 
     /**
@@ -72,18 +72,18 @@ public class MemberService {
      * @param surname is surname of members we are looking for
      * @return list of Members with given surname or empty list if non matches or surname is illegal argument
      */
-    public List<Member> findBySurname(String surname) {
-        List<Member> foundMembers = new ArrayList<>();
+    public List<User> findBySurname(String surname) {
+        List<User> foundUsers = new ArrayList<>();
         if (surname == null || surname.isEmpty()) {
-            return foundMembers;
+            return foundUsers;
         }
 
-        for (Member member : memberRepository.findAll()) {
-            if (member.getSurname().equals(surname)) {
-                foundMembers.add(member);
+        for (User user : userRepository.findAll()) {
+            if (user.getLastName().equals(surname)) {
+                foundUsers.add(user);
             }
         }
-        return foundMembers;
+        return foundUsers;
     }
 
     /**
@@ -91,21 +91,21 @@ public class MemberService {
      *
      * @return list of all Members
      */
-    public List<Member> findAll() {
-        return (List<Member>) memberRepository.findAll();
+    public List<User> findAll() {
+        return (List<User>) userRepository.findAll();
     }
 
     /**
      * method adds or updates member
      *
-     * @param member member we want to add or update
+     * @param user member we want to add or update
      * @throws IllegalArgumentException if member is null
      */
-    public void addMember(Member member) {
-        if (member == null) {
+    public void addMember(User user) {
+        if (user == null) {
             throw new IllegalArgumentException("Can not add non-existing member.");
         }
-        memberRepository.save(member);
+        userRepository.save(user);
         LOGGER.info("Member was added.");
     }
 
@@ -119,8 +119,8 @@ public class MemberService {
         if (id < 0) {
             throw new IllegalArgumentException("ID can not be less than 0.");
         }
-        if (memberRepository.existsById(id)) {
-            memberRepository.deleteById(id);
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
             LOGGER.info("Member deleted.");
         } else {
             LOGGER.warn("Trying to delete non-existing member.");
@@ -131,7 +131,7 @@ public class MemberService {
      * method deletes all members
      */
     public void deleteAllMembers() {
-        memberRepository.deleteAll();
+        userRepository.deleteAll();
         LOGGER.info("All members was deleted.");
     }
 
@@ -141,6 +141,6 @@ public class MemberService {
      * @return count of all members
      */
     public long count() {
-        return memberRepository.count();
+        return userRepository.count();
     }
 }

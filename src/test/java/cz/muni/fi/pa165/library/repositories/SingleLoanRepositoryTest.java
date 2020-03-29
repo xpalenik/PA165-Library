@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.library.repositories;
 
 import cz.muni.fi.pa165.library.entities.Book;
-import cz.muni.fi.pa165.library.entities.Member;
+import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,15 +38,17 @@ public class SingleLoanRepositoryTest {
         book.setTitle("Animal farm");
         entityManager.persist(book);
 
-        Member member = new Member();
-        member.setFirstName("Peter");
-        member.setSurname("Griffin");
+        User user = new User();
+        user.setFirstName("Peter");
+        user.setLastName("Griffin");
+        user.setEmail("mail@mail.com");
+        user.setPassword("password");
 
         entityManager.persist(book);
-        entityManager.persist(member);
+        entityManager.persist(user);
 
         singleLoan.setBook(book);
-        singleLoan.setMember(member);
+        singleLoan.setUser(user);
 
         entityManager.persist(singleLoan);
 

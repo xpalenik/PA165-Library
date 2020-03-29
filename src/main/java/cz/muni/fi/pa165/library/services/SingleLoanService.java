@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/** @author Martin Páleník 359817
- *  based on http://zetcode.com/springboot/crudrepository/
+/**
+ * @author Martin Páleník 359817
+ * based on http://zetcode.com/springboot/crudrepository/
  */
 
 @Service

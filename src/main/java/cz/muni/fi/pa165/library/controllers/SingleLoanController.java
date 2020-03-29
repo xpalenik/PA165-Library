@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/** @author Martin Páleník 359817
- *  based on http://zetcode.com/springboot/crudrepository/
+/**
+ * @author Martin Páleník 359817
+ * based on http://zetcode.com/springboot/crudrepository/
  */
 
 @RestController

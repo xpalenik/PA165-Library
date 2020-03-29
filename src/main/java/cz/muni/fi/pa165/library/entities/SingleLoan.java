@@ -24,7 +24,12 @@ public class SingleLoan {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private LocalDateTime registeredAt;
+    LocalDateTime registeredAt;
+    LocalDateTime returnedAt;
+
+    public LocalDateTime getReturnedAt() { return returnedAt; }
+
+    public void setReturnedAt(LocalDateTime returnedAt) { this.returnedAt = returnedAt; }
 
     public Long getId() {
         return id;

@@ -69,7 +69,7 @@ public class MemberRepositoryTest {
 
         // see https://www.baeldung.com/java-iterable-to-collection
         Iterable<Member> i = memberRepository.findAll();
-        List<Member> foundMembers = new ArrayList<Member>();
+        List<Member> foundMembers = new ArrayList<>();
         i.forEach(foundMembers::add);
 
         MatcherAssert.assertThat(foundMembers, CoreMatchers.hasItems(martin, librarian));

@@ -11,17 +11,17 @@ import java.time.LocalDateTime;
 public class SingleLoan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-    Book book;
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    Member member;
+    private Member member;
 
-    LocalDateTime registeredAt;
+    private LocalDateTime registeredAt;
 
     public Long getId() {
         return id;

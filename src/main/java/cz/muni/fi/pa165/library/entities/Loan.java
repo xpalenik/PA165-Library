@@ -12,7 +12,7 @@ public class Loan {
     private long id;
 
     @OneToMany
-    Set<SingleLoan> loans;
+    private Set<SingleLoan> loans;
 
     public long getId() {
         return id;

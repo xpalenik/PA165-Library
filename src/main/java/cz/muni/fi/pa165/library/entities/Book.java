@@ -20,7 +20,7 @@ public class Book {
     private String author;
 
     @OneToMany(mappedBy = "book")
-    Set<SingleLoan> singleLoans;
+    private Set<SingleLoan> singleLoans;
 
     public long getId() {
         return id;

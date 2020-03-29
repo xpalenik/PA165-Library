@@ -1,11 +1,7 @@
 package cz.muni.fi.pa165.library.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * @author Petr Janik 485122
@@ -14,6 +10,7 @@ import java.util.Objects;
 @Entity
 public class SingleLoan {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ManyToOne
@@ -59,18 +56,12 @@ public class SingleLoan {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SingleLoan that = (SingleLoan) o;
-        return id.equals(that.id) &&
-                Objects.equals(book, that.book) &&
-                Objects.equals(member, that.member) &&
-                Objects.equals(registeredAt, that.registeredAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, book, member, registeredAt);
+    public String toString() {
+        return "SingleLoan{" +
+                "id=" + id +
+                ", book=" + book +
+                ", member=" + member +
+                ", registeredAt=" + registeredAt +
+                '}';
     }
 }

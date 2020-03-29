@@ -7,7 +7,5 @@ import org.springframework.stereotype.Repository;
 /** @author Martin Páleník 359817
  *  based on http://zetcode.com/springboot/crudrepository/
  */
-
-@Repository
 public interface SingleLoanRepository extends CrudRepository<SingleLoan, Long> {
 }

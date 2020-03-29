@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.library.controllers;
 
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.services.SingleLoanService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +18,11 @@ import java.util.List;
 @Transactional
 public class SingleLoanController extends AbstractController {
 
-    @Autowired
     private SingleLoanService singleLoanService;
+
+    public SingleLoanController(SingleLoanService singleLoanService) {
+        this.singleLoanService = singleLoanService;
+    }
 
     @GetMapping("/loans")
     public List<SingleLoan> allSingleLoans() {
@@ -33,8 +35,7 @@ public class SingleLoanController extends AbstractController {
     }
 
     @DeleteMapping("/loans/{id}")
-    public void delete(@PathVariable String id) {
-        Long singleLoanId = Long.parseLong(id);
-        singleLoanService.deleteById(singleLoanId);
+    public void delete(@PathVariable long id) {
+        singleLoanService.deleteById(id);
     }
 }

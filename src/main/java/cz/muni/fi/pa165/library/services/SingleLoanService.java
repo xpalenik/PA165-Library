@@ -19,8 +19,9 @@ public class SingleLoanService {
     private SingleLoanRepository singleLoanRepository;
 
     /**
-     * Constructor creates single loan between a member and a book
-     * @param singleLoanRepository
+     * Constructor.
+     * injects repository class
+     * @param singleLoanRepository (required)
      */
     public SingleLoanService(SingleLoanRepository singleLoanRepository) {
         this.singleLoanRepository = singleLoanRepository;

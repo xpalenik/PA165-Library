@@ -4,7 +4,19 @@ import javax.persistence.*;
 import java.util.Set;
 
 /** @author Martin Páleník 359817 */
-
+/**
+ * This entity populates multiple SingleLoans.
+ *
+ * It implements the following assignment condition:
+ * "Take into account that a person can borrow multiple books in a single loan."
+ *
+ * Although it might be useful for performance or usability
+ * it is not necessary for the functionality of application as
+ * the loan functionality is fully implemented by SingleLoan.
+ *
+ * The class is not persisted intentionally.
+ *
+ */
 @Entity
 public class Loan {
     @Id

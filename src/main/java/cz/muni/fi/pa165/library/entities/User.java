@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 /**
- * class for Member entity
+ * class for User entity
  *
  * @author Katarína Hermanová
  * UČO 433511
@@ -96,5 +96,35 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof User))
+            return false;
+
+        User other = (User) o;
+
+        return id == other.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return 383;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", singleLoans=" + singleLoans + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

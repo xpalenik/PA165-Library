@@ -5,13 +5,12 @@ import cz.muni.fi.pa165.library.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * service layer class for Member methods
- * any business logic should implemented be here
+ * service layer class for User
+ * any business logic should be implemented here
  *
  * @author Katarína Hermanová
  * UČO 433511
@@ -26,18 +25,18 @@ public class UserService {
     /**
      * class constructor
      *
-     * @param userRepository MemberDAO
+     * @param userRepository UserDAO
      */
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     /**
-     * method is looking for specific Member with given ID
+     * method is looking for specific User by id
      *
-     * @param id is ID of member we are looking for
-     * @return Member object with given ID
-     * @throws IllegalArgumentException if ID less than 0
+     * @param id of user we are looking for
+     * @return User
+     * @throws IllegalArgumentException if id less than 0
      */
     public User findById(long id) {
         if (id < 0) {
@@ -47,10 +46,10 @@ public class UserService {
     }
 
     /**
-     * method is looking for members with first name same as given one
+     * method is looking for users by first name
      *
-     * @param firstName is first name of members we are looking for
-     * @return list of Members with given first name or empty list if non matches or first name is illegal argument
+     * @param firstName
+     * @return list of users or empty list if non matches or first name is illegal argument
      */
     public List<User> findByFirstName(String firstName) {
         List<User> foundUsers = new ArrayList<>();
@@ -67,19 +66,19 @@ public class UserService {
     }
 
     /**
-     * method is looking for members with surname same as given one
+     * method is looking for users by lastName
      *
-     * @param surname is surname of members we are looking for
-     * @return list of Members with given surname or empty list if non matches or surname is illegal argument
+     * @param lastName
+     * @return list of users or empty list if non matches or last name is illegal argument
      */
-    public List<User> findBySurname(String surname) {
+    public List<User> findByLastName(String lastName) {
         List<User> foundUsers = new ArrayList<>();
-        if (surname == null || surname.isEmpty()) {
+        if (lastName == null || lastName.isEmpty()) {
             return foundUsers;
         }
 
         for (User user : userRepository.findAll()) {
-            if (user.getLastName().equals(surname)) {
+            if (user.getLastName().equals(lastName)) {
                 foundUsers.add(user);
             }
         }
@@ -87,58 +86,86 @@ public class UserService {
     }
 
     /**
-     * method returning all members
+     * method is looking for users by email
      *
-     * @return list of all Members
+     * @param email
+     * @return list of users or empty list if non matches or last name is illegal argument
+     */
+    public List<User> findByEmail(String email) {
+        List<User> foundUsers = new ArrayList<>();
+        if (email == null || email.isEmpty()) {
+            return foundUsers;
+        }
+
+        for (User user : userRepository.findAll()) {
+            if (user.getEmail().equals(email)) {
+                foundUsers.add(user);
+            }
+        }
+        return foundUsers;
+    }
+
+    /**
+     *
+     *
+     * @return list of all users
      */
     public List<User> findAll() {
         return (List<User>) userRepository.findAll();
     }
 
     /**
-     * method adds or updates member
+     * method adds or updates user
      *
-     * @param user member we want to add or update
-     * @throws IllegalArgumentException if member is null
+     * @param user
+     * @throws IllegalArgumentException if user is null or has illegal attributes
      */
-    public void addMember(User user) {
+    public void addUser(User user) {
         if (user == null) {
-            throw new IllegalArgumentException("Can not add non-existing member.");
+            throw new IllegalArgumentException("Can not add non-existing user.");
+        }
+        if (user.getFirstName() == null || user.getLastName() == null
+                || user.getEmail() == null || user.getPassword() == null) {
+            throw new IllegalArgumentException("User we adding has illegal null attribute.");
+        }
+        if (user.getPassword().length() > 60) {
+            throw new IllegalArgumentException("User password is too long.");
+        }
+        if (user.getRoles().isEmpty()) {
+            throw new IllegalArgumentException("User must have at least one role.");
         }
         userRepository.save(user);
-        LOGGER.info("Member was added.");
+        LOGGER.info("User was added.");
     }
 
     /**
-     * method deletes specific Member with given ID
+     * method deletes user by id
      *
-     * @param id is ID of member we are looking for
+     * @param id of user
      * @throws IllegalArgumentException if ID is less than 0
      */
-    public void deleteMember(long id) {
+    public void deleteUser(long id) {
         if (id < 0) {
-            throw new IllegalArgumentException("ID can not be less than 0.");
+            throw new IllegalArgumentException("Id can not be less than 0.");
         }
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
-            LOGGER.info("Member deleted.");
+            LOGGER.info("User deleted.");
         } else {
-            LOGGER.warn("Trying to delete non-existing member.");
+            LOGGER.warn("Trying to delete non-existing user.");
         }
     }
 
     /**
-     * method deletes all members
+     * method deletes all users
      */
-    public void deleteAllMembers() {
+    public void deleteAllUsers() {
         userRepository.deleteAll();
-        LOGGER.info("All members was deleted.");
+        LOGGER.info("All users was deleted.");
     }
 
     /**
-     * method returns count of all members
-     *
-     * @return count of all members
+     * @return count of all users
      */
     public long count() {
         return userRepository.count();

@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.Set;
 
 /** @author Martin Páleník 359817 */

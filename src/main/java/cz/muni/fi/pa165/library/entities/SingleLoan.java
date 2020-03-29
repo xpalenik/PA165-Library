@@ -54,4 +54,14 @@ public class SingleLoan {
     public void setRegisteredAt(LocalDateTime registeredAt) {
         this.registeredAt = registeredAt;
     }
+
+    @Override
+    public String toString() {
+        return "SingleLoan{" +
+                "id=" + id +
+                ", book=" + book +
+                ", member=" + member +
+                ", registeredAt=" + registeredAt +
+                '}';
+    }
 }

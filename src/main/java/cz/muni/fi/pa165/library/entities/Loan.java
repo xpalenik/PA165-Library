@@ -35,6 +35,14 @@ public class Loan {
         this.id = id;
     }
 
+    public Collection<SingleLoan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(Collection<SingleLoan> loans) {
+        this.loans = loans;
+    }
+
     /** @author Martin Páleník 359817 */
     @Override
     public boolean equals(Object o) {

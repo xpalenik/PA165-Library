@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -11,17 +12,19 @@ import java.time.LocalDateTime;
 public class SingleLoan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private long id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "book_id")
-    Book book;
+    private Book book;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "course_id")
-    Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    LocalDateTime registeredAt;
+    private LocalDateTime registeredAt;
 
     public Long getId() {
         return id;
@@ -39,12 +42,12 @@ public class SingleLoan {
         this.book = book;
     }
 
-    public Member getMember() {
-        return member;
+    public User getUser() {
+        return user;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getRegisteredAt() {
@@ -60,7 +63,7 @@ public class SingleLoan {
         return "SingleLoan{" +
                 "id=" + id +
                 ", book=" + book +
-                ", member=" + member +
+                ", member=" + user +
                 ", registeredAt=" + registeredAt +
                 '}';
     }

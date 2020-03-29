@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -15,12 +16,14 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     private String title;
 
+    @NotNull
     private String author;
 
     @OneToMany(mappedBy = "book")
-    Set<SingleLoan> singleLoans;
+    private Set<SingleLoan> singleLoans;
 
     public long getId() {
         return id;

@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.library.repositories;
 
-import cz.muni.fi.pa165.library.entities.Member;
+import cz.muni.fi.pa165.library.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -10,6 +10,6 @@ import org.springframework.data.repository.CrudRepository;
  * UČO 433511
  * Github katHermanova
  */
-public interface MemberRepository extends CrudRepository<Member, Long> {
-
+public interface UserRepository extends CrudRepository<User, Long> {
+    User findByEmail(String email);
 }

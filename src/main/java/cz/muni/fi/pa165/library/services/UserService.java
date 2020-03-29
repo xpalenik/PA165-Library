@@ -115,7 +115,7 @@ public class UserService {
     }
 
     /**
-     * method adds or updates user
+     * method adds user
      *
      * @param user
      * @throws IllegalArgumentException if user is null or has illegal attributes
@@ -133,6 +133,11 @@ public class UserService {
         }
         if (user.getRoles().isEmpty()) {
             throw new IllegalArgumentException("User must have at least one role.");
+        }
+        for (User u: findAll()) {
+            if (u.getEmail().equals(user.getEmail())) {
+                throw new IllegalArgumentException("Email is already used by another user.");
+            }
         }
         userRepository.save(user);
         LOGGER.info("User was added.");

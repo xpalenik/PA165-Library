@@ -16,9 +16,13 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String firstName;
+
     private String surname;
+
     private boolean isLibrarian;
+
     @OneToMany(mappedBy = "member")
     private Set<SingleLoan> singleLoans;
 

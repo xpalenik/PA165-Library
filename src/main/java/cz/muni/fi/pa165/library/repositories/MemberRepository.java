@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.library.entities.Member;
 import org.springframework.data.repository.CrudRepository;
 
 /**
+ * DAO layer interface
+ *
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova

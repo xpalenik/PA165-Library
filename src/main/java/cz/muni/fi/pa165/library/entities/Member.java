@@ -1,12 +1,11 @@
 package cz.muni.fi.pa165.library.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
+ * class for Member entity
+ *
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
@@ -15,21 +14,20 @@ import java.util.Set;
 public class Member {
 
     @Id
-    @GeneratedValue
-    private long memberId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String firstName;
     private String surname;
     private boolean isLibrarian;
-
     @OneToMany(mappedBy = "member")
-    Set<SingleLoan> singleLoans;
+    private Set<SingleLoan> singleLoans;
 
-    public long getMemberId() {
-        return memberId;
+    public long getId() {
+        return id;
     }
 
-    public void setMemberId(long memberId) {
-        this.memberId = memberId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -54,5 +52,22 @@ public class Member {
 
     public void setLibrarian(boolean librarian) {
         isLibrarian = librarian;
+    }
+
+    public Set<SingleLoan> getSingleLoans() {
+        return singleLoans;
+    }
+
+    public void setSingleLoans(Set<SingleLoan> singleLoans) {
+        this.singleLoans = singleLoans;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", firstName='" + firstName +
+                "', surname='" + surname +
+                "', isLibrarian=" + isLibrarian +"}";
     }
 }

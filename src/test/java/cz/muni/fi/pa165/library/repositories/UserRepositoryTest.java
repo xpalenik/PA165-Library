@@ -8,14 +8,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
 import javax.persistence.PersistenceException;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresentAndIs;
-//import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Martin Páleník 359817
@@ -67,13 +65,13 @@ public class UserRepositoryTest {
         assertThat(userRepository.findAll(), containsInAnyOrder(martin));
     }
 
-    @Test(expected = PersistenceException.class)
+    @Test
     public void testAddingUsersWithSameEmail() {
         User martin = createTestUserMartin();
         entityManager.persist(martin);
         User boris = createTestUserBoris();
         boris.setEmail(martin.getEmail());
-        entityManager.persist(boris);
+        assertThrows(PersistenceException.class, () -> entityManager.persist(boris));
     }
 
     private User createTestUserMartin() {

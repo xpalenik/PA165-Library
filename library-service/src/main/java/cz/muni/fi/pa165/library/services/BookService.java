@@ -27,25 +27,35 @@ public class BookService {
     }
 
     public long createBook(Book book) {
+        LOGGER.info("Creating book {}.", book);
         book = bookRepository.save(book);
+        LOGGER.info("Created book with id {}.", book.getId());
         return book.getId();
     }
 
+    public long deleteBook(long id) {
+        LOGGER.info("Deleting book with id {}.", id);
+        Optional<Book> book = bookRepository.findById(id);
+        book.ifPresent(b -> {
+                    LOGGER.info("Book with id {} has been found.", id);
+                    bookRepository.delete(b);
+                }
+        );
+        return id;
+    }
+
     public List<Book> findAll() {
+        LOGGER.info("Finding all books.");
         return bookRepository.findAll();
     }
 
     public List<Book> findByTitle(String title) {
-        return bookRepository.findAll().stream().filter(b -> b.getTitle().equals(title)).collect(Collectors.toList());
+        LOGGER.info("Finding all books containing {} in title.", title);
+        return bookRepository.findAll().stream().filter(b -> b.getTitle().contains(title)).collect(Collectors.toList());
     }
 
     public List<Book> findByAuthor(String author) {
-        return bookRepository.findAll().stream().filter(b -> b.getAuthor().equals(author)).collect(Collectors.toList());
-    }
-
-    public long deleteBook(long id) {
-        Optional<Book> book = bookRepository.findById(id);
-        book.ifPresent(b -> bookRepository.delete(b));
-        return id;
+        LOGGER.info("Finding all books containing {} as an author.", author);
+        return bookRepository.findAll().stream().filter(b -> b.getAuthor().contains(author)).collect(Collectors.toList());
     }
 }

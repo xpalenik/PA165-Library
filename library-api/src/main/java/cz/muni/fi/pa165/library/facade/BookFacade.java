@@ -13,9 +13,9 @@ public interface BookFacade {
 
     long deleteBook(long id);
 
-    List<BookDTO> getAllBooks();
+    List<BookDTO> findAllBooks();
 
-    List<BookDTO> getBooksByTitle(String title);
+    List<BookDTO> findByTitle(String title);
 
-    List<BookDTO> getBooksByAuthor(String author);
+    List<BookDTO> findByAuthor(String author);
 }

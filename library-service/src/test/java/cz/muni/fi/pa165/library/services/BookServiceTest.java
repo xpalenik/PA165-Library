@@ -17,6 +17,7 @@ import java.util.Arrays;
  * UČO 433511
  * Github katHermanova
  */
+//TODO cover BookService with tests
 @RunWith(SpringRunner.class)
 public class BookServiceTest {
 

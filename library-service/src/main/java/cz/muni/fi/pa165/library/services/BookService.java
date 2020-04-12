@@ -26,6 +26,15 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    public long createBook(Book book) {
+        book = bookRepository.save(book);
+        return book.getId();
+    }
+
+    public List<Book> findAll() {
+        return bookRepository.findAll();
+    }
+
     public List<Book> findByTitle(String title) {
         return bookRepository.findAll().stream().filter(b -> b.getTitle().equals(title)).collect(Collectors.toList());
     }
@@ -34,8 +43,9 @@ public class BookService {
         return bookRepository.findAll().stream().filter(b -> b.getAuthor().equals(author)).collect(Collectors.toList());
     }
 
-    public void deleteBook(long id) {
+    public long deleteBook(long id) {
         Optional<Book> book = bookRepository.findById(id);
         book.ifPresent(b -> bookRepository.delete(b));
+        return id;
     }
 }

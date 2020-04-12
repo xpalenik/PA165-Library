@@ -18,6 +18,4 @@ public interface BookFacade {
     List<BookDTO> getBooksByTitle(String title);
 
     List<BookDTO> getBooksByAuthor(String author);
-
-    BookDTO getBookById(long id);
 }

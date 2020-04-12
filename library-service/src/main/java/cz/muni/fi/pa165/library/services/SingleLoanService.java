@@ -36,7 +36,7 @@ public class SingleLoanService {
      * @return list of all loans
      */
     public List<SingleLoan> findAll() {
-        return (List<SingleLoan>) singleLoanRepository.findAll();
+        return singleLoanRepository.findAll();
     }
 
     /**
@@ -65,7 +65,7 @@ public class SingleLoanService {
     /** @author Martin Páleník 359817 */
     public List<SingleLoan> getLoansForUser(User user) {
 
-        List<SingleLoan> usersLoans = new ArrayList<SingleLoan>();
+        List<SingleLoan> usersLoans = new ArrayList<>();
 
         for (SingleLoan singleLoan : singleLoanRepository.findAll()){
             // Note: This implementation is wrong.

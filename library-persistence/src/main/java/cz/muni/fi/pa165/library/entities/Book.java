@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -22,7 +23,15 @@ public class Book {
     private String author;
 
     @OneToMany(mappedBy = "book")
-    private Set<SingleLoan> singleLoans;
+    private Collection<SingleLoan> singleLoans;
+
+    public Book() {
+    }
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
 
     public long getId() {
         return id;
@@ -48,11 +57,11 @@ public class Book {
         this.author = author;
     }
 
-    public Set<SingleLoan> getSingleLoans() {
+    public Collection<SingleLoan> getSingleLoans() {
         return singleLoans;
     }
 
-    public void setSingleLoans(Set<SingleLoan> singleLoans) {
+    public void setSingleLoans(Collection<SingleLoan> singleLoans) {
         this.singleLoans = singleLoans;
     }
 

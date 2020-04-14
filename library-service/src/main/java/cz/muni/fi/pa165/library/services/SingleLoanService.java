@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.library.services;
 
+import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.repositories.SingleLoanRepository;
@@ -58,8 +59,11 @@ public class SingleLoanService {
         singleLoanRepository.deleteById(userId);
     }
 
+    /** The following services are required by the assignment */
+
     /**
      * For the given user return all his loans (current or past).
+     * Answers "what a member borrowed and when".
      * @return list of loans for the given user
      */
     public List<SingleLoan> getLoansForUser(User user) {
@@ -75,4 +79,22 @@ public class SingleLoanService {
         return usersLoans;
     }
 
+    /**
+     * For the given book return all its loans (current or past).
+     * Answers "who borrowed a certain book".
+     * Answers "what condition they returned the book in".
+     * @return list of loans for the given book
+     */
+    public List<SingleLoan> getLoansForBook(Book book) {
+
+        List<SingleLoan> bookLoans = new ArrayList<>();
+
+        for (SingleLoan singleLoan : singleLoanRepository.findAll()){
+            if (singleLoan.getBook().equals(book)) {
+                bookLoans.add(singleLoan);
+            }
+        }
+
+        return bookLoans;
+    }
 }

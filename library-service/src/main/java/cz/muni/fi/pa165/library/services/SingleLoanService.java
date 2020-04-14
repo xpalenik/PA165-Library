@@ -62,28 +62,11 @@ public class SingleLoanService {
      * For the given user return all his loans (current or past).
      * @return list of loans for the given user
      */
-    /** @author Martin Páleník 359817 */
     public List<SingleLoan> getLoansForUser(User user) {
 
         List<SingleLoan> usersLoans = new ArrayList<>();
 
         for (SingleLoan singleLoan : singleLoanRepository.findAll()){
-            // Note: This implementation is wrong.
-            // The reason is missing equals() in User.
-
-            // It shows (one reason) why we need to override equals()
-            // I know I can compare ids of "user" and "singleLoan".
-            // I don't want to compare ids of "user" and "singleLoan".
-            // We can have a theoretical discussion about all the
-            // pecularities of different implementation, but..
-
-            // This is my implementation
-            // there are many like it, but this one is mine
-            // and unless there is something extremely wrong with it
-            // I wish to keep it that way.
-
-            // arguments1: http://zetcode.com/springboot/crudrepository/
-            // arguments2: https://www.baeldung.com/java-equals-hashcode-contracts
             if (singleLoan.getUser().equals(user)) {
                 usersLoans.add(singleLoan);
             }

@@ -43,7 +43,6 @@ public class Loan {
         this.loans = loans;
     }
 
-    /** @author Martin Páleník 359817 */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,7 +52,6 @@ public class Loan {
                 Objects.equals(loans, loan.loans);
     }
 
-    /** @author Martin Páleník 359817 */
     @Override
     public int hashCode() {
         return Objects.hash(id, loans);

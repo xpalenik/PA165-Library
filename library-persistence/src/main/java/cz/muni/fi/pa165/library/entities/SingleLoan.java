@@ -30,6 +30,21 @@ public class SingleLoan {
 
     private LocalDateTime returnedAt;
 
+    /** @author Martin Páleník 359817
+     * Condition of the returned book.
+     * generated getters/setters
+     * updated hashCode/equals and toString
+     */
+    private String returnCondition;
+
+    public String getReturnCondition() {
+        return returnCondition;
+    }
+
+    public void setReturnCondition(String returnCondition) {
+        this.returnCondition = returnCondition;
+    }
+
     public LocalDateTime getReturnedAt() { return returnedAt; }
 
     public void setReturnedAt(LocalDateTime returnedAt) { this.returnedAt = returnedAt; }
@@ -75,12 +90,13 @@ public class SingleLoan {
                 Objects.equals(book, that.book) &&
                 Objects.equals(user, that.user) &&
                 Objects.equals(registeredAt, that.registeredAt) &&
-                Objects.equals(returnedAt, that.returnedAt);
+                Objects.equals(returnedAt, that.returnedAt) &&
+                Objects.equals(returnCondition, that.returnCondition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, book, user, registeredAt, returnedAt);
+        return Objects.hash(id, book, user, registeredAt, returnedAt, returnCondition);
     }
 
     @Override
@@ -90,6 +106,7 @@ public class SingleLoan {
                 ", book=" + book +
                 ", member=" + user +
                 ", registeredAt=" + registeredAt +
+                ", returnCondition=" + returnCondition +
                 '}';
     }
 }

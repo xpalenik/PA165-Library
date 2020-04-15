@@ -79,7 +79,7 @@ public class UserRepositoryTest {
         martin.setFirstName("Martin");
         martin.setLastName("Novak");
         martin.setEmail("mail@mail.com");
-        martin.setPassword("password");
+        martin.setPasswordHash("password");
         return martin;
     }
 
@@ -88,7 +88,7 @@ public class UserRepositoryTest {
         boris.setFirstName("Boris");
         boris.setLastName("Chan");
         boris.setEmail("boris@mail.com");
-        boris.setPassword("password");
+        boris.setPasswordHash("password");
         return boris;
     }
 }

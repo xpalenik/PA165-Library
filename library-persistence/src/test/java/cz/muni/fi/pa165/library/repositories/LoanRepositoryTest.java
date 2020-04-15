@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -86,7 +85,7 @@ public class LoanRepositoryTest {
         user.setFirstName("Peter");
         user.setLastName("Griffin");
         user.setEmail("mail@mail.com");
-        user.setPassword("password");
+        user.setPasswordHash("password");
         return user;
     }
 }

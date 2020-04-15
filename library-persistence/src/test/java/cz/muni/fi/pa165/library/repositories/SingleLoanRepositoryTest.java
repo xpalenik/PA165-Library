@@ -97,7 +97,7 @@ public class SingleLoanRepositoryTest {
         user.setFirstName("Peter");
         user.setLastName("Griffin");
         user.setEmail("mail@mail.com");
-        user.setPassword("password");
+        user.setPasswordHash("password");
         return user;
     }
 }

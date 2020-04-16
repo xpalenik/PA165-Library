@@ -10,10 +10,10 @@ import java.util.List;
 public interface SingleLoanFacade {
 
     /** The time of loan will be set to now() */
-    public void borrowBook(BookDTO bookDto, UserDTO userDto);
+    public void borrowBook(SingleLoanDTO singleLoanDto);
 
     /** The time of return will be set to now() */
-    public void returnBook(BookDTO bookDto, UserDTO userDto, String state);
+    public void returnBook(SingleLoanDTO singleLoanDto);
 
     /**
      * For the given user return all his loans (current or past).

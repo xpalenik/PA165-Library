@@ -7,13 +7,13 @@ import cz.muni.fi.pa165.library.dto.SingleLoanDTO.UserDTO;
 import java.util.List;
 
 /** @author Martin Páleník 359817 */
-public interface SingleLoanFacade {
+public interface LoanFacade {
 
-    /** The time of loan will be set to now() */
     public void borrowBook(SingleLoanDTO singleLoanDto);
+    public void borrowBooks(List<SingleLoanDTO> loans);
 
-    /** The time of return will be set to now() */
     public void returnBook(SingleLoanDTO singleLoanDto);
+    public void returnBooks(List<SingleLoanDTO> loans);
 
     /**
      * For the given user return all his loans (current or past).

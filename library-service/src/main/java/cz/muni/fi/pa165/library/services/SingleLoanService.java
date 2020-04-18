@@ -50,6 +50,12 @@ public class SingleLoanService {
         return singleLoanRepository.count();
     }
 
+    // Modelled according to cz.muni.fi.pa165.library.services.BookService.createBook
+    public long createSingleLoan(SingleLoan singleLoan){
+        singleLoan = singleLoanRepository.save(singleLoan);
+        return singleLoan.getId();
+    }
+
     /**
      * Deletes a specific SingleLoan with the given "id"
      * @param userId is ID of SingleLoan we are looking for

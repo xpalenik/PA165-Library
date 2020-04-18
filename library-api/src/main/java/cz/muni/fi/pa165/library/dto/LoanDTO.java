@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.library.dto;
 
 //Importing dummy class until UserDTO is implemented.
-import cz.muni.fi.pa165.library.dto.SingleLoanDTO.UserDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.Objects;
  * Modelled according to cz.fi.muni.pa165.dto.OrderDTO
  * */
 
-public class LoanDto {
+public class LoanDTO {
 
     private long id;
     private List<SingleLoanDTO> loans = new ArrayList<>();
@@ -35,8 +34,8 @@ public class LoanDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof LoanDto)) return false;
-        LoanDto loanDto = (LoanDto) o;
+        if (!(o instanceof LoanDTO)) return false;
+        LoanDTO loanDto = (LoanDTO) o;
         return id == loanDto.id &&
                 loans.equals(loanDto.loans);
     }

@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.library.facade;
 
 import cz.muni.fi.pa165.library.dto.BookDTO;
+import cz.muni.fi.pa165.library.dto.LoanDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO.UserDTO;
 
@@ -9,8 +10,8 @@ import java.util.List;
 /** @author Martin Páleník 359817 */
 public interface LoanFacade {
 
-    public void borrowBook(SingleLoanDTO singleLoanDto);
-    public void borrowBooks(List<SingleLoanDTO> loans);
+    public long createLoan(SingleLoanDTO singleLoanDto);
+    public List<Long> createLoans(LoanDTO loanDto);
 
     public void returnBook(SingleLoanDTO singleLoanDto);
     public void returnBooks(List<SingleLoanDTO> loans);

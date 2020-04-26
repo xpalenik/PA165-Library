@@ -1,56 +1,17 @@
-package cz.muni.fi.pa165.library.entities;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Collection;
+package cz.muni.fi.pa165.library.dto;
 
 /**
- * class for User entity
- *
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
  */
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDTO {
     private long id;
-
-    @NotNull
-    @Column(name = "first_name")
     private String firstName;
-
-    @NotNull
-    @Column(name = "last_name")
     private String lastName;
-
-    @NotNull
-    @Column(unique = true)
     private String email;
-
-    @Column(length = 60)
-    @NotNull
     private String passwordHash;
-
-    @OneToMany(mappedBy = "user")
-    private Collection<SingleLoan> singleLoans;
-
-    @Column
     private boolean isLibrarian;
-
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String email, String passwordHash, boolean isLibrarian) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.isLibrarian = isLibrarian;
-        //this.roles = roles;
-    }
 
     public long getId() {
         return id;
@@ -92,14 +53,6 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public Collection<SingleLoan> getSingleLoans() {
-        return singleLoans;
-    }
-
-    public void setSingleLoans(Collection<SingleLoan> singleLoans) {
-        this.singleLoans = singleLoans;
-    }
-
     public boolean isLibrarian() {
         return isLibrarian;
     }
@@ -108,20 +61,20 @@ public class User {
         isLibrarian = librarian;
     }
 
-    //equals and hashCode() from https://github.com/fi-muni/PA165/blob/master/eshop-persistence/src/main/java/cz/fi/muni/pa165/entity/User.java
+    //equals() and hashCode() from https://github.com/fi-muni/PA165/blob/master/eshop-api/src/main/java/cz/fi/muni/pa165/dto/UserDTO.java
     @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
         if (o == null)
             return false;
-        if (!(o instanceof User))
+        if (getClass() != o.getClass())
             return false;
-        User other = (User) o;
+        UserDTO other = (UserDTO) o;
         if (email == null) {
-            if (other.getEmail() != null)
+            if (other.email != null)
                 return false;
-        } else if (!email.equals(other.getEmail()))
+        } else if (!email.equals(other.email))
             return false;
         return true;
     }
@@ -142,8 +95,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
-                ", singleLoans=" + singleLoans + '\'' +
-                ", isLibrarian=" + isLibrarian + '\'' +
+                ", isLibrarian='" + isLibrarian + '\'' +
                 '}';
     }
 }

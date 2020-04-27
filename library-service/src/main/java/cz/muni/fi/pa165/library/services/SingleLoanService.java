@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.repositories.SingleLoanRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -113,5 +114,10 @@ public class SingleLoanService {
         }
 
         return bookLoans;
+    }
+
+    public void returnBook(SingleLoan singleLoan, LocalDateTime returnedAt, String returnCondition){
+        singleLoan.setReturnedAt(returnedAt);
+        singleLoan.setReturnCondition(returnCondition);
     }
 }

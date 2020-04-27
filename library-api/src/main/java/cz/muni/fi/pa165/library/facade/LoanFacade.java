@@ -10,8 +10,8 @@ import java.util.List;
 /** @author Martin Páleník 359817 */
 public interface LoanFacade {
 
-    public long borrowBook(SingleLoanDTO singleLoan);
-    public void returnBook(SingleLoanDTO singleLoan);
+    public long borrowBook(SingleLoanDTO singleLoanInfo);
+    public void returnBook(SingleLoanDTO returnInfo);
 
     // if time permits
     public List<Long> borrowBooks(LoanDTO loans);

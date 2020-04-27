@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /** @author Martin Páleník 359817 */
 @Service
@@ -25,8 +26,17 @@ public abstract class LoanFacadeImpl implements LoanFacade{
     }
 
     @Override
-    public long borrowBook(SingleLoanDTO singleLoan) {
-        return singleLoanService.createSingleLoan(mappingService.mapTo(singleLoan, SingleLoan.class));
+    public long borrowBook(SingleLoanDTO singleLoanInfo) {
+        return singleLoanService.createSingleLoan(mappingService.mapTo(singleLoanInfo, SingleLoan.class));
+    }
+
+    @Override
+    public void returnBook(SingleLoanDTO returnInfo) {
+        Optional<SingleLoan> loan = singleLoanService.findById(returnInfo.getId());
+
+        if (loan.isPresent()){
+            singleLoanService.returnBook(loan.get(), returnInfo.getReturnedAt(), returnInfo.getReturnCondition());
+        }
     }
 
     @Override

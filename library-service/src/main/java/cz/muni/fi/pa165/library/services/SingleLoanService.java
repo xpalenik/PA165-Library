@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /** @author Martin Páleník 359817
  *  based on http://zetcode.com/springboot/crudrepository/
@@ -28,6 +29,16 @@ public class SingleLoanService {
      */
     public SingleLoanService(SingleLoanRepository singleLoanRepository) {
         this.singleLoanRepository = singleLoanRepository;
+    }
+
+    /**
+     * Returns loan if exists, search also loans
+     * where the book has been already returned.
+     *
+     * @return loan if exists
+     */
+    public Optional<SingleLoan> findById(long id) {
+        return singleLoanRepository.findById(id);
     }
 
     /**

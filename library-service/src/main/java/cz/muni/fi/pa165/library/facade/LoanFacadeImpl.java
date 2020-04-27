@@ -25,14 +25,14 @@ public abstract class LoanFacadeImpl implements LoanFacade{
     }
 
     @Override
-    public long createLoan(SingleLoanDTO singleLoanDto) {
-        return singleLoanService.createSingleLoan(mappingService.mapTo(singleLoanDto, SingleLoan.class));
+    public long borrowBook(SingleLoanDTO singleLoan) {
+        return singleLoanService.createSingleLoan(mappingService.mapTo(singleLoan, SingleLoan.class));
     }
 
     @Override
-    public List<Long> createLoans(LoanDTO loanDto) {
+    public List<Long> borrowBooks(LoanDTO loans) {
         List loanIds = new ArrayList();
-        for (SingleLoanDTO singleLoanDto : loanDto.getLoans()){
+        for (SingleLoanDTO singleLoanDto : loans.getLoans()){
             loanIds.add(
                     singleLoanService.createSingleLoan(mappingService.mapTo(singleLoanDto, SingleLoan.class))
             );

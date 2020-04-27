@@ -10,11 +10,12 @@ import java.util.List;
 /** @author Martin Páleník 359817 */
 public interface LoanFacade {
 
-    public long createLoan(SingleLoanDTO singleLoanDto);
-    public List<Long> createLoans(LoanDTO loanDto);
+    public long borrowBook(SingleLoanDTO singleLoan);
+    public void returnBook(SingleLoanDTO singleLoan);
 
-    public void returnBook(SingleLoanDTO singleLoanDto);
-    public void returnBooks(List<SingleLoanDTO> loans);
+    // if time permits
+    public List<Long> borrowBooks(LoanDTO loans);
+    public void returnBooks(LoanDTO loans);
 
     /**
      * For the given user return all his loans (current or past).

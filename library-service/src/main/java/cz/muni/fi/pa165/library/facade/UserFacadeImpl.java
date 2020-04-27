@@ -45,7 +45,7 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public List<UserDTO> findByEmail(String email) {
+    public UserDTO findByEmail(String email) {
         return mappingService.mapTo(userService.findByEmail(email), UserDTO.class);
     }
 
@@ -55,8 +55,13 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public void addUser(UserDTO user) {
-        userService.addUser(mappingService.mapTo(user, User.class));
+    public List<UserDTO> findAllLibrarians() {
+        return mappingService.mapTo(userService.findAllLibrarians(), UserDTO.class);
+    }
+
+    @Override
+    public void addUser(UserDTO user,  String password) {
+        userService.addUser(mappingService.mapTo(user, User.class), password);
     }
 
     @Override
@@ -65,22 +70,7 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public void deleteAllUsers() {
-        userService.deleteAllUsers();
-    }
-
-    @Override
-    public long count() {
-        return userService.count();
-    }
-
-    @Override
     public boolean authenticate(UserAuthenticateDTO u) {
         return userService.authenticate(userService.findById(u.getUserId()), u.getPassword());
-    }
-
-    @Override
-    public boolean isLibrarian(UserDTO user) {
-        return userService.isLibrarian(mappingService.mapTo(user, User.class));
     }
 }

@@ -62,7 +62,7 @@ public class UserService {
             return foundUsers;
         }
 
-        for (User user : userRepository.findAll()) {
+        for (User user : findAll()) {
             if (user.getFirstName().equals(firstName)) {
                 foundUsers.add(user);
             }
@@ -82,7 +82,7 @@ public class UserService {
             return foundUsers;
         }
 
-        for (User user : userRepository.findAll()) {
+        for (User user : findAll()) {
             if (user.getLastName().equals(lastName)) {
                 foundUsers.add(user);
             }
@@ -94,27 +94,41 @@ public class UserService {
      * method is looking for users by email
      *
      * @param email
-     * @return list of users or empty list if non matches or last name is illegal argument
+     * @return user or null if non matches
+     * @throws IllegalArgumentException if email is illegal argument
      */
-    public List<User> findByEmail(String email) {
-        List<User> foundUsers = new ArrayList<>();
+    public User findByEmail(String email) {
         if (email == null || email.isEmpty()) {
-            return foundUsers;
+            throw new IllegalArgumentException("Email is empty or null.");
         }
 
-        for (User user : userRepository.findAll()) {
+        for (User user : findAll()) {
             if (user.getEmail().equals(email)) {
-                foundUsers.add(user);
+                return user;
             }
         }
-        return foundUsers;
+        return null;
     }
 
     /**
      * @return list of all users
      */
     public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
+        return userRepository.findAll();
+    }
+
+    /**
+     *
+     * @return list of all librarians
+     */
+    public List<User> findAllLibrarians() {
+        List<User> librarians = new ArrayList<>();
+        for (User user: findAll()) {
+            if (user.isLibrarian()) {
+                librarians.add(user);
+            }
+        }
+        return librarians;
     }
 
     /**
@@ -123,22 +137,23 @@ public class UserService {
      * @param user
      * @throws IllegalArgumentException if user is null or has illegal attributes
      */
-    public void addUser(User user) {
+    public void addUser(User user, String password) {
         if (user == null) {
             throw new IllegalArgumentException("Can not add non-existing user.");
         }
-        if (user.getFirstName() == null || user.getLastName() == null
-                || user.getEmail() == null || user.getPasswordHash() == null) {
-            throw new IllegalArgumentException("User we adding has illegal null attribute.");
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password is empty or null.");
         }
-        if (user.getPasswordHash().length() > 60) {
-            throw new IllegalArgumentException("User password is too long.");
+        if (user.getFirstName() == null || user.getLastName() == null
+                || user.getEmail() == null) {
+            throw new IllegalArgumentException("User we adding has null attribute.");
         }
         for (User u : findAll()) {
             if (u.getEmail().equals(user.getEmail())) {
                 throw new IllegalArgumentException("Email is already used by another user.");
             }
         }
+        user.setPasswordHash(createHash(password));
         userRepository.save(user);
         LOGGER.info("User was added.");
     }
@@ -162,21 +177,6 @@ public class UserService {
     }
 
     /**
-     * method deletes all users
-     */
-    public void deleteAllUsers() {
-        userRepository.deleteAll();
-        LOGGER.info("All users was deleted.");
-    }
-
-    /**
-     * @return count of all users
-     */
-    public long count() {
-        return userRepository.count();
-    }
-
-    /**
      *
      * @param user to authenticate
      * @param password entered password
@@ -185,18 +185,6 @@ public class UserService {
      */
     public boolean authenticate(User user, String password) {
         return validatePassword(password, user.getPasswordHash());
-    }
-
-    /**
-     * method checks if user is a librarian
-     * @param user
-     * @return true if user have role librarian, false otherwise
-     */
-    public boolean isLibrarian(User user) {
-        if (user == null /*|| user.getRoles() == null*/) {
-            throw new IllegalArgumentException("User is null.");
-        }
-        return user.isLibrarian();
     }
 
     //https://github.com/katHermanova/PA165/blob/master/eshop-service/src/main/java/cz/fi/muni/pa165/service/UserServiceImpl.java

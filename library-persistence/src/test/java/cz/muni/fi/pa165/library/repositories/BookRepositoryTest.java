@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -92,6 +93,11 @@ public class BookRepositoryTest {
 
         Assert.assertEquals(1, foundCount);
         Assert.assertEquals(foundBooks, Arrays.asList(book2));
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void saveNullThrowsDataAccessException(){
+        bookRepository.save(null);
     }
 
     private void setBook1() {

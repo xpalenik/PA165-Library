@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.PersistenceException;
@@ -72,6 +73,11 @@ public class UserRepositoryTest {
         User boris = createTestUserBoris();
         boris.setEmail(martin.getEmail());
         assertThrows(PersistenceException.class, () -> entityManager.persist(boris));
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void saveNullThrowsDataAccessException(){
+        userRepository.save(null);
     }
 
     private User createTestUserMartin() {

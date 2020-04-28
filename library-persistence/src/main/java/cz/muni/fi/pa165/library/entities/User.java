@@ -30,8 +30,6 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @Column(length = 60)
-    @NotNull
     private String passwordHash;
 
     @OneToMany(mappedBy = "user")
@@ -44,12 +42,15 @@ public class User {
     }
 
     public User(String firstName, String lastName, String email, String passwordHash, boolean isLibrarian) {
+        if (firstName == null || firstName.isEmpty() || lastName == null
+                || lastName.isEmpty() || email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("User argument is null.");
+        }
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = passwordHash;
         this.isLibrarian = isLibrarian;
-        //this.roles = roles;
     }
 
     public long getId() {

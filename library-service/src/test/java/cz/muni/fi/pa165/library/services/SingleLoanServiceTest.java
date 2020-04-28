@@ -50,7 +50,7 @@ public class SingleLoanServiceTest {
         bookService.createBook(book);
 
         setUser();
-        userService.addUser(user);
+        userService.addUser(user, "password");
 
         singleLoan = new SingleLoan();
         singleLoan.setBook(book);

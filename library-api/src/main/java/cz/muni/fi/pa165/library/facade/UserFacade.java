@@ -14,12 +14,10 @@ public interface UserFacade {
     UserDTO findById(long id);
     List<UserDTO> findByFirstName(String firstName);
     List<UserDTO> findByLastName(String lastName);
-    List<UserDTO> findByEmail(String email);
+    UserDTO findByEmail(String email);
     List<UserDTO> findAll();
-    void addUser(UserDTO user);
+    List<UserDTO> findAllLibrarians();
+    void addUser(UserDTO user, String password);
     void deleteUser(long id);
-    void deleteAllUsers();
-    long count();
     boolean authenticate(UserAuthenticateDTO u);
-    boolean isLibrarian(UserDTO user);
 }

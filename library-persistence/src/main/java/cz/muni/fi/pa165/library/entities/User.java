@@ -41,7 +41,7 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String passwordHash, boolean isLibrarian) {
+    public User(String firstName, String lastName, String email, boolean isLibrarian) {
         if (firstName == null || firstName.isEmpty() || lastName == null
                 || lastName.isEmpty() || email == null || email.isEmpty()) {
             throw new IllegalArgumentException("User argument is null.");
@@ -49,7 +49,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.passwordHash = passwordHash;
         this.isLibrarian = isLibrarian;
     }
 

@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -23,6 +24,7 @@ import java.util.List;
 @Service
 public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
@@ -54,12 +56,13 @@ public class UserService {
      * method is looking for users by first name
      *
      * @param firstName
-     * @return list of users or empty list if non matches or first name is illegal argument
+     * @return list of users or empty list if non matches
+     * @throws IllegalArgumentException if firstName is illegal argument
      */
     public List<User> findByFirstName(String firstName) {
         List<User> foundUsers = new ArrayList<>();
         if (firstName == null || firstName.isEmpty()) {
-            return foundUsers;
+            throw new IllegalArgumentException("FirstName is empty or null.");
         }
 
         for (User user : findAll()) {
@@ -74,12 +77,13 @@ public class UserService {
      * method is looking for users by lastName
      *
      * @param lastName
-     * @return list of users or empty list if non matches or last name is illegal argument
+     * @return list of users or empty list if non matches
+     * @throws IllegalArgumentException if lastName is illegal argument
      */
     public List<User> findByLastName(String lastName) {
         List<User> foundUsers = new ArrayList<>();
         if (lastName == null || lastName.isEmpty()) {
-            return foundUsers;
+            throw new IllegalArgumentException("LastName is empty or null.");
         }
 
         for (User user : findAll()) {

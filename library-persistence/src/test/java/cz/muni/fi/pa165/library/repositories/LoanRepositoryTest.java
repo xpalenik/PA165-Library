@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -65,6 +66,10 @@ public class LoanRepositoryTest {
         MatcherAssert.assertThat(singleLoanRepository.findAll(), CoreMatchers.hasItems(singleLoan, secondLoan));
     }
 
+    @Test(expected = DataAccessException.class)
+    public void saveNullThrowsDataAccessException(){
+        loanRepository.save(null);
+    }
 
     private Book createTestBookAnimalFarm() {
         Book book = new Book();

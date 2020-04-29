@@ -13,16 +13,16 @@ public interface LoanFacade {
     public long borrowBook(SingleLoanDTO singleLoanInfo);
     public void returnBook(SingleLoanDTO returnInfo);
 
-    // if time permits
-    public List<Long> borrowBooks(LoanDTO loans);
-    public void returnBooks(LoanDTO loans);
+    // TODO implement these 2 only if time permits (low priority)
+    // public List<Long> borrowBooks(LoanDTO loans);
+    // public void returnBooks(LoanDTO loans);
 
     /**
      * For the given user return all his loans (current or past).
      * Answers "what a member borrowed and when".
      * @return list of loans for the given user
      */
-    public List<SingleLoanDTO> getLoansForUser(UserDTO userDto);
+    // public List<SingleLoanDTO> getLoansForUser(UserDTO userDto);
 
     /**
      * For the given book return all its loans (current or past).
@@ -30,9 +30,8 @@ public interface LoanFacade {
      * Answers "what condition they returned the book in".
      * @return list of loans for the given book
      */
-    public List<SingleLoanDTO> getLoansForBook(BookDTO bookDto);
+    // public List<SingleLoanDTO> getLoansForBook(BookDTO bookDto);
 
-    public List<SingleLoanDTO> getAllSingleLoans();
-    public SingleLoanDTO getSingleLoanById(long id);
-
+    // public List<SingleLoanDTO> getAllSingleLoans();
+    // public SingleLoanDTO getSingleLoanById(long id);
 }

@@ -62,10 +62,8 @@ public class LibraryApplication {
         return new BookFacadeImpl(mappingService, bookService);
     }
 
-    /* uncomment AFTER implementing LoanFacade interface
     @Bean
     public LoanFacadeImpl loanFacadeImpl(MappingService mappingService, SingleLoanService singleLoanService) {
         return new LoanFacadeImpl(mappingService, singleLoanService);
     }
-    */
 }

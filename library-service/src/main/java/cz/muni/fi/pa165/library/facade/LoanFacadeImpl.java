@@ -15,12 +15,12 @@ import java.util.Optional;
 /** @author Martin Páleník 359817 */
 @Service
 @Transactional
-public abstract class LoanFacadeImpl implements LoanFacade{
+public class LoanFacadeImpl implements LoanFacade{
 
     private final MappingService mappingService;
     private final SingleLoanService singleLoanService;
 
-    protected LoanFacadeImpl(MappingService mappingService, SingleLoanService singleLoanService) {
+    public LoanFacadeImpl(MappingService mappingService, SingleLoanService singleLoanService) {
         this.mappingService = mappingService;
         this.singleLoanService = singleLoanService;
     }
@@ -37,16 +37,5 @@ public abstract class LoanFacadeImpl implements LoanFacade{
         if (loan.isPresent()){
             singleLoanService.returnBook(loan.get(), returnInfo.getReturnedAt(), returnInfo.getReturnCondition());
         }
-    }
-
-    @Override
-    public List<Long> borrowBooks(LoanDTO loans) {
-        List loanIds = new ArrayList();
-        for (SingleLoanDTO singleLoanDto : loans.getLoans()){
-            loanIds.add(
-                    singleLoanService.createSingleLoan(mappingService.mapTo(singleLoanDto, SingleLoan.class))
-            );
-        }
-        return loanIds;
     }
 }

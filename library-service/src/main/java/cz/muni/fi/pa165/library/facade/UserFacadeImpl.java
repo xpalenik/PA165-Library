@@ -60,8 +60,8 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public void addUser(UserDTO user,  String password) {
-        userService.addUser(mappingService.mapTo(user, User.class), password);
+    public long addUser(UserDTO user,  String password) {
+        return userService.addUser(mappingService.mapTo(user, User.class), password);
     }
 
     @Override

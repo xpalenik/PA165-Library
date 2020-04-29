@@ -141,7 +141,7 @@ public class UserService {
      * @param user
      * @throws IllegalArgumentException if user is null or has illegal attributes
      */
-    public void addUser(User user, String password) {
+    public long addUser(User user, String password) {
         if (user == null) {
             throw new IllegalArgumentException("Can not add non-existing user.");
         }
@@ -160,6 +160,7 @@ public class UserService {
         user.setPasswordHash(createHash(password));
         userRepository.save(user);
         LOGGER.info("User was added.");
+        return user.getId();
     }
 
     /**

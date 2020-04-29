@@ -17,7 +17,7 @@ public interface UserFacade {
     UserDTO findByEmail(String email);
     List<UserDTO> findAll();
     List<UserDTO> findAllLibrarians();
-    void addUser(UserDTO user, String password);
+    long addUser(UserDTO user, String password);
     void deleteUser(long id);
     boolean authenticate(UserAuthenticateDTO u);
 }

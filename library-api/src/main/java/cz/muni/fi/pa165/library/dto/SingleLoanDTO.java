@@ -6,9 +6,6 @@ import java.util.Objects;
 /** @author Martin Páleník 359817 */
 public class SingleLoanDTO {
 
-    //Dummy class until UserDTO is implemented.
-    public class UserDTO {}
-
     private long id;
     private BookDTO book;
     private UserDTO user;

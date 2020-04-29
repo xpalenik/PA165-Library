@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.library.services;
 
-import org.dozer.Mapper;
+import com.github.dozermapper.core.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

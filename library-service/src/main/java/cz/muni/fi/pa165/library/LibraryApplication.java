@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.library;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import cz.muni.fi.pa165.library.facade.BookFacadeImpl;
 import cz.muni.fi.pa165.library.facade.LoanFacadeImpl;
 import cz.muni.fi.pa165.library.facade.UserFacadeImpl;
@@ -10,8 +12,6 @@ import cz.muni.fi.pa165.library.services.BookService;
 import cz.muni.fi.pa165.library.services.MappingService;
 import cz.muni.fi.pa165.library.services.SingleLoanService;
 import cz.muni.fi.pa165.library.services.UserService;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +49,7 @@ public class LibraryApplication {
 
     @Bean
     public Mapper mapper() {
-        return new DozerBeanMapper();
+        return DozerBeanMapperBuilder.buildDefault();
     }
 
     @Bean
@@ -62,10 +62,8 @@ public class LibraryApplication {
         return new BookFacadeImpl(mappingService, bookService);
     }
 
-    /* uncomment AFTER implementing LoanFacade interface
     @Bean
     public LoanFacadeImpl loanFacadeImpl(MappingService mappingService, SingleLoanService singleLoanService) {
         return new LoanFacadeImpl(mappingService, singleLoanService);
     }
-    */
 }

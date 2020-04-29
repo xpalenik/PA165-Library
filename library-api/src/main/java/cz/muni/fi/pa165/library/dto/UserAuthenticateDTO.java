@@ -9,6 +9,11 @@ public class UserAuthenticateDTO {
     private Long userId;
     private String password;
 
+    public UserAuthenticateDTO(long userId, String password) {
+        this.userId = userId;
+        this.password = password;
+    }
+
     public Long getUserId()
     {
         return userId;

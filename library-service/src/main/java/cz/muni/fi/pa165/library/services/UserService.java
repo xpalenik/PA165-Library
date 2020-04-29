@@ -29,6 +29,10 @@ public class UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
+    public UserService() {
+
+    }
+
     /**
      * class constructor
      *
@@ -139,6 +143,7 @@ public class UserService {
      * method adds user
      *
      * @param user
+     * @return id of user
      * @throws IllegalArgumentException if user is null or has illegal attributes
      */
     public long addUser(User user, String password) {

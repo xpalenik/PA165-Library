@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -27,10 +26,6 @@ import static org.mockito.ArgumentMatchers.anyLong;
 @DataJpaTest
 public class LoanFacadeImplTest {
 
-    private BookDTO bookDto;
-    private UserDTO userDto;
-    SingleLoanDTO singleLoanDto;
-
     @Mock
     private SingleLoanService singleLoanService;
 
@@ -39,33 +34,6 @@ public class LoanFacadeImplTest {
 
     @InjectMocks
     private LoanFacadeImpl loanFacadeImpl;
-
-    private void setBookDto() {
-        bookDto = new BookDTO();
-        bookDto.setTitle("Animal Farm");
-        bookDto.setAuthor("George Orwell");
-    }
-
-    private void setUserDto() {
-        userDto = new UserDTO();
-        userDto.setFirstName("Martin");
-        userDto.setLastName("Páleník");
-        userDto.setEmail("359817@mail.muni.cz");
-        userDto.setPasswordHash("H4SH");
-    }
-
-    private void setSingleLoanDto(){
-        singleLoanDto = new SingleLoanDTO();
-        singleLoanDto.setRegisteredAt(LocalDateTime.MIN);
-        singleLoanDto.setReturnedAt(LocalDateTime.MAX);
-        singleLoanDto.setReturnCondition("damaged");
-
-        setBookDto();
-        singleLoanDto.setBook(bookDto);
-
-        setUserDto();
-        singleLoanDto.setUser(userDto);
-    }
 
     @Test
     public void testBorrowBook() {

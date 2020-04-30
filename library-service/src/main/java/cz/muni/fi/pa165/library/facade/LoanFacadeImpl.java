@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /** @author Martin Páleník 359817 */
@@ -36,6 +37,8 @@ public class LoanFacadeImpl implements LoanFacade{
 
         if (loan.isPresent()){
             singleLoanService.returnBook(loan.get(), returnInfo.getReturnedAt(), returnInfo.getReturnCondition());
+        } else {
+            throw new NoSuchElementException("No loan with id " + returnInfo.getId() + " has been found.");
         }
     }
 }

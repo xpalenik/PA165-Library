@@ -1,11 +1,9 @@
 package cz.muni.fi.pa165.library.services;
 
 import cz.muni.fi.pa165.library.entities.User;
-import cz.muni.fi.pa165.library.repositories.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,9 +20,6 @@ public class UserServiceTest {
 
     @Autowired
     private UserService userService;
-
-    @Mock
-    private UserRepository userRepository;
 
     @Test(expected = IllegalArgumentException.class)
     public void testFindByIdNegativeId() {

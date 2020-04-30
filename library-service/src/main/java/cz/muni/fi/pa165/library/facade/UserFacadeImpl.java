@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.library.dto.UserDTO;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.services.MappingService;
 import cz.muni.fi.pa165.library.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -17,7 +18,11 @@ import java.util.List;
 @Service
 @Transactional
 public class UserFacadeImpl implements UserFacade {
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private MappingService mappingService;
 
     public UserFacadeImpl(MappingService mappingService, UserService userService) {

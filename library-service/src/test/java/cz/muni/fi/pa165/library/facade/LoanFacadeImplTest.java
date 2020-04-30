@@ -3,19 +3,21 @@ package cz.muni.fi.pa165.library.facade;
 import cz.muni.fi.pa165.library.dto.BookDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
-import cz.muni.fi.pa165.library.entities.Book;
-import cz.muni.fi.pa165.library.entities.SingleLoan;
-import cz.muni.fi.pa165.library.entities.User;
+import cz.muni.fi.pa165.library.services.MappingService;
 import cz.muni.fi.pa165.library.services.SingleLoanService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+
+import static org.mockito.ArgumentMatchers.any;
 
 /** @author Martin Páleník 359817 */
 
@@ -23,18 +25,19 @@ import java.time.LocalDateTime;
 @DataJpaTest
 public class LoanFacadeImplTest {
 
-    SingleLoanDTO singleLoanDto;
     private BookDTO bookDto;
     private UserDTO userDto;
+    SingleLoanDTO singleLoanDto;
 
-    @Autowired
-    private LoanFacadeImpl loanFacadeImpl;
-
-    @Autowired
+    @Mock
     private SingleLoanService singleLoanService;
 
     @Autowired
-    private TestEntityManager entityManager;
+    @Mock
+    private MappingService mappingService;
+
+    @InjectMocks
+    private LoanFacadeImpl loanFacadeImpl;
 
     private void setBookDto() {
         bookDto = new BookDTO();
@@ -50,7 +53,7 @@ public class LoanFacadeImplTest {
         userDto.setPasswordHash("H4SH");
     }
 
-    private void setSingleLoanInfo(){
+    private void setSingleLoanDto(){
         singleLoanDto = new SingleLoanDTO();
         singleLoanDto.setRegisteredAt(LocalDateTime.MIN);
         singleLoanDto.setReturnedAt(LocalDateTime.MAX);
@@ -65,6 +68,18 @@ public class LoanFacadeImplTest {
 
     @Test
     public void testBorrowBook() {
+        setSingleLoanDto();
+        final long fake_id = 43252343;
+        
+        Mockito.when(
+                singleLoanService.createSingleLoan(
+                        any()
+                )
+        ).thenReturn(fake_id);
 
+        Assert.assertEquals(
+                fake_id,
+                loanFacadeImpl.borrowBook(singleLoanDto)
+        );
     }
 }

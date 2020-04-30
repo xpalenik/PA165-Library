@@ -83,6 +83,19 @@ public class LoanFacadeImpl implements LoanFacade{
     }
 
     @Override
+    public List<SingleLoanDTO> getAllSingleLoans() {
+
+        List<SingleLoanDTO> resultsDto = new ArrayList<>();
+        for (SingleLoan result : singleLoanService.findAll()){
+            resultsDto.add(
+                    mappingService.mapTo(result, SingleLoanDTO.class)
+            );
+        }
+
+        return resultsDto;
+    }
+
+    @Override
     public SingleLoanDTO getSingleLoanById(long id) {
         Optional<SingleLoan> singleLoan = singleLoanService.findById(id);
 

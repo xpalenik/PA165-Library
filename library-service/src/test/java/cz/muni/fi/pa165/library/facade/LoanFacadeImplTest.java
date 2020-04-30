@@ -128,4 +128,9 @@ public class LoanFacadeImplTest {
     public void testGetLoansForBook() {
         loanFacadeImpl.getLoansForBook(new BookDTO());
     }
+
+    @Test
+    public void testGetAllSingleLoans() {
+        loanFacadeImpl.getAllSingleLoans();
+    }
 }

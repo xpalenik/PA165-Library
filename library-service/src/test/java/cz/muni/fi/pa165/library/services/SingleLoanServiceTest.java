@@ -8,7 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import java.time.LocalDateTime;
 
 /** @author Martin Páleník 359817 */
@@ -17,18 +19,15 @@ import java.time.LocalDateTime;
 @DataJpaTest
 public class SingleLoanServiceTest {
 
-    private SingleLoan singleLoan;
-    private Book book;
-    private User user;
-
     @Autowired
     private SingleLoanService singleLoanService;
 
     @Autowired
-    private BookService bookService;
+    private TestEntityManager entityManager;
 
-    @Autowired
-    private UserService userService;
+    private SingleLoan singleLoan;
+    private Book book;
+    private User user;
 
     private void setBook() {
         book = new Book();
@@ -44,20 +43,51 @@ public class SingleLoanServiceTest {
         user.setPasswordHash("H4SH");
     }
 
-    @Test
-    public void testCreateSingleLoan(){
+    private void setSingleLoan() {
         setBook();
-        bookService.createBook(book);
+        book.setId(
+                (long) entityManager.persistAndGetId(book)
+        );
 
         setUser();
-        userService.addUser(user, "password");
+        user.setId(
+                (long) entityManager.persistAndGetId(user)
+        );
 
         singleLoan = new SingleLoan();
         singleLoan.setBook(book);
         singleLoan.setUser(user);
-        singleLoan.setRegisteredAt(LocalDateTime.now());
+        singleLoan.setRegisteredAt(LocalDateTime.MIN);
+        singleLoan.setReturnedAt(LocalDateTime.MAX);
+        singleLoan.setReturnCondition("damaged");
+    }
+
+    @Test
+    public void testCreateSingleLoan(){
+        setSingleLoan();
 
         long created_id = singleLoanService.createSingleLoan(singleLoan);
         Assert.assertNotNull(created_id);
+
+        SingleLoan justSaved = singleLoanService.findById(created_id).get();
+        Assert.assertEquals(justSaved, singleLoan);
+
+        // since SingleLoan.equals() might be broken
+        // I also provide some explicit tests
+
+        Assert.assertEquals(
+                justSaved.getReturnCondition(),
+                "damaged"
+        );
+
+        Assert.assertEquals(
+                justSaved.getUser().getEmail(),
+                "359817@mail.muni.cz"
+        );
+
+        Assert.assertEquals(
+                justSaved.getBook().getTitle(),
+                "Animal Farm"
+        );
     }
 }

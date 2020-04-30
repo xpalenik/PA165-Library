@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.library.facade;
 import cz.muni.fi.pa165.library.dto.BookDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
+import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.services.MappingService;
 import cz.muni.fi.pa165.library.services.SingleLoanService;
 import org.junit.Assert;
@@ -16,8 +17,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 
 /** @author Martin Páleník 359817 */
 
@@ -81,5 +84,20 @@ public class LoanFacadeImplTest {
                 fake_id,
                 loanFacadeImpl.borrowBook(singleLoanDto)
         );
+    }
+
+    @Test
+    public void testReturnBook() {
+        setSingleLoanDto();
+        Optional<SingleLoan> optionalSingleLoan
+                = Optional.of(mappingService.mapTo(singleLoanDto, SingleLoan.class));
+
+        Mockito.when(
+                singleLoanService.findById(
+                        anyLong()
+                )
+        ).thenReturn(optionalSingleLoan);
+
+        loanFacadeImpl.returnBook(singleLoanDto);
     }
 }

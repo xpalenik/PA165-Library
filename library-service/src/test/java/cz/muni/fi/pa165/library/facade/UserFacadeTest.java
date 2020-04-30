@@ -39,43 +39,84 @@ public class UserFacadeTest {
     @Test
     public void testFindById() {
         setUser();
-        Mockito.when(userService.findById(user.getId())).thenReturn(user);
-        Mockito.when(mappingService.mapTo(user, UserDTO.class)).thenReturn(userDTO);
+
+        Mockito.when(
+                userService.findById(user.getId())
+        ).thenReturn(user);
+
+        Mockito.when(
+                mappingService.mapTo(user, UserDTO.class)
+        ).thenReturn(userDTO);
+
         Assert.assertEquals(userDTO, userFacade.findById(user.getId()));
     }
 
     @Test
     public void testFindByFirstName() {
         setUser();
-        Mockito.when(mappingService.mapTo(userService.findByFirstName(user.getFirstName()), UserDTO.class)).thenReturn(Arrays.asList(userDTO));
+
+        Mockito.when(
+                mappingService.mapTo(
+                        userService.findByFirstName(user.getFirstName()), UserDTO.class
+                )
+        ).thenReturn(
+                Arrays.asList(userDTO)
+        );
+
         Assert.assertEquals(Arrays.asList(userDTO), userFacade.findByFirstName(user.getFirstName()));
     }
 
     @Test
     public void testFindByLastName() {
         setUser();
-        Mockito.when(mappingService.mapTo(userService.findByLastName(user.getLastName()), UserDTO.class)).thenReturn(Arrays.asList(userDTO));
+
+        Mockito.when(
+                mappingService.mapTo(
+                        userService.findByLastName(user.getLastName()), UserDTO.class
+                )
+        ).thenReturn(
+                Arrays.asList(userDTO)
+        );
+
         Assert.assertEquals(Arrays.asList(userDTO), userFacade.findByLastName(user.getLastName()));
     }
 
     @Test
     public void testFindByEmail() {
         setUser();
-        Mockito.when(mappingService.mapTo(userService.findByEmail(user.getEmail()), UserDTO.class)).thenReturn(userDTO);
+
+        Mockito.when(
+                mappingService.mapTo(
+                        userService.findByEmail(user.getEmail()), UserDTO.class
+                )
+        ).thenReturn(userDTO);
+
         Assert.assertEquals(userDTO, userFacade.findByEmail(user.getEmail()));
     }
 
     @Test
     public void testFindAll() {
         setTwoUsers();
-        Mockito.when(mappingService.mapTo(userService.findAll(), UserDTO.class)).thenReturn(Arrays.asList(userDTO, userDTO2));
+
+        Mockito.when(
+                mappingService.mapTo(
+                        userService.findAll(), UserDTO.class
+                )
+        ).thenReturn(Arrays.asList(userDTO, userDTO2));
+
         Assert.assertEquals(Arrays.asList(userDTO, userDTO2), userFacade.findAll());
     }
 
     @Test
     public void testFindAllLibrarians() {
         setTwoUsers();
-        Mockito.when(mappingService.mapTo(userService.findAllLibrarians(), UserDTO.class)).thenReturn(Arrays.asList(userDTO, userDTO2));
+
+        Mockito.when(
+                mappingService.mapTo(
+                        userService.findAllLibrarians(), UserDTO.class
+                )
+        ).thenReturn(Arrays.asList(userDTO, userDTO2));
+
         Assert.assertEquals(Arrays.asList(userDTO, userDTO2), userFacade.findAllLibrarians());
     }
 
@@ -83,7 +124,12 @@ public class UserFacadeTest {
     public void testAddUser() {
         setUser();
 
-        Mockito.when(userService.addUser(mappingService.mapTo(userDTO, User.class), "password")).thenReturn(user.getId());
+        Mockito.when(
+                userService.addUser(
+                        mappingService.mapTo(userDTO, User.class), "password"
+                )
+        ).thenReturn(user.getId());
+
         Assert.assertEquals(user.getId(), userFacade.addUser(userDTO, "password"));
     }
 
@@ -91,7 +137,13 @@ public class UserFacadeTest {
     public void testAuthenticate() {
         setUser();
         UserAuthenticateDTO userAuthenticateDTO = new UserAuthenticateDTO(userDTO.getId(), "password");
-        Mockito.when(userService.authenticate(userService.findById(userAuthenticateDTO.getUserId()), userAuthenticateDTO.getPassword())).thenReturn(true);
+
+        Mockito.when(
+                userService.authenticate(
+                        userService.findById(userAuthenticateDTO.getUserId()), userAuthenticateDTO.getPassword()
+                )
+        ).thenReturn(true);
+
         Assert.assertTrue(userFacade.authenticate(userAuthenticateDTO));
     }
 
@@ -99,14 +151,17 @@ public class UserFacadeTest {
         user = new User("Kat", "Herman", "kHerm@mail.com", true);
         user.setId(123);
         user.setPasswordHash("passwordHash");
+
         userDTO = new UserDTO(user.getId(), "Kat", "Herman", "kHerm@mail.com", user.getPasswordHash(), true);
     }
 
     private void setTwoUsers() {
         setUser();
+
         user2 = new User("K", "Her", "kHerm2@mail.com", true);
         user2.setId(456);
         user2.setPasswordHash("passwordHash2");
+
         userDTO2 = new UserDTO(user2.getId(), "K", "Her", "kHerm2@mail.com", user2.getPasswordHash(), true);
     }
 }

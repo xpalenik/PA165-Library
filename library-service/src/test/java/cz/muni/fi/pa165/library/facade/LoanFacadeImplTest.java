@@ -123,4 +123,9 @@ public class LoanFacadeImplTest {
     public void testGetLoansForUser() {
         loanFacadeImpl.getLoansForUser(new UserDTO());
     }
+
+    @Test
+    public void testGetLoansForBook() {
+        loanFacadeImpl.getLoansForBook(new BookDTO());
+    }
 }

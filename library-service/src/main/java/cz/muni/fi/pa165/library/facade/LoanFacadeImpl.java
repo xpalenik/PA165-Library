@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.library.facade;
 
+import cz.muni.fi.pa165.library.dto.BookDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
+import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.services.MappingService;
@@ -52,6 +54,22 @@ public class LoanFacadeImpl implements LoanFacade{
 
         List <SingleLoan> results = singleLoanService.getLoansForUser(
                 mappingService.mapTo(userDto, User.class)
+        );
+
+        List<SingleLoanDTO> resultsDto = new ArrayList<>();
+        for (SingleLoan result : results){
+            resultsDto.add(
+                    mappingService.mapTo(result, SingleLoanDTO.class)
+            );
+        }
+
+        return resultsDto;
+    }
+
+    @Override
+    public List<SingleLoanDTO> getLoansForBook(BookDTO bookDto) {
+        List <SingleLoan> results = singleLoanService.getLoansForBook(
+                mappingService.mapTo(bookDto, Book.class)
         );
 
         List<SingleLoanDTO> resultsDto = new ArrayList<>();

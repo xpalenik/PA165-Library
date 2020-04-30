@@ -30,7 +30,7 @@ public interface LoanFacade {
      * Answers "what condition they returned the book in".
      * @return list of loans for the given book
      */
-    // public List<SingleLoanDTO> getLoansForBook(BookDTO bookDto);
+    public List<SingleLoanDTO> getLoansForBook(BookDTO bookDto);
 
     // public List<SingleLoanDTO> getAllSingleLoans();
     public SingleLoanDTO getSingleLoanById(long id);

@@ -34,4 +34,5 @@ public interface LoanFacade {
 
     public List<SingleLoanDTO> getAllSingleLoans();
     public SingleLoanDTO getSingleLoanById(long id);
+    public Long count();
 }

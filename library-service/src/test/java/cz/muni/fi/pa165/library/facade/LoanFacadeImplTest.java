@@ -101,4 +101,9 @@ public class LoanFacadeImplTest {
     public void testGetAllSingleLoans() {
         loanFacadeImpl.getAllSingleLoans();
     }
+
+    @Test
+    public void testCount() {
+        loanFacadeImpl.count();
+    }
 }

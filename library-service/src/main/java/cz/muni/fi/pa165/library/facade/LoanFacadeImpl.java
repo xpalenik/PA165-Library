@@ -108,4 +108,9 @@ public class LoanFacadeImpl implements LoanFacade{
             return null;
         }
     }
+
+    @Override
+    public Long count() {
+        return singleLoanService.count();
+    }
 }

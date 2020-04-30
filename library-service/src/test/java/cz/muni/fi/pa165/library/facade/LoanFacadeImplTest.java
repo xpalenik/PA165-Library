@@ -12,11 +12,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -28,50 +26,17 @@ import static org.mockito.ArgumentMatchers.anyLong;
 @DataJpaTest
 public class LoanFacadeImplTest {
 
-    private BookDTO bookDto;
-    private UserDTO userDto;
-    SingleLoanDTO singleLoanDto;
-
     @Mock
     private SingleLoanService singleLoanService;
 
-    @Autowired
     @Mock
     private MappingService mappingService;
 
     @InjectMocks
     private LoanFacadeImpl loanFacadeImpl;
 
-    private void setBookDto() {
-        bookDto = new BookDTO();
-        bookDto.setTitle("Animal Farm");
-        bookDto.setAuthor("George Orwell");
-    }
-
-    private void setUserDto() {
-        userDto = new UserDTO();
-        userDto.setFirstName("Martin");
-        userDto.setLastName("Páleník");
-        userDto.setEmail("359817@mail.muni.cz");
-        userDto.setPasswordHash("H4SH");
-    }
-
-    private void setSingleLoanDto(){
-        singleLoanDto = new SingleLoanDTO();
-        singleLoanDto.setRegisteredAt(LocalDateTime.MIN);
-        singleLoanDto.setReturnedAt(LocalDateTime.MAX);
-        singleLoanDto.setReturnCondition("damaged");
-
-        setBookDto();
-        singleLoanDto.setBook(bookDto);
-
-        setUserDto();
-        singleLoanDto.setUser(userDto);
-    }
-
     @Test
     public void testBorrowBook() {
-        setSingleLoanDto();
         final long fake_id = 43252343;
         
         Mockito.when(
@@ -82,15 +47,14 @@ public class LoanFacadeImplTest {
 
         Assert.assertEquals(
                 fake_id,
-                loanFacadeImpl.borrowBook(singleLoanDto)
+                loanFacadeImpl.borrowBook(new SingleLoanDTO())
         );
     }
 
     @Test
     public void testReturnBook() {
-        setSingleLoanDto();
         Optional<SingleLoan> optionalSingleLoan
-                = Optional.of(mappingService.mapTo(singleLoanDto, SingleLoan.class));
+                = Optional.of(new SingleLoan());
 
         Mockito.when(
                 singleLoanService.findById(
@@ -98,6 +62,54 @@ public class LoanFacadeImplTest {
                 )
         ).thenReturn(optionalSingleLoan);
 
-        loanFacadeImpl.returnBook(singleLoanDto);
+        loanFacadeImpl.returnBook(new SingleLoanDTO());
+    }
+
+    @Test
+    public void testGetSingleLoanById() {
+        Optional<SingleLoan> optionalSingleLoan
+                = Optional.of(new SingleLoan());
+
+        Mockito.when(
+                singleLoanService.findById(
+                        anyLong()
+                )
+        ).thenReturn(optionalSingleLoan);
+
+        Mockito.when(
+                mappingService.mapTo(
+                        optionalSingleLoan.get(),
+                        SingleLoanDTO.class)
+        ).thenReturn(new SingleLoanDTO());
+
+        final long fake_id = 432432;
+
+        Assert.assertNotNull(loanFacadeImpl.getSingleLoanById(fake_id));
+    }
+
+    @Test
+    public void testGetLoansForUser() {
+        loanFacadeImpl.getLoansForUser(new UserDTO());
+    }
+
+    @Test
+    public void testGetLoansForBook() {
+        loanFacadeImpl.getLoansForBook(new BookDTO());
+    }
+
+    @Test
+    public void testGetAllSingleLoans() {
+        loanFacadeImpl.getAllSingleLoans();
+    }
+
+    @Test
+    public void testCount() {
+        loanFacadeImpl.count();
+    }
+
+    @Test
+    public void testDeleteById() {
+        final long fake_id = 34325345;
+        loanFacadeImpl.deleteById(fake_id);
     }
 }

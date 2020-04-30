@@ -13,6 +13,19 @@ public class UserDTO {
     private String passwordHash;
     private boolean isLibrarian;
 
+    public UserDTO() {
+
+    }
+
+    public UserDTO(long id, String firstName, String lastName, String email, String passwordHash, boolean isLibrarian) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.isLibrarian = isLibrarian;
+    }
+
     public long getId() {
         return id;
     }

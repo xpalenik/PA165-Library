@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.services.MappingService;
 import cz.muni.fi.pa165.library.services.SingleLoanService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,10 @@ import java.util.Optional;
 @Transactional
 public class LoanFacadeImpl implements LoanFacade{
 
+    @Autowired
     private final MappingService mappingService;
+
+    @Autowired
     private final SingleLoanService singleLoanService;
 
     public LoanFacadeImpl(MappingService mappingService, SingleLoanService singleLoanService) {
@@ -39,6 +43,20 @@ public class LoanFacadeImpl implements LoanFacade{
             singleLoanService.returnBook(loan.get(), returnInfo.getReturnedAt(), returnInfo.getReturnCondition());
         } else {
             throw new NoSuchElementException("No loan with id " + returnInfo.getId() + " has been found.");
+        }
+    }
+
+    @Override
+    public SingleLoanDTO getSingleLoanById(long id) {
+        Optional<SingleLoan> singleLoan = singleLoanService.findById(id);
+
+        if (singleLoan.isPresent()){
+            SingleLoanDTO mapped =  mappingService.mapTo(
+                    singleLoan.get(),
+                    SingleLoanDTO.class);
+            return mapped;
+        } else {
+            return null;
         }
     }
 }

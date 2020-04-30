@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -35,7 +34,6 @@ public class LoanFacadeImplTest {
     @Mock
     private SingleLoanService singleLoanService;
 
-    @Autowired
     @Mock
     private MappingService mappingService;
 
@@ -71,7 +69,6 @@ public class LoanFacadeImplTest {
 
     @Test
     public void testBorrowBook() {
-        setSingleLoanDto();
         final long fake_id = 43252343;
         
         Mockito.when(
@@ -82,15 +79,14 @@ public class LoanFacadeImplTest {
 
         Assert.assertEquals(
                 fake_id,
-                loanFacadeImpl.borrowBook(singleLoanDto)
+                loanFacadeImpl.borrowBook(new SingleLoanDTO())
         );
     }
 
     @Test
     public void testReturnBook() {
-        setSingleLoanDto();
         Optional<SingleLoan> optionalSingleLoan
-                = Optional.of(mappingService.mapTo(singleLoanDto, SingleLoan.class));
+                = Optional.of(new SingleLoan());
 
         Mockito.when(
                 singleLoanService.findById(
@@ -98,6 +94,28 @@ public class LoanFacadeImplTest {
                 )
         ).thenReturn(optionalSingleLoan);
 
-        loanFacadeImpl.returnBook(singleLoanDto);
+        loanFacadeImpl.returnBook(new SingleLoanDTO());
+    }
+
+    @Test
+    public void testGetSingleLoanById() {
+        Optional<SingleLoan> optionalSingleLoan
+                = Optional.of(new SingleLoan());
+
+        Mockito.when(
+                singleLoanService.findById(
+                        anyLong()
+                )
+        ).thenReturn(optionalSingleLoan);
+
+        Mockito.when(
+                mappingService.mapTo(
+                        optionalSingleLoan.get(),
+                        SingleLoanDTO.class)
+        ).thenReturn(new SingleLoanDTO());
+
+        final long fake_id = 432432;
+
+        Assert.assertNotNull(loanFacadeImpl.getSingleLoanById(fake_id));
     }
 }

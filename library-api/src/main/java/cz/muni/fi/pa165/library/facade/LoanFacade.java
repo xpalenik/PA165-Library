@@ -33,5 +33,5 @@ public interface LoanFacade {
     // public List<SingleLoanDTO> getLoansForBook(BookDTO bookDto);
 
     // public List<SingleLoanDTO> getAllSingleLoans();
-    // public SingleLoanDTO getSingleLoanById(long id);
+    public SingleLoanDTO getSingleLoanById(long id);
 }

@@ -106,4 +106,10 @@ public class LoanFacadeImplTest {
     public void testCount() {
         loanFacadeImpl.count();
     }
+
+    @Test
+    public void testDeleteById() {
+        final long fake_id = 34325345;
+        loanFacadeImpl.deleteById(fake_id);
+    }
 }

@@ -113,4 +113,9 @@ public class LoanFacadeImpl implements LoanFacade{
     public Long count() {
         return singleLoanService.count();
     }
+
+    @Override
+    public void deleteById(long userId) {
+        singleLoanService.deleteById(userId);
+    }
 }

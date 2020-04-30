@@ -73,7 +73,7 @@ public class SingleLoanService {
      * @param userId is ID of SingleLoan we are looking for
      * @throws IllegalArgumentException if "id" is less than 0
      */
-    public void deleteById(Long userId) {
+    public void deleteById(long userId) {
         singleLoanRepository.deleteById(userId);
     }
 

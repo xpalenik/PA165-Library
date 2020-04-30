@@ -23,27 +23,26 @@ import java.time.LocalDateTime;
 @DataJpaTest
 public class LoanFacadeImplTest {
 
-    SingleLoanDTO singleLoanInfo;
+    SingleLoanDTO singleLoanDto;
     private BookDTO bookDto;
     private UserDTO userDto;
 
     @Autowired
     private LoanFacadeImpl loanFacadeImpl;
 
-    // not all service yet implemented by facade
     @Autowired
     private SingleLoanService singleLoanService;
 
     @Autowired
     private TestEntityManager entityManager;
 
-    private void setBook() {
+    private void setBookDto() {
         bookDto = new BookDTO();
         bookDto.setTitle("Animal Farm");
         bookDto.setAuthor("George Orwell");
     }
 
-    private void setUser() {
+    private void setUserDto() {
         userDto = new UserDTO();
         userDto.setFirstName("Martin");
         userDto.setLastName("Páleník");
@@ -52,69 +51,20 @@ public class LoanFacadeImplTest {
     }
 
     private void setSingleLoanInfo(){
-        singleLoanInfo = new SingleLoanDTO();
-        singleLoanInfo.setRegisteredAt(LocalDateTime.now());
-        singleLoanInfo.setReturnedAt(LocalDateTime.now());
-        singleLoanInfo.setReturnCondition("damaged");
+        singleLoanDto = new SingleLoanDTO();
+        singleLoanDto.setRegisteredAt(LocalDateTime.MIN);
+        singleLoanDto.setReturnedAt(LocalDateTime.MAX);
+        singleLoanDto.setReturnCondition("damaged");
 
-        setBook();
-        singleLoanInfo.setBook(bookDto);
+        setBookDto();
+        singleLoanDto.setBook(bookDto);
 
-        setUser();
-        singleLoanInfo.setUser(userDto);
+        setUserDto();
+        singleLoanDto.setUser(userDto);
     }
 
     @Test
-    public void testBorrowBookByUser() {
-        setSingleLoanInfo();
+    public void testBorrowBook() {
 
-        Book book = new Book();
-        book.setAuthor(bookDto.getAuthor());
-        book.setTitle(bookDto.getTitle());
-
-        User user = new User();
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
-        user.setPasswordHash(userDto.getPasswordHash());
-        user.setLibrarian(userDto.isLibrarian());
-
-        singleLoanInfo.getBook().setId(
-                (long) entityManager.persistAndGetId(book)
-        );
-
-        singleLoanInfo.getUser().setId(
-                (long) entityManager.persistAndGetId(user)
-        );
-
-        long loan_id = loanFacadeImpl.borrowBook(singleLoanInfo);
-        singleLoanInfo.setId(loan_id); // now singleLoanInfo matches the saved object
-        SingleLoan justSaved = singleLoanService.findById(loan_id).get();
-
-        Assert.assertNotNull(loan_id);
-
-        Assert.assertEquals(
-                justSaved.getReturnCondition(),
-                "damaged"
-        );
-
-        Assert.assertEquals(
-                justSaved.getUser().getEmail(),
-                "359817@mail.muni.cz"
-        );
-
-        Assert.assertEquals(
-                justSaved.getBook().getTitle(),
-                "Animal Farm"
-        );
-
-        /* Note
-           It might not be a good idea to use Dozer
-           to map singleLoanInfo to SingleLoan
-           and compare with justSaved using equals()
-           since Dozer or equals() might be broken.
-
-           Therefore, I used the explicit assetions above.
-         */
     }
 }

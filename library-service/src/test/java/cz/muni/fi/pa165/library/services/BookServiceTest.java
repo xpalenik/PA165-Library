@@ -1,15 +1,12 @@
 package cz.muni.fi.pa165.library.services;
 
 import cz.muni.fi.pa165.library.entities.Book;
-import cz.muni.fi.pa165.library.repositories.BookRepository;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.Arrays;
 
 /**
@@ -19,18 +16,17 @@ import java.util.Arrays;
  */
 //TODO cover BookService with tests
 @RunWith(SpringRunner.class)
+@DataJpaTest
 public class BookServiceTest {
 
-    private Book book1;
-    private Book book2;
+    @Autowired
     private BookService bookService;
 
-    @Mock
-    private BookRepository bookRepository;
+    @Test
+    public void testCreateBook() {
+        Book book = new Book("Animal Farm", "George Orwell");
 
-    @Before
-    public void init() {
-        bookService = new BookService(bookRepository);
+        Assert.assertNotNull(bookService.createBook(book));
     }
 
     @Test
@@ -45,57 +41,69 @@ public class BookServiceTest {
 
     @Test
     public void testFindBookByAuthor() {
-        setBook1();
-        String author = book1.getAuthor();
+        Book book = new Book("Animal Farm", "George Orwell");
+        String author = book.getAuthor();
 
-        Mockito.when(bookRepository.findAll())
-                .thenReturn(Arrays.asList(book1));
+        bookService.createBook(book);
 
-        Assert.assertEquals(Arrays.asList(book1), bookService.findByAuthor(author));
+        Assert.assertEquals(Arrays.asList(book), bookService.findByAuthor(author));
     }
 
     @Test
     public void testFindMultipleBooksByAuthor() {
-        setBook1();
-        book2 = new Book();
-        book2.setTitle("Another Title");
-        book2.setAuthor("George Orwell");
-        String author = book1.getAuthor();
+        Book book = new Book("Animal Farm", "George Orwell");
+        Book book2 = new Book("Another Title", "George Orwell");
+        String author = book.getAuthor();
 
-        Mockito.when(bookRepository.findAll())
-                .thenReturn(Arrays.asList(book1, book2));
+        bookService.createBook(book);
+        bookService.createBook(book2);
 
-        Assert.assertEquals(Arrays.asList(book1, book2), bookService.findByAuthor(author));
+        Assert.assertEquals(Arrays.asList(book, book2), bookService.findByAuthor(author));
     }
 
     @Test
     public void testFindBookByTitle() {
-        setBook1();
-        String title = book1.getTitle();
+        Book book = new Book("Animal Farm", "George Orwell");
+        String title = book.getTitle();
 
-        Mockito.when(bookRepository.findAll())
-                .thenReturn(Arrays.asList(book1));
+        bookService.createBook(book);
 
-        Assert.assertEquals(Arrays.asList(book1), bookService.findByTitle(title));
+        Assert.assertEquals(Arrays.asList(book), bookService.findByTitle(title));
     }
 
     @Test
     public void testFindMultipleBooksByTitle() {
-        setBook1();
-        book2 = new Book();
-        book2.setTitle("Animal Farm");
-        book2.setAuthor("Another Author");
-        String title = book1.getTitle();
+        Book book = new Book("Animal Farm", "George Orwell");
+        Book book2 = new Book("Animal Farm", "Another Author");
+        String title = book.getTitle();
 
-        Mockito.when(bookRepository.findAll())
-                .thenReturn(Arrays.asList(book1, book2));
+        bookService.createBook(book);
+        bookService.createBook(book2);
 
-        Assert.assertEquals(Arrays.asList(book1, book2), bookService.findByTitle(title));
+        Assert.assertEquals(Arrays.asList(book, book2), bookService.findByTitle(title));
     }
 
-    private void setBook1() {
-        book1 = new Book();
-        book1.setTitle("Animal Farm");
-        book1.setAuthor("George Orwell");
+    @Test
+    public void testFindAll() {
+        Book book = new Book("Animal Farm", "George Orwell");
+        Book book2 = new Book("Another Title", "Another Author");
+
+        bookService.createBook(book);
+        bookService.createBook(book2);
+
+        Assert.assertEquals(Arrays.asList(book, book2), bookService.findAll());
+    }
+
+    @Test
+    public void testDeleteBook() {
+        Book book = new Book("Animal Farm", "George Orwell");
+        Book book2 = new Book("Another Title", "Another Author");
+
+        bookService.createBook(book);
+        bookService.createBook(book2);
+
+        Assert.assertEquals(2, bookService.findAll().size());
+        Assert.assertEquals(book.getId(), bookService.deleteBook(book.getId()));
+        Assert.assertEquals(Arrays.asList(book2), bookService.findAll());
     }
 }

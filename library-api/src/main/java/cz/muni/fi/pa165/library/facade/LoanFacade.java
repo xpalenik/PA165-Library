@@ -22,7 +22,7 @@ public interface LoanFacade {
      * Answers "what a member borrowed and when".
      * @return list of loans for the given user
      */
-    // public List<SingleLoanDTO> getLoansForUser(UserDTO userDto);
+    public List<SingleLoanDTO> getLoansForUser(UserDTO userDto);
 
     /**
      * For the given book return all its loans (current or past).

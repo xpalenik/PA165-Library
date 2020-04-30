@@ -118,4 +118,9 @@ public class LoanFacadeImplTest {
 
         Assert.assertNotNull(loanFacadeImpl.getSingleLoanById(fake_id));
     }
+
+    @Test
+    public void testGetLoansForUser() {
+        loanFacadeImpl.getLoansForUser(new UserDTO());
+    }
 }

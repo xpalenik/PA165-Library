@@ -154,6 +154,19 @@ public class UserServiceTest {
     }
 
     @Test
+    public void testDeleteUser() {
+        User user = new User("Kat", "Herman", "kHerm@mail.com", true);
+        User user2 = new User("K", "Her", "kHerm2@mail.com", true);
+
+        userService.addUser(user, "password");
+        userService.addUser(user2, "password2");
+
+        Assert.assertEquals(2, userService.findAll().size());
+        userService.deleteUser(user.getId());
+        Assert.assertEquals(Arrays.asList(user2), userService.findAll());
+    }
+
+    @Test
     public void testAuthenticate() {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
 

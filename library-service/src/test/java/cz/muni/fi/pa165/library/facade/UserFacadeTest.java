@@ -56,11 +56,15 @@ public class UserFacadeTest {
         setUser();
 
         Mockito.when(
-                mappingService.mapTo(
-                        userService.findByFirstName(user.getFirstName()), UserDTO.class
-                )
+                userService.findByFirstName(user.getFirstName())
         ).thenReturn(
-                Arrays.asList(userDTO)
+                Arrays.asList(user))
+        ;
+
+        Mockito.when(
+                mappingService.mapTo(user, UserDTO.class)
+        ).thenReturn(
+                userDTO
         );
 
         Assert.assertEquals(Arrays.asList(userDTO), userFacade.findByFirstName(user.getFirstName()));
@@ -71,11 +75,15 @@ public class UserFacadeTest {
         setUser();
 
         Mockito.when(
-                mappingService.mapTo(
-                        userService.findByLastName(user.getLastName()), UserDTO.class
-                )
+                userService.findByLastName(user.getLastName())
         ).thenReturn(
-                Arrays.asList(userDTO)
+                Arrays.asList(user))
+        ;
+
+        Mockito.when(
+                mappingService.mapTo(user, UserDTO.class)
+        ).thenReturn(
+                userDTO
         );
 
         Assert.assertEquals(Arrays.asList(userDTO), userFacade.findByLastName(user.getLastName()));
@@ -99,10 +107,22 @@ public class UserFacadeTest {
         setTwoUsers();
 
         Mockito.when(
-                mappingService.mapTo(
-                        userService.findAll(), UserDTO.class
-                )
-        ).thenReturn(Arrays.asList(userDTO, userDTO2));
+                userService.findAll()
+        ).thenReturn(
+                Arrays.asList(user, user2))
+        ;
+
+        Mockito.when(
+                mappingService.mapTo(user, UserDTO.class)
+        ).thenReturn(
+                userDTO
+        );
+
+        Mockito.when(
+                mappingService.mapTo(user2, UserDTO.class)
+        ).thenReturn(
+                userDTO2
+        );
 
         Assert.assertEquals(Arrays.asList(userDTO, userDTO2), userFacade.findAll());
     }
@@ -112,10 +132,22 @@ public class UserFacadeTest {
         setTwoUsers();
 
         Mockito.when(
-                mappingService.mapTo(
-                        userService.findAllLibrarians(), UserDTO.class
-                )
-        ).thenReturn(Arrays.asList(userDTO, userDTO2));
+                userService.findAllLibrarians()
+        ).thenReturn(
+                Arrays.asList(user, user2))
+        ;
+
+        Mockito.when(
+                mappingService.mapTo(user, UserDTO.class)
+        ).thenReturn(
+                userDTO
+        );
+
+        Mockito.when(
+                mappingService.mapTo(user2, UserDTO.class)
+        ).thenReturn(
+                userDTO2
+        );
 
         Assert.assertEquals(Arrays.asList(userDTO, userDTO2), userFacade.findAllLibrarians());
     }

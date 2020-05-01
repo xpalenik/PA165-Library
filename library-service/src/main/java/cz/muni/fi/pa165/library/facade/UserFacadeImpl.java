@@ -5,8 +5,11 @@ import cz.muni.fi.pa165.library.dto.UserDTO;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.services.MappingService;
 import cz.muni.fi.pa165.library.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +20,11 @@ import java.util.List;
 @Service
 @Transactional
 public class UserFacadeImpl implements UserFacade {
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private MappingService mappingService;
 
     public UserFacadeImpl(MappingService mappingService, UserService userService) {
@@ -36,12 +43,28 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public List<UserDTO> findByFirstName(String firstName) {
-        return mappingService.mapTo(userService.findByFirstName(firstName), UserDTO.class);
+        List<UserDTO> resultDto = new ArrayList<>();
+
+        for (User result : userService.findByFirstName(firstName)) {
+            resultDto.add(
+                    mappingService.mapTo(result, UserDTO.class)
+            );
+        }
+
+        return resultDto;
     }
 
     @Override
     public List<UserDTO> findByLastName(String lastName) {
-        return mappingService.mapTo(userService.findByLastName(lastName), UserDTO.class);
+        List<UserDTO> resultDto = new ArrayList<>();
+
+        for (User result : userService.findByLastName(lastName)) {
+            resultDto.add(
+                    mappingService.mapTo(result, UserDTO.class)
+            );
+        }
+
+        return resultDto;
     }
 
     @Override
@@ -51,12 +74,28 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public List<UserDTO> findAll() {
-        return mappingService.mapTo(userService.findAll(), UserDTO.class);
+        List<UserDTO> resultDto = new ArrayList<>();
+
+        for (User result : userService.findAll()) {
+            resultDto.add(
+                    mappingService.mapTo(result, UserDTO.class)
+            );
+        }
+
+        return resultDto;
     }
 
     @Override
     public List<UserDTO> findAllLibrarians() {
-        return mappingService.mapTo(userService.findAllLibrarians(), UserDTO.class);
+        List<UserDTO> resultDto = new ArrayList<>();
+
+        for (User result : userService.findAllLibrarians()) {
+            resultDto.add(
+                    mappingService.mapTo(result, UserDTO.class)
+            );
+        }
+
+        return resultDto;
     }
 
     @Override

@@ -25,6 +25,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>cz.muni.fi.pa165.library.LibraryApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

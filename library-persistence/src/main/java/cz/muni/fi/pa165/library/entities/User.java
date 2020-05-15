@@ -32,7 +32,7 @@ public class User {
 
     private String passwordHash;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
     private Collection<SingleLoan> singleLoans;
 
     @Column

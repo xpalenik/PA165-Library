@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.library.facade;
 
-import cz.muni.fi.pa165.library.dto.UserAuthenticateDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.services.MappingService;
@@ -12,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.Arrays;
 
 /**
@@ -163,20 +161,6 @@ public class UserFacadeTest {
         ).thenReturn(user.getId());
 
         Assert.assertEquals(user.getId(), userFacade.addUser(userDTO, "password"));
-    }
-
-    @Test
-    public void testAuthenticate() {
-        setUser();
-        UserAuthenticateDTO userAuthenticateDTO = new UserAuthenticateDTO(userDTO.getId(), "password");
-
-        Mockito.when(
-                userService.authenticate(
-                        userService.findById(userAuthenticateDTO.getUserId()), userAuthenticateDTO.getPassword()
-                )
-        ).thenReturn(true);
-
-        Assert.assertTrue(userFacade.authenticate(userAuthenticateDTO));
     }
 
     private void setUser() {

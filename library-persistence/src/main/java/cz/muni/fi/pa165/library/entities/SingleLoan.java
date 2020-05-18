@@ -37,6 +37,16 @@ public class SingleLoan {
      */
     private String returnCondition;
 
+    public SingleLoan() {
+
+    }
+
+    public SingleLoan(Book book, User user, LocalDateTime registeredAt) {
+        this.book = book;
+        this.user = user;
+        this.registeredAt = registeredAt;
+    }
+
     public String getReturnCondition() {
         return returnCondition;
     }

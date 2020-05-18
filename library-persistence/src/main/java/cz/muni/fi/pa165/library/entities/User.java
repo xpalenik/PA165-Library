@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
 
 /**
  * class for User entity
@@ -30,10 +29,9 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @NotNull
+    @Column
     private String passwordHash;
-
-    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
-    private Collection<SingleLoan> singleLoans;
 
     @Column
     private boolean isLibrarian;
@@ -92,14 +90,6 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public Collection<SingleLoan> getSingleLoans() {
-        return singleLoans;
-    }
-
-    public void setSingleLoans(Collection<SingleLoan> singleLoans) {
-        this.singleLoans = singleLoans;
-    }
-
     public boolean isLibrarian() {
         return isLibrarian;
     }
@@ -142,7 +132,6 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
-                ", singleLoans=" + singleLoans + '\'' +
                 ", isLibrarian=" + isLibrarian + '\'' +
                 '}';
     }

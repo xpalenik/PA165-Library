@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.library.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 /**
@@ -48,7 +47,7 @@ public class UserController extends AbstractController {
     @GetMapping(value = "/librarians")
     public List<UserDTO> findAllLibrarians() {
         return userFacade.findAllLibrarians();
-    }//this method causes troubles
+    }
 
     @PostMapping(value = "/users")
     public long addUser(@RequestParam UserDTO user, @RequestParam String password) {
@@ -59,7 +58,4 @@ public class UserController extends AbstractController {
     public void deleteUser(@PathVariable long id) {
         userFacade.deleteUser(id);
     }
-
-    //remove authenticate and UserAuthenticateDTO
-
 }

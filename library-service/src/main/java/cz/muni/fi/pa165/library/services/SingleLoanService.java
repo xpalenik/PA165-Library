@@ -70,11 +70,11 @@ public class SingleLoanService {
 
     /**
      * Deletes a specific SingleLoan with the given "id"
-     * @param userId is ID of SingleLoan we are looking for
+     * @param loanId is ID of SingleLoan we are looking for
      * @throws IllegalArgumentException if "id" is less than 0
      */
-    public void deleteById(long userId) {
-        singleLoanRepository.deleteById(userId);
+    public void deleteById(long loanId) {
+        singleLoanRepository.deleteById(loanId);
     }
 
     /** The following services are required by the assignment */

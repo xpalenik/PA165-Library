@@ -108,15 +108,4 @@ public class SingleLoan {
     public int hashCode() {
         return Objects.hash(id, book, user, registeredAt, returnedAt, returnCondition);
     }
-
-    @Override
-    public String toString() {
-        return "SingleLoan{" +
-                "id=" + id +
-                ", book=" + book +
-                ", member=" + user +
-                ", registeredAt=" + registeredAt +
-                ", returnCondition=" + returnCondition +
-                '}';
-    }
 }

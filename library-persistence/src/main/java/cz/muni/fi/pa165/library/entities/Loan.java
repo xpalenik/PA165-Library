@@ -56,12 +56,4 @@ public class Loan {
     public int hashCode() {
         return Objects.hash(id, loans);
     }
-
-    @Override
-    public String toString() {
-        return "Loan{" +
-                "id=" + id +
-                ", loans=" + loans +
-                '}';
-    }
 }

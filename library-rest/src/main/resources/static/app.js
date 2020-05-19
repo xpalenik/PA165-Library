@@ -85,14 +85,14 @@ app.service('UserCRUDService',['$http', function ($http) {
     this.getUser = function getUser(userId){
         return $http({
             method: 'GET',
-            url: 'pa165/rest/users/'+userId
+            url: 'pa165/rest/user_id/'+userId
         });
     }
 
     this.addUser = function addUser(name, email){
         return $http({
             method: 'POST',
-            url: 'pa165/rest/users',
+            url: 'pa165/rest/add/user',
             data: {firstName:firstName, lastName:lastName, email:email}
         });
     }
@@ -100,14 +100,14 @@ app.service('UserCRUDService',['$http', function ($http) {
     this.deleteUser = function deleteUser(id){
         return $http({
             method: 'DELETE',
-            url: 'pa165/rest/users/'+id
+            url: 'pa165/rest/delete/user/'+id
         })
     }
 
     this.updateUser = function updateUser(id,name,email){
         return $http({
             method: 'PATCH',
-            url: 'pa165/rest/users/'+id,
+            url: 'pa165/rest/user_id/'+id,
             data: {firstName:firstName, lastName:lastName, email:email}
         })
     }

@@ -123,16 +123,4 @@ public class User {
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", passwordHash='" + passwordHash + '\'' +
-                ", isLibrarian=" + isLibrarian + '\'' +
-                '}';
-    }
 }

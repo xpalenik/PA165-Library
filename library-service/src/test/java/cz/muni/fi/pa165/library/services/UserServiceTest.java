@@ -1,11 +1,13 @@
 package cz.muni.fi.pa165.library.services;
 
 import cz.muni.fi.pa165.library.entities.User;
+import cz.muni.fi.pa165.library.repositories.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 
@@ -15,10 +17,12 @@ import java.util.Arrays;
  * Github katHermanova
  */
 @RunWith(SpringRunner.class)
-@DataJpaTest
 public class UserServiceTest {
 
-    @Autowired
+    @Mock
+    private UserRepository userRepository;
+
+    @InjectMocks
     private UserService userService;
 
     @Test(expected = IllegalArgumentException.class)
@@ -50,7 +54,7 @@ public class UserServiceTest {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
         User user2 = new User("K", "Her", "kHerm@mail.com", true);
 
-        userService.addUser(user, "password");
+        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user));
         userService.addUser(user2, "password");
     }
 
@@ -94,9 +98,9 @@ public class UserServiceTest {
     @Test
     public void testFindByFirstName() {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
-
-        userService.addUser(user, "password");
         String firstName = user.getFirstName();
+
+        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user));
 
         Assert.assertEquals(Arrays.asList(user), userService.findByFirstName(firstName));
     }
@@ -105,10 +109,9 @@ public class UserServiceTest {
     public void testFindMultipleByFirstName() {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
         User user2 = new User("Kat", "Her", "kHerm2@mail.com", true);
-
-        userService.addUser(user, "password");
-        userService.addUser(user2, "password2");
         String firstName = user.getFirstName();
+
+        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user, user2));
 
         Assert.assertEquals(Arrays.asList(user, user2), userService.findByFirstName(firstName));
     }
@@ -116,9 +119,9 @@ public class UserServiceTest {
     @Test
     public void testFindByLastName() {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
-
-        userService.addUser(user, "password");
         String lastName = user.getLastName();
+
+        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user));
 
         Assert.assertEquals(Arrays.asList(user), userService.findByLastName(lastName));
     }
@@ -127,10 +130,9 @@ public class UserServiceTest {
     public void testFindMultipleByLastName() {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
         User user2 = new User("K", "Herman", "kHerm2@mail.com", true);
-
-        userService.addUser(user, "password");
-        userService.addUser(user2, "password2");
         String lastName = user.getLastName();
+
+        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user, user2));
 
         Assert.assertEquals(Arrays.asList(user, user2), userService.findByLastName(lastName));
     }
@@ -141,9 +143,7 @@ public class UserServiceTest {
         User user2 = new User("K", "Her", "kHerm2@mail.com", true);
         User user3 = new User("Another", "User", "anotUser@mail.com", false);
 
-        userService.addUser(user, "password");
-        userService.addUser(user2, "password2");
-        userService.addUser(user3, "password3");
+        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user, user2, user3));
 
         Assert.assertEquals(Arrays.asList(user, user2), userService.findAllLibrarians());
     }
@@ -153,25 +153,8 @@ public class UserServiceTest {
         userService.deleteUser(-1);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testDeleteUser() {
-        User user = new User("Kat", "Herman", "kHerm@mail.com", true);
-        User user2 = new User("K", "Her", "kHerm2@mail.com", true);
-
-        userService.addUser(user, "password");
-        userService.addUser(user2, "password2");
-
-        Assert.assertEquals(2, userService.findAll().size());
-        userService.deleteUser(user.getId());
-        Assert.assertEquals(Arrays.asList(user2), userService.findAll());
-    }
-
-    @Test
-    public void testAuthenticate() {
-        User user = new User("Kat", "Herman", "kHerm@mail.com", true);
-
-        userService.addUser(user, "password");
-
-        Assert.assertTrue(userService.authenticate(user, "password"));
+        userService.deleteUser(-1);
     }
 }

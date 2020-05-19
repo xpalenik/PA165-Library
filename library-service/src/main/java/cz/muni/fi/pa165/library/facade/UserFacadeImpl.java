@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.library.facade;
 
-import cz.muni.fi.pa165.library.dto.UserAuthenticateDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.services.MappingService;
@@ -8,7 +7,6 @@ import cz.muni.fi.pa165.library.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,10 +104,5 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public void deleteUser(long id) {
         userService.deleteUser(id);
-    }
-
-    @Override
-    public boolean authenticate(UserAuthenticateDTO u) {
-        return userService.authenticate(userService.findById(u.getUserId()), u.getPassword());
     }
 }

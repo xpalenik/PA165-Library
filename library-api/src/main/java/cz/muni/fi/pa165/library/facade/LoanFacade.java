@@ -35,5 +35,5 @@ public interface LoanFacade {
     public List<SingleLoanDTO> getAllSingleLoans();
     public SingleLoanDTO getSingleLoanById(long id);
     public Long count();
-    public void deleteById(long userId);
+    public void deleteById(long loanId);
 }

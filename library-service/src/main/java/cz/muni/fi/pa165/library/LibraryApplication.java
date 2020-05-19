@@ -28,11 +28,6 @@ public class LibraryApplication {
     }
 
     @Bean
-    public SingleLoanService singleLoanService(SingleLoanRepository singleLoanRepository) {
-        return new SingleLoanService(singleLoanRepository);
-    }
-
-    @Bean
     public BookService bookService(BookRepository bookRepository) {
         return new BookService(bookRepository);
     }
@@ -40,6 +35,11 @@ public class LibraryApplication {
     @Bean
     public UserService userService(UserRepository userRepository) {
         return new UserService(userRepository);
+    }
+
+    @Bean
+    public SingleLoanService singleLoanService(SingleLoanRepository singleLoanRepository) {
+        return new SingleLoanService(singleLoanRepository);
     }
 
     @Bean

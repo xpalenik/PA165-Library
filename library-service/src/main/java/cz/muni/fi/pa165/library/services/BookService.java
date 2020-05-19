@@ -50,11 +50,17 @@ public class BookService {
     }
 
     public List<Book> findByTitle(String title) {
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("Title is null");
+        }
         LOGGER.info("Finding all books containing {} in title.", title);
         return bookRepository.findAll().stream().filter(b -> b.getTitle().contains(title)).collect(Collectors.toList());
     }
 
     public List<Book> findByAuthor(String author) {
+        if (author == null || author.isEmpty()) {
+            throw new IllegalArgumentException("Author is null");
+        }
         LOGGER.info("Finding all books containing {} as an author.", author);
         return bookRepository.findAll().stream().filter(b -> b.getAuthor().contains(author)).collect(Collectors.toList());
     }

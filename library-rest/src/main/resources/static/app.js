@@ -86,7 +86,7 @@ app.service('UserCRUDService',['$http', function ($http) {
     this.getUser = function getUser(userId){
         return $http({
             method: 'GET',
-            url: 'pa165/rest/users/'+userId
+            url: 'pa165/rest/user_id/'+userId
         });
     }
 
@@ -101,14 +101,14 @@ app.service('UserCRUDService',['$http', function ($http) {
     this.deleteUser = function deleteUser(id){
         return $http({
             method: 'DELETE',
-            url: 'pa165/rest/users/'+id
+            url: 'pa165/rest/delete/user/'+id
         })
     }
 
     this.updateUser = function updateUser(id, firstName, lastName, email){
         return $http({
             method: 'PATCH',
-            url: 'pa165/rest/users/'+id,
+            url: 'pa165/rest/user_id/'+id,
             data: {firstName:firstName, lastName:lastName, email:email}
         })
     }

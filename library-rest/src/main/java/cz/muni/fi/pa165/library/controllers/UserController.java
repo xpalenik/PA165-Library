@@ -19,22 +19,22 @@ public class UserController extends AbstractController {
     @Autowired
     private UserFacade userFacade;
 
-    @GetMapping(value = "/users/{id}")
+    @GetMapping(value = "/user_id/{id}")
     public UserDTO findById(@PathVariable long id) {
         return userFacade.findById(id);
     }
 
-    @GetMapping(value = "/users/{firstName}")
+    @GetMapping(value = "/users_firstName/{firstName}")
     public List<UserDTO> findByFirstName(@PathVariable String firstName) {
         return userFacade.findByFirstName(firstName);
     }
 
-    @GetMapping(value = "/users/{lastName}")
+    @GetMapping(value = "/users_lastName/{lastName}")
     public List<UserDTO> findByLastName(@PathVariable String lastName) {
         return userFacade.findByLastName(lastName);
     }
 
-    @GetMapping(value = "/users/{email}")
+    @GetMapping(value = "/user_email/{email}")
     public UserDTO findByEmail(@PathVariable String email) {
         return userFacade.findByEmail(email);
     }
@@ -54,7 +54,7 @@ public class UserController extends AbstractController {
         return userFacade.addUser(user,user.getPasswordHash());
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/delete/user/{id}")
     public void deleteUser(@PathVariable long id) {
         userFacade.deleteUser(id);
     }

@@ -49,9 +49,9 @@ public class UserController extends AbstractController {
         return userFacade.findAllLibrarians();
     }
 
-    @PostMapping(value = "/add/user")
-    public long addUser(@RequestParam UserDTO user, @RequestParam String password) {
-        return userFacade.addUser(user,password);
+    @PostMapping(value = "/users")
+    public long addUser(@RequestBody UserDTO user) {
+        return userFacade.addUser(user,user.getPasswordHash());
     }
 
     @DeleteMapping("/delete/user/{id}")

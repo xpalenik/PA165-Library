@@ -68,7 +68,7 @@ app.controller('UserCRUDCtrl', ['$scope','UserCRUDService', function ($scope,Use
     $scope.getAllUsers = function () {
         UserCRUDService.getAllUsers()
             .then(function success(response){
-                    $scope.users = response.data._embedded.users;
+                    $scope.users = response.data;
                     $scope.message='';
                     $scope.errorMessage = '';
                 },
@@ -85,37 +85,37 @@ app.service('UserCRUDService',['$http', function ($http) {
     this.getUser = function getUser(userId){
         return $http({
             method: 'GET',
-            url: 'users/'+userId
+            url: 'pa165/rest/users/'+userId
         });
     }
 
     this.addUser = function addUser(name, email){
         return $http({
             method: 'POST',
-            url: 'users',
-            data: {name:name, email:email}
+            url: 'pa165/rest/users',
+            data: {firstName:firstName, lastName:lastName, email:email}
         });
     }
 
     this.deleteUser = function deleteUser(id){
         return $http({
             method: 'DELETE',
-            url: 'users/'+id
+            url: 'pa165/rest/users/'+id
         })
     }
 
     this.updateUser = function updateUser(id,name,email){
         return $http({
             method: 'PATCH',
-            url: 'users/'+id,
-            data: {name:name, email:email}
+            url: 'pa165/rest/users/'+id,
+            data: {firstName:firstName, lastName:lastName, email:email}
         })
     }
 
     this.getAllUsers = function getAllUsers(){
         return $http({
             method: 'GET',
-            url: 'users'
+            url: 'pa165/rest/users'
         });
     }
 

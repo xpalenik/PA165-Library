@@ -36,8 +36,8 @@ app.controller('UserCRUDCtrl', ['$scope','UserCRUDService', function ($scope,Use
     }
 
     $scope.addUser = function () {
-        if ($scope.user != null && $scope.user.firstName && $scope.user.lastName && $scope.user.email) {
-            UserCRUDService.addUser($scope.user.firstName, $scope.lastName, $scope.user.email)
+        if ($scope.user != null && $scope.user.firstName && $scope.user.lastName && $scope.user.email && $scope.user.password) {
+            UserCRUDService.addUser($scope.user.firstName, $scope.user.lastName, $scope.user.email, $scope.user.password)
                 .then (function success(response){
                         $scope.message = 'User added!';
                         $scope.errorMessage = '';
@@ -48,7 +48,7 @@ app.controller('UserCRUDCtrl', ['$scope','UserCRUDService', function ($scope,Use
                     });
         }
         else {
-            $scope.errorMessage = 'Please enter first name, last name and email!';
+            $scope.errorMessage = 'Please enter first name, last name, email and password!';
             $scope.message = '';
         }
     }
@@ -90,11 +90,11 @@ app.service('UserCRUDService',['$http', function ($http) {
         });
     }
 
-    this.addUser = function addUser(firstName, lastName, email){
+    this.addUser = function addUser(firstName, lastName, email, passwordHash){
         return $http({
             method: 'POST',
             url: 'pa165/rest/users',
-            data: {firstName:firstName, lastName:lastName, email:email}
+            data: {firstName:firstName, lastName:lastName, email:email, passwordHash:passwordHash}
         });
     }
 

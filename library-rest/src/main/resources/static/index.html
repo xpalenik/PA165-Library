@@ -21,18 +21,26 @@
             <td><input type="text" id="id" ng-model="user.id" /></td>
         </tr>
         <tr>
-            <td width="100">Name:</td>
-            <td><input type="text" id="name" ng-model="user.name" /></td>
+            <td width="100">First name:</td>
+            <td><input type="text" id="firstName" ng-model="user.firstName" /></td>
+        </tr>
+        <tr>
+            <td width="100">Last name:</td>
+            <td><input type="text" id="lastName" ng-model="user.lastName" /></td>
         </tr>
         <tr>
             <td width="100">Email:</td>
             <td><input type="text" id="email" ng-model="user.email" /></td>
         </tr>
+        <tr>
+            <td width="100">Password:</td>
+            <td><input type="text" id="password" ng-model="user.password" /></td>
+        </tr>
     </table>
     <br /> <br />
     <a ng-click="getUser(user.id)">Get User</a>
-    <a ng-click="updateUser(user.id,user.name,user.email)">Update User</a>
-    <a ng-click="addUser(user.name,user.email)">Add User</a>
+    <a ng-click="updateUser(user.id, user.firstName, user.lastName, user.email)">Update User</a>
+    <a ng-click="addUser(user.firstName, user.lastName, user.email, user.password)">Add User</a>
     <a ng-click="deleteUser(user.id)">Delete User</a>
 
     <br /> <br />

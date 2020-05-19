@@ -2,8 +2,9 @@ var app = angular.module('app',[]);
 
 app.controller('UserCRUDCtrl', ['$scope','UserCRUDService', function ($scope,UserCRUDService) {
 
+    // UPDATES ONLY EMAIL!!!
     $scope.updateUser = function () {
-        UserCRUDService.updateUser($scope.user.id,$scope.user.name,$scope.user.email)
+        UserCRUDService.updateUser($scope.user.id, $scope.user.email)
             .then(function success(response){
                     $scope.message = 'User data updated!';
                     $scope.errorMessage = '';
@@ -35,8 +36,8 @@ app.controller('UserCRUDCtrl', ['$scope','UserCRUDService', function ($scope,Use
     }
 
     $scope.addUser = function () {
-        if ($scope.user != null && $scope.user.name) {
-            UserCRUDService.addUser($scope.user.name, $scope.user.email)
+        if ($scope.user != null && $scope.user.firstName && $scope.user.lastName && $scope.user.email && $scope.user.password) {
+            UserCRUDService.addUser($scope.user.firstName, $scope.user.lastName, $scope.user.email, $scope.user.password)
                 .then (function success(response){
                         $scope.message = 'User added!';
                         $scope.errorMessage = '';
@@ -47,7 +48,7 @@ app.controller('UserCRUDCtrl', ['$scope','UserCRUDService', function ($scope,Use
                     });
         }
         else {
-            $scope.errorMessage = 'Please enter a name!';
+            $scope.errorMessage = 'Please enter first name, last name, email and password!';
             $scope.message = '';
         }
     }
@@ -89,11 +90,11 @@ app.service('UserCRUDService',['$http', function ($http) {
         });
     }
 
-    this.addUser = function addUser(name, email){
+    this.addUser = function addUser(firstName, lastName, email, passwordHash){
         return $http({
             method: 'POST',
             url: 'pa165/rest/users',
-            data: {firstName:firstName, lastName:lastName, email:email}
+            data: {firstName:firstName, lastName:lastName, email:email, passwordHash:passwordHash}
         });
     }
 
@@ -104,7 +105,7 @@ app.service('UserCRUDService',['$http', function ($http) {
         })
     }
 
-    this.updateUser = function updateUser(id,name,email){
+    this.updateUser = function updateUser(id, firstName, lastName, email){
         return $http({
             method: 'PATCH',
             url: 'pa165/rest/users/'+id,

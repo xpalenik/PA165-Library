@@ -50,8 +50,8 @@ public class UserController extends AbstractController {
     }
 
     @PostMapping(value = "/users")
-    public long addUser(@RequestParam UserDTO user, @RequestParam String password) {
-        return userFacade.addUser(user,password);
+    public long addUser(@RequestBody UserDTO user) {
+        return userFacade.addUser(user,user.getPasswordHash());
     }
 
     @DeleteMapping("/users/{id}")

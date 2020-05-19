@@ -17,8 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 /**
  * @author Petr Janik 485122
  * @since 29.03.2020

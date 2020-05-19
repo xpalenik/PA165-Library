@@ -1,12 +1,12 @@
 package cz.muni.fi.pa165.library.controllers;
 
-import cz.muni.fi.pa165.library.entities.SingleLoan;
-import cz.muni.fi.pa165.library.services.SingleLoanService;
+import cz.muni.fi.pa165.library.dto.BookDTO;
+import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
+import cz.muni.fi.pa165.library.dto.UserDTO;
+import cz.muni.fi.pa165.library.facade.LoanFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,24 +19,46 @@ import java.util.List;
 @Transactional
 public class SingleLoanController extends AbstractController {
 
-    private SingleLoanService singleLoanService;
+    @Autowired
+    private LoanFacade loanFacade;
 
-    public SingleLoanController(SingleLoanService singleLoanService) {
-        this.singleLoanService = singleLoanService;
+    @PostMapping(value = "/loans")
+    public long borrowBook(@RequestBody SingleLoanDTO singleLoanInfo){
+        return loanFacade.borrowBook(singleLoanInfo);
     }
 
-    @GetMapping("/loans")
-    public List<SingleLoan> allSingleLoans() {
-        return singleLoanService.findAll();
+    @PutMapping(value = "/loans/{id}")
+    public void returnBook(@PathVariable long id, @RequestBody SingleLoanDTO returnInfo) {
+        loanFacade.returnBook(returnInfo);
     }
 
-    @GetMapping("/loans/count")
+    @GetMapping(value = "/loans/{userDto}")
+    public List<SingleLoanDTO> getLoansForUser(@PathVariable UserDTO userDto) {
+        return loanFacade.getLoansForUser(userDto);
+    }
+
+    @GetMapping(value = "/loans/{bookDto}")
+    public List<SingleLoanDTO> getLoansForBook(@PathVariable BookDTO bookDto) {
+        return loanFacade.getLoansForBook(bookDto);
+    }
+
+    @GetMapping(value = "/loans")
+    public List<SingleLoanDTO> getAllSingleLoans() {
+        return loanFacade.getAllSingleLoans();
+    }
+
+    @GetMapping(value = "/loans/{id}")
+    public SingleLoanDTO getSingleLoanById(@PathVariable long id) {
+        return loanFacade.getSingleLoanById(id);
+    }
+
+    @GetMapping(value = "/loans/count")
     public Long count() {
-        return singleLoanService.count();
+        return loanFacade.count();
     }
 
     @DeleteMapping("/loans/{id}")
-    public void delete(@PathVariable long id) {
-        singleLoanService.deleteById(id);
+    public void deleteById(@PathVariable long loanId) {
+        loanFacade.deleteById(loanId);
     }
 }

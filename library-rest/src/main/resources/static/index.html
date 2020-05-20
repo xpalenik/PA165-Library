@@ -49,12 +49,20 @@
             <td width="100">Returned condition:</td>
             <td><input type="text" id="returnCondition" ng-model="loan.returnCondition" /></td>
         </tr>
+        <tr>
+            <td width="100">Loaned book ID:</td>
+            <td><input type="text" id="book_id" ng-model="loan.book_id" /></td>
+        </tr>
+        <tr>
+            <td width="100">Loaned user ID:</td>
+            <td><input type="text" id="user_id" ng-model="loan.user_id" /></td>
+        </tr>
     </table>
 
     <br />
 
     <a ng-click="getLoan(loan.id)">Get Loan info</a>
-    <a ng-click="addLoan(loan.registeredAt, loan.returnedAt, loan.returnCondition)">Add Loan</a>
+    <a ng-click="addLoan(loan.book_id, loan.user_id, loan.registeredAt, loan.returnedAt, loan.returnCondition)">Add Loan</a>
     <a ng-click="deleteLoan(loan.id)">Delete Loan</a>
     <a ng-click="getAllLoans()">Get all Loans</a>
 

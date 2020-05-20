@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Petr Janik 485122
  * @since 09.03.2020
  */
-@RequestMapping("/pa165/rest")
+@RequestMapping("/rest")
 public abstract class AbstractController {
 }

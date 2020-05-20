@@ -239,3 +239,31 @@ app.service('BookService',['$http', function ($http) {
             });
     }
 }]);
+
+app.controller('LoanController',  ['$scope','LoanService', function ($scope,LoanService) {
+
+    $scope.getAllLoans = function () {
+        LoanService.getAllLoans()
+            .then(function success(response){
+                    $scope.loans = response.data;
+                    $scope.message = '';
+                    $scope.errorMessage = '';
+                },
+                function error (response ){
+                    $scope.message='';
+                    $scope.errorMessage = 'Error getting loans!';
+                });
+    }
+
+}]);
+
+app.service('LoanService',['$http', function ($http) {
+
+    this.getAllLoans = function getAllLoans(){
+        return $http({
+            method: 'GET',
+            url: 'pa165/rest/loans'
+        });
+    }
+
+}]);

@@ -5,7 +5,7 @@
     <title>User CRUD</title>
     <script
             src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="app.js"></script>
     <style>
         a {
             cursor: pointer;
@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<header ng-include="'views/header.html'"></header>
+<header ng-include="'header.html'"></header>
 <main ng-view></main>
 
 
@@ -41,22 +41,25 @@
             <td><input type="text" id="password" ng-model="user.password" /></td>
         </tr>
     </table>
-    <br /> <br />
+    <br />
+
     <a ng-click="getUser(user.id)">Get User</a>
     <a ng-click="updateUser(user.id, user.firstName, user.lastName, user.email)">Update User</a>
     <a ng-click="addUser(user.firstName, user.lastName, user.email, user.password)">Add User</a>
     <a ng-click="deleteUser(user.id)">Delete User</a>
 
-    <br /> <br />
     <p style="color: green">{{message}}</p>
     <p style="color: red">{{errorMessage}}</p>
 
-    <br />
-    <br />
     <a ng-click="getAllUsers()">Get all Users</a><br />
-    <br /> <br />
+    <br />
+
     <div ng-repeat="usr in users">
-        {{usr.name}} {{usr.email}}
+        {{usr.id}} <br />
+        {{usr.firstName}} <br />
+        {{usr.lastName}} <br />
+        {{usr.email}}
+        <br /><br />
     </div>
 </div>
 </body>

@@ -298,6 +298,24 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
         }
     };
 
+    $scope.addLoan = function () {
+        if ($scope.loan != null && $scope.loan.book_id && $scope.loan.user_id && $scope.loan.registeredAt) {
+            LoanService.addLoan($scope.loan.book_id, $scope.loan.user_id, $scope.loan.registeredAt, $scope.loan.returnedAt, $scope.loan.returnCondition)
+                .then (function success(response){
+                        $scope.message = 'Loan added!';
+                        $scope.errorMessage = '';
+                    },
+                    function error(response){
+                        $scope.errorMessage = 'Error adding loan!';
+                        $scope.message = '';
+                    });
+        }
+        else {
+            $scope.errorMessage = 'Please enter Borrowed at, Loaned book ID and Loaned user ID';
+            $scope.message = '';
+        }
+    }
+
 }]);
 
 app.service('LoanService',['$http', function ($http) {
@@ -321,6 +339,21 @@ app.service('LoanService',['$http', function ($http) {
             method: 'DELETE',
             url: 'rest/delete/loan/'+id
         })
+    }
+
+    this.addLoan = function addLoan(book_id, user_id, registeredAt, returnedAt, returnCondition){
+
+        var book = {id:id};
+        book.id = book_id;
+
+        var user = {id:id};
+        user.id = user_id;
+
+        return $http({
+            method: 'POST',
+            url: 'rest/loans',
+            data: {book:book, user:user, registeredAt:registeredAt, returnedAt:returnedAt, returnCondition:returnCondition}
+        });
     }
 
 }]);

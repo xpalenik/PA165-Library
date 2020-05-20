@@ -15,12 +15,10 @@ public class SingleLoan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

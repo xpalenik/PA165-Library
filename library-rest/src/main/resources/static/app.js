@@ -298,6 +298,24 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
         }
     };
 
+    $scope.addLoan = function () {
+        if ($scope.loan != null && $scope.loan.registeredAt) {
+            LoanService.addLoan($scope.loan.registeredAt, $scope.loan.returnedAt, $scope.loan.returnCondition)
+                .then (function success(response){
+                        $scope.message = 'Loan added!';
+                        $scope.errorMessage = '';
+                    },
+                    function error(response){
+                        $scope.errorMessage = 'Error adding loan!';
+                        $scope.message = '';
+                    });
+        }
+        else {
+            $scope.errorMessage = 'Please enter Borrowed at';
+            $scope.message = '';
+        }
+    }
+
 }]);
 
 app.service('LoanService',['$http', function ($http) {
@@ -321,6 +339,14 @@ app.service('LoanService',['$http', function ($http) {
             method: 'DELETE',
             url: 'rest/delete/loan/'+id
         })
+    }
+
+    this.addLoan = function addLoan(registeredAt, returnedAt, returnCondition){
+        return $http({
+            method: 'POST',
+            url: 'rest/loans',
+            data: {registeredAt:registeredAt, returnedAt:returnedAt, returnCondition:returnCondition}
+        });
     }
 
 }]);

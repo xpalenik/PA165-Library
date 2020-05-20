@@ -27,17 +27,17 @@ public class SingleLoanController extends AbstractController {
         return loanFacade.borrowBook(singleLoanInfo);
     }
 
-    @PutMapping(value = "/loans/{id}")
+    @PutMapping(value = "/loan_update/{id}")
     public void returnBook(@PathVariable long id, @RequestBody SingleLoanDTO returnInfo) {
         loanFacade.returnBook(returnInfo);
     }
 
-    @GetMapping(value = "/loans/{userDto}")
+    @GetMapping(value = "/loansByUser/{userDto}")
     public List<SingleLoanDTO> getLoansForUser(@PathVariable UserDTO userDto) {
         return loanFacade.getLoansForUser(userDto);
     }
 
-    @GetMapping(value = "/loans/{bookDto}")
+    @GetMapping(value = "/loansByBook/{bookDto}")
     public List<SingleLoanDTO> getLoansForBook(@PathVariable BookDTO bookDto) {
         return loanFacade.getLoansForBook(bookDto);
     }
@@ -47,17 +47,17 @@ public class SingleLoanController extends AbstractController {
         return loanFacade.getAllSingleLoans();
     }
 
-    @GetMapping(value = "/loans/{id}")
+    @GetMapping(value = "/loan_id/{id}")
     public SingleLoanDTO getSingleLoanById(@PathVariable long id) {
         return loanFacade.getSingleLoanById(id);
     }
 
-    @GetMapping(value = "/loans/count")
+    @GetMapping(value = "/loans_count")
     public Long count() {
         return loanFacade.count();
     }
 
-    @DeleteMapping("/loans/{id}")
+    @DeleteMapping("/delete/loan/{id}")
     public void deleteById(@PathVariable long loanId) {
         loanFacade.deleteById(loanId);
     }

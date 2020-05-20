@@ -81,6 +81,86 @@ app.controller('UserCRUDCtrl', ['$scope','UserCRUDService', function ($scope,Use
 
 }]);
 
+app.controller('BookController',  ['$scope','BookService', function ($scope,BookService) {
+    $scope.getBook = function () {
+            var id = $scope.book.id;
+            BookService.getBook($scope.book.id)
+                .then(function success(response){
+                        $scope.book = response.data;
+                        $scope.book.id = id;
+                        $scope.message='';
+                        $scope.errorMessage = '';
+                    },
+                    function error (response ){
+                        $scope.message = '';
+                        if (response.status === 404){
+                            $scope.errorMessage = 'Book not found!';
+                        }
+                        else {
+                            $scope.errorMessage = "Error getting book!";
+                        }
+                    });
+    }
+
+    $scope.addBook = function () {
+            if ($scope.book != null && $scope.book.title && $scope.book.author) {
+                BookService.addBook($scope.book.title, $scope.book.author)
+                    .then (function success(response){
+                            $scope.message = 'Book added!';
+                            $scope.errorMessage = '';
+                        },
+                        function error(response){
+                            $scope.errorMessage = 'Error adding book!';
+                            $scope.message = '';
+                        });
+            }
+            else {
+                $scope.errorMessage = 'Please enter title and author!';
+                $scope.message = '';
+            }
+    }
+
+    $scope.deleteBook = function () {
+            BookService.deleteBook($scope.book.id)
+                .then (function success(response){
+                        $scope.message = 'Book deleted!';
+                        $scope.book = null;
+                        $scope.errorMessage='';
+                    },
+                    function error(response){
+                        $scope.errorMessage = 'Error deleting book!';
+                        $scope.message='';
+                    })
+    }
+
+    $scope.getAllBooks = function () {
+            BookService.getAllBooks()
+                .then(function success(response){
+                        $scope.books = response.data;
+                        $scope.message = '';
+                        $scope.errorMessage = '';
+                    },
+                    function error (response ){
+                        $scope.message='';
+                        $scope.errorMessage = 'Error getting books!';
+                    });
+    }
+
+    $scope.findByAuthor = function () {
+            BookService.findByAuthor($scope.book.author)
+                .then(function success(response){
+                    $scope.books = response.data;
+                    $scope.message = $scope.books;
+                    $scope.errorMessage = '';
+                },
+                function error(response){
+                    $scope.message = '';
+                    $scope.errorMessage = 'Error getting books!';
+                });
+
+    }
+}]);
+
 app.service('UserCRUDService',['$http', function ($http) {
 
     this.getUser = function getUser(userId){
@@ -120,4 +200,42 @@ app.service('UserCRUDService',['$http', function ($http) {
         });
     }
 
+}]);
+
+app.service('BookService',['$http', function ($http) {
+    this.getBook = function getBook(bookId){
+            return $http({
+                method: 'GET',
+                url: 'pa165/rest/book_id/'+bookId
+            });
+    }
+
+    this.addBook = function addBook(title, author){
+            return $http({
+                method: 'POST',
+                url: 'pa165/rest/books',
+                data: {title:title, author:author}
+            });
+    }
+
+    this.deleteBook = function deleteBook(id){
+            return $http({
+                method: 'DELETE',
+                url: 'pa165/rest/delete/book/'+id
+            })
+    }
+
+    this.getAllBooks = function getAllBooks(){
+            return $http({
+                method: 'GET',
+                url: 'pa165/rest/books'
+            });
+    }
+
+    this.findByAuthor = function findByAuthor(author) {
+            return $http({
+                method: 'GET',
+                url: 'pa165/rest/books_author/'+author
+            });
+    }
 }]);

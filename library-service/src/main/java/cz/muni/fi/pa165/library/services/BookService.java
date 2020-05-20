@@ -64,4 +64,11 @@ public class BookService {
         LOGGER.info("Finding all books containing {} as an author.", author);
         return bookRepository.findAll().stream().filter(b -> b.getAuthor().contains(author)).collect(Collectors.toList());
     }
+
+    public Book findById(long id) {
+        if (id < 0) {
+            throw new IllegalArgumentException("ID can not be less than 0.");
+        }
+        return bookRepository.findById(id).get();
+    }
 }

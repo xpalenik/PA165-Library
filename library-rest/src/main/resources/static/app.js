@@ -166,14 +166,14 @@ app.service('UserCRUDService',['$http', function ($http) {
     this.getUser = function getUser(userId){
         return $http({
             method: 'GET',
-            url: 'pa165/rest/user_id/'+userId
+            url: 'rest/user_id/'+userId
         });
     }
 
     this.addUser = function addUser(firstName, lastName, email, passwordHash){
         return $http({
             method: 'POST',
-            url: 'pa165/rest/users',
+            url: 'rest/users',
             data: {firstName:firstName, lastName:lastName, email:email, passwordHash:passwordHash}
         });
     }
@@ -181,14 +181,14 @@ app.service('UserCRUDService',['$http', function ($http) {
     this.deleteUser = function deleteUser(id){
         return $http({
             method: 'DELETE',
-            url: 'pa165/rest/delete/user/'+id
+            url: 'rest/delete/user/'+id
         })
     }
 
     this.updateUser = function updateUser(id, firstName, lastName, email){
         return $http({
             method: 'PATCH',
-            url: 'pa165/rest/user_id/'+id,
+            url: 'rest/user_id/'+id,
             data: {firstName:firstName, lastName:lastName, email:email}
         })
     }
@@ -196,7 +196,7 @@ app.service('UserCRUDService',['$http', function ($http) {
     this.getAllUsers = function getAllUsers(){
         return $http({
             method: 'GET',
-            url: 'pa165/rest/users'
+            url: 'rest/users'
         });
     }
 
@@ -206,14 +206,14 @@ app.service('BookService',['$http', function ($http) {
     this.getBook = function getBook(bookId){
             return $http({
                 method: 'GET',
-                url: 'pa165/rest/book_id/'+bookId
+                url: 'rest/book_id/'+bookId
             });
     }
 
     this.addBook = function addBook(title, author){
             return $http({
                 method: 'POST',
-                url: 'pa165/rest/books',
+                url: 'rest/books',
                 data: {title:title, author:author}
             });
     }
@@ -221,21 +221,21 @@ app.service('BookService',['$http', function ($http) {
     this.deleteBook = function deleteBook(id){
             return $http({
                 method: 'DELETE',
-                url: 'pa165/rest/delete/book/'+id
+                url: 'rest/delete/book/'+id
             })
     }
 
     this.getAllBooks = function getAllBooks(){
             return $http({
                 method: 'GET',
-                url: 'pa165/rest/books'
+                url: 'rest/books'
             });
     }
 
     this.findByAuthor = function findByAuthor(author) {
             return $http({
                 method: 'GET',
-                url: 'pa165/rest/books_author/'+author
+                url: 'rest/books_author/'+author
             });
     }
 }]);
@@ -262,7 +262,7 @@ app.service('LoanService',['$http', function ($http) {
     this.getAllLoans = function getAllLoans(){
         return $http({
             method: 'GET',
-            url: 'pa165/rest/loans'
+            url: 'rest/loans'
         });
     }
 

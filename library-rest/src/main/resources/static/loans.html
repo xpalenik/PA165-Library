@@ -33,10 +33,12 @@
     <br />
 
     <div ng-repeat="loan in loans">
-        {{loan.id}} <br />
-        {{loan.registeredAt}} <br />
-        {{loan.returnedAt}} <br />
-        {{loan}} <br />
+        Id: {{loan.id}} <br />
+        Borrowed book: {{loan.book}} <br />
+        Borrowed to user: {{loan.user}} <br />
+        Borrowed at: {{loan.registeredAt}} <br />
+        Returned at: {{loan.returnedAt}} <br />
+        Return condition: {{loan.returnCondition}} <br />
         <br /><br />
     </div>
 </div>

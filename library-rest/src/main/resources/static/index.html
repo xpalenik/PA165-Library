@@ -18,47 +18,48 @@
 <main ng-view></main>
 
 
-<div ng-controller="UserCRUDCtrl">
+<div ng-controller="LoanController">
     <table>
         <tr>
-            <td width="100">ID:</td>
-            <td><input type="text" id="id" ng-model="user.id" /></td>
+            <td width="100">Loan ID:</td>
+            <td><input type="text" id="id" ng-model="loan.id" /></td>
+            <td></td>
         </tr>
         <tr>
-            <td width="100">First name:</td>
-            <td><input type="text" id="firstName" ng-model="user.firstName" /></td>
+            <td width="100">Borrowed at:</td>
+            <td><input type="text" id="registeredAt" ng-model="loan.registeredAt" /></td>
         </tr>
         <tr>
-            <td width="100">Last name:</td>
-            <td><input type="text" id="lastName" ng-model="user.lastName" /></td>
+            <td width="100">Borrowed to:</td>
+            <td><input type="text" id="user_firstName" ng-model="loan.user.firstName" /></td>
+            <td><input type="text" id="user_lastName" ng-model="loan.user.lastName" /></td>
+            <td><input type="text" id="user_email" ng-model="loan.user.email" /></td>
         </tr>
         <tr>
-            <td width="100">Email:</td>
-            <td><input type="text" id="email" ng-model="user.email" /></td>
-        </tr>
-        <tr>
-            <td width="100">Password:</td>
-            <td><input type="text" id="password" ng-model="user.password" /></td>
+            <td width="100">Booked item:</td>
+            <td><input type="text" id="book_title" ng-model="loan.book.title" /></td>
+            <td style="text-align: center;">written by</td>
+            <td><input type="text" id="user_author" ng-model="loan.book.author" /></td>
         </tr>
     </table>
+
     <br />
 
-    <a ng-click="getUser(user.id)">Get User</a>
-    <a ng-click="updateUser(user.id, user.firstName, user.lastName, user.email)">Update User</a>
-    <a ng-click="addUser(user.firstName, user.lastName, user.email, user.password)">Add User</a>
-    <a ng-click="deleteUser(user.id)">Delete User</a>
+    <a ng-click="getLoan(loan.id)">Get Loan info</a>
+    <a ng-click="getAllLoans()">Get all Loans</a>
 
     <p style="color: green">{{message}}</p>
     <p style="color: red">{{errorMessage}}</p>
 
-    <a ng-click="getAllUsers()">Get all Users</a><br />
     <br />
 
-    <div ng-repeat="usr in users">
-        {{usr.id}} <br />
-        {{usr.firstName}} <br />
-        {{usr.lastName}} <br />
-        {{usr.email}}
+    <div ng-repeat="loan in loans">
+        Id: {{loan.id}} <br />
+        Borrowed book: {{loan.book}} <br />
+        Borrowed to user: {{loan.user}} <br />
+        Borrowed at: {{loan.registeredAt}} <br />
+        Returned at: {{loan.returnedAt}} <br />
+        Return condition: {{loan.returnCondition}} <br />
         <br /><br />
     </div>
 </div>

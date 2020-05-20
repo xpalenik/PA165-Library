@@ -255,6 +255,31 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
                 });
     }
 
+    $scope.getLoan = function () {
+        if ($scope.loan != null && $scope.loan.id) {
+            var id = $scope.loan.id;
+            LoanService.getLoan($scope.loan.id)
+                .then(function success(response) {
+                        $scope.loan = response.data;
+                        $scope.loan.id = id;
+                        $scope.message = '';
+                        $scope.errorMessage = '';
+                    },
+                    function error(response) {
+                        $scope.message = '';
+                        if (response.status === 404) {
+                            $scope.errorMessage = 'Loan not found!';
+                        } else {
+                            $scope.errorMessage = "Error getting loan!";
+                        }
+                    })
+        }
+        else {
+                $scope.errorMessage = 'Please enter loan id!';
+                $scope.message = '';
+        };
+    }
+
 }]);
 
 app.service('LoanService',['$http', function ($http) {
@@ -263,6 +288,13 @@ app.service('LoanService',['$http', function ($http) {
         return $http({
             method: 'GET',
             url: 'rest/loans'
+        });
+    }
+
+    this.getLoan = function getLoan(loanId){
+        return $http({
+            method: 'GET',
+            url: 'rest/loan_id/'+loanId
         });
     }
 

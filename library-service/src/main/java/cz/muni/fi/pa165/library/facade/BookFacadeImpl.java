@@ -57,4 +57,13 @@ public class BookFacadeImpl implements BookFacade {
         LOGGER.info("Finding all books containing {} as an author.", author);
         return mappingService.mapTo(bookService.findByAuthor(author), BookDTO.class);
     }
+
+    @Override
+    public BookDTO findById(long id) {
+        Book user = bookService.findById(id);
+        if (user != null) {
+            return mappingService.mapTo(user, BookDTO.class);
+        }
+        return null;
+    }
 }

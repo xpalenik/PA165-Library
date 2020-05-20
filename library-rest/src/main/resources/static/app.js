@@ -88,7 +88,7 @@ app.controller('BookController',  ['$scope','BookService', function ($scope,Book
                 .then(function success(response){
                         $scope.book = response.data;
                         $scope.book.id = id;
-                        $scope.message='';
+                        $scope.message = '';
                         $scope.errorMessage = '';
                     },
                     function error (response ){
@@ -150,7 +150,7 @@ app.controller('BookController',  ['$scope','BookService', function ($scope,Book
             BookService.findByAuthor($scope.book.author)
                 .then(function success(response){
                     $scope.books = response.data;
-                    $scope.message = $scope.books;
+                    $scope.message = response.data;
                     $scope.errorMessage = '';
                 },
                 function error(response){
@@ -159,6 +159,19 @@ app.controller('BookController',  ['$scope','BookService', function ($scope,Book
                 });
 
     }
+
+    $scope.findByTitle = function () {
+        BookService.findByTitle($scope.book.title)
+            .then(function success(response){
+                $scope.books = response.data;
+                $scope.message = response.data;
+                $scope.errorMessage = '';
+            },
+            function error(response){
+                $scope.message = '';
+                $scope.errorMessage = 'Error getting books!';
+            });
+     }
 }]);
 
 app.service('UserCRUDService',['$http', function ($http) {
@@ -236,6 +249,13 @@ app.service('BookService',['$http', function ($http) {
             return $http({
                 method: 'GET',
                 url: 'rest/books_author/'+author
+            });
+    }
+
+    this.findByTitle = function findByTitle(title) {
+            return $http({
+                method: 'GET',
+                url: 'rest/books_title/'+title
             });
     }
 }]);

@@ -255,6 +255,49 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
                 });
     }
 
+    $scope.getLoan = function () {
+        if ($scope.loan != null && $scope.loan.id) {
+            var id = $scope.loan.id;
+            LoanService.getLoan($scope.loan.id)
+                .then(function success(response) {
+                        $scope.loan = response.data;
+                        $scope.loan.id = id;
+                        $scope.message = '';
+                        $scope.errorMessage = '';
+                    },
+                    function error(response) {
+                        $scope.message = '';
+                        if (response.status === 404) {
+                            $scope.errorMessage = 'Loan not found!';
+                        } else {
+                            $scope.errorMessage = "Error getting loan!";
+                        }
+                    })
+        }
+        else {
+                $scope.errorMessage = 'Please enter loan id!';
+                $scope.message = '';
+        };
+    }
+
+    $scope.deleteLoan = function () {
+        if ($scope.loan != null && $scope.loan.id) {
+            LoanService.deleteLoan($scope.loan.id)
+                .then(function success(response) {
+                        $scope.message = 'Loan deleted!';
+                        $scope.loan = null;
+                        $scope.errorMessage = '';
+                    },
+                    function error(response) {
+                        $scope.errorMessage = 'Error deleting loan!';
+                        $scope.message = '';
+                    })
+        } else {
+            $scope.errorMessage = 'Please enter loan id!';
+            $scope.message = '';
+        }
+    };
+
 }]);
 
 app.service('LoanService',['$http', function ($http) {
@@ -264,6 +307,20 @@ app.service('LoanService',['$http', function ($http) {
             method: 'GET',
             url: 'rest/loans'
         });
+    }
+
+    this.getLoan = function getLoan(loanId){
+        return $http({
+            method: 'GET',
+            url: 'rest/loan_id/'+loanId
+        });
+    }
+
+    this.deleteLoan = function deleteLoan(id){
+        return $http({
+            method: 'DELETE',
+            url: 'rest/delete/loan/'+id
+        })
     }
 
 }]);

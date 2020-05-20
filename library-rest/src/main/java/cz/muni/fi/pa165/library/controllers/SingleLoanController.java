@@ -58,7 +58,7 @@ public class SingleLoanController extends AbstractController {
     }
 
     @DeleteMapping("/delete/loan/{id}")
-    public void deleteById(@PathVariable long loanId) {
-        loanFacade.deleteById(loanId);
+    public void deleteById(@PathVariable long id) {
+        loanFacade.deleteById(id);
     }
 }

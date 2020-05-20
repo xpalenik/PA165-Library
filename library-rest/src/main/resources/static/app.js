@@ -280,6 +280,24 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
         };
     }
 
+    $scope.deleteLoan = function () {
+        if ($scope.loan != null && $scope.loan.id) {
+            LoanService.deleteLoan($scope.loan.id)
+                .then(function success(response) {
+                        $scope.message = 'Loan deleted!';
+                        $scope.loan = null;
+                        $scope.errorMessage = '';
+                    },
+                    function error(response) {
+                        $scope.errorMessage = 'Error deleting loan!';
+                        $scope.message = '';
+                    })
+        } else {
+            $scope.errorMessage = 'Please enter loan id!';
+            $scope.message = '';
+        }
+    };
+
 }]);
 
 app.service('LoanService',['$http', function ($http) {
@@ -296,6 +314,13 @@ app.service('LoanService',['$http', function ($http) {
             method: 'GET',
             url: 'rest/loan_id/'+loanId
         });
+    }
+
+    this.deleteLoan = function deleteLoan(id){
+        return $http({
+            method: 'DELETE',
+            url: 'rest/delete/loan/'+id
+        })
     }
 
 }]);

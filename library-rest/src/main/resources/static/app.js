@@ -331,7 +331,7 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
                     });
         }
         else {
-            $scope.errorMessage = 'Please enter Borrowed at, Loaned book ID and Loaned user ID';
+            $scope.errorMessage = 'Please enter Book ID, User ID and date of loan.';
             $scope.message = '';
         }
     }
@@ -363,11 +363,8 @@ app.service('LoanService',['$http', function ($http) {
 
     this.addLoan = function addLoan(book_id, user_id, registeredAt, returnedAt, returnCondition){
 
-        var book = {id:id};
-        book.id = book_id;
-
-        var user = {id:id};
-        user.id = user_id;
+        var book = {id:book_id};
+        var user = {id:user_id};
 
         return $http({
             method: 'POST',

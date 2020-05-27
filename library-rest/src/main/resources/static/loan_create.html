@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>User CRUD</title>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+            background-color: lightblue;
+        }
+    </style>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="fonts/linearicons/style.css">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- DATE-PICKER -->
+    <link rel="stylesheet" href="vendor/date-picker/css/datepicker.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header ng-include="'header.html'"></header>
+<main ng-view></main>
+<div class="wrapper">
+    <div class="inner" ng-controller="LoanController">
+        <form action="">
+            <h3>Create a loan</h3>
+            <div class="form-row">
+                <div class="form-wrapper">
+                    <label for="">Book ID *</label>
+                    <input type="text" class="form-control" placeholder="Book ID" id="book_id" ng-model="loan.book_id">
+                </div>
+                <div class="form-wrapper">
+                    <label for="">User ID *</label>
+                    <input type="text" class="form-control" placeholder="User ID" id="user_id" ng-model="loan.user_id">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-wrapper">
+                    <label for="">Borrowed at *</label>
+                    <input type="text" class="form-control" placeholder="Borrowed at" id="registeredAt" ng-model="loan.registeredAt" />
+                </div>
+            </div>
+
+            <button type="button" data-text="Add loan" ng-click="addLoan(loan.book_id, loan.user_id, loan.registeredAt, loan.returnedAt, loan.returnCondition)">
+                <span>Add loan</span>
+            </button>
+
+            <br/>
+
+            <p style="color: green; font-size: 15px;">{{message}}</p>
+            <p style="color: red; font-size: 15px;">{{errorMessage}}</p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -43,8 +43,7 @@
     <a ng-click="getBook(book.id)">Get Book</a>
 
     <br /> <br />
-    Insert title and author of book you wanna store and click
-    <a ng-click="addBook(book.title, book.author)">Add Book</a>
+    <li><a href="book_create.html">Add book</a></li>
 
     <br /> <br />
     Insert ID of book you wanna delete and click
@@ -59,13 +58,8 @@
     <a ng-click="findByAuthor(book.author)">Find Book By Author</a>
 
     <br /> <br />
-    To show all users click
-    <a ng-click="getAllBooks()">Get all Books</a><br />
+    <li><a href="book_list_all.html">Get all Books</a></li>
 
-    <br /> <br />
-    <div ng-repeat="book in books">
-        #{{book.id}} {{book.author}}: {{book.title}}
-    </div>
 </div>
 </body>
 </html>

@@ -33,27 +33,36 @@
 <main ng-view></main>
 <div class="wrapper">
     <div class="inner" ng-controller="LoanController">
-        <form action="">
+        <form name="create_loan_form" action="" novalidate>
             <h3>Create a loan</h3>
             <div class="form-row">
                 <div class="form-wrapper">
                     <label for="">Book ID *</label>
-                    <input type="text" class="form-control" placeholder="Book ID" id="book_id" ng-model="loan.book_id">
+                    <input type="text" class="form-control" placeholder="Book ID" ng-required="true" name="book_id" id="book_id" ng-model="loan.book_id">
+                    <div ng-show="create_loan_form.book_id.$touched && create_loan_form.book_id.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid book ID</small>
+                    </div>
                 </div>
                 <div class="form-wrapper">
                     <label for="">User ID *</label>
-                    <input type="text" class="form-control" placeholder="User ID" id="user_id" ng-model="loan.user_id">
+                    <input type="text" class="form-control" placeholder="User ID" ng-required="true" name="user_id" id="user_id" ng-model="loan.user_id">
+                    <div ng-show="create_loan_form.user_id.$touched && create_loan_form.user_id.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid user ID</small>
+                    </div>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-wrapper">
                     <label for="">Borrowed at *</label>
-                    <input type="text" class="form-control" placeholder="Borrowed at" id="registeredAt" ng-model="loan.registeredAt" />
+                    <input type="text" class="form-control" placeholder="Borrowed at" ng-required="true" name="registeredAt" id="registeredAt" ng-model="loan.registeredAt" />
+                    <div ng-show="create_loan_form.registeredAt.$touched && create_loan_form.registeredAt.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid date of loan</small>
+                    </div>
                 </div>
             </div>
 
-            <button type="button" data-text="Add loan" ng-click="addLoan(loan.book_id, loan.user_id, loan.registeredAt, loan.returnedAt, loan.returnCondition)">
+            <button type="button" data-text="Add loan" ng-click="addLoan(loan.book_id, loan.user_id, loan.registeredAt, loan.returnedAt, loan.returnCondition)" ng-disabled="create_loan_form.$invalid">
                 <span>Add loan</span>
             </button>
 

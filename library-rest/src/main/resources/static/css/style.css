@@ -237,3 +237,12 @@ button {
         margin-right: 0; } }
 
 /*# sourceMappingURL=style.css.map */
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
+  border: 2px solid red;
+}
+
+button[disabled="disabled"]{
+  opacity: 0.4;
+  cursor: not-allowed !important;
+}

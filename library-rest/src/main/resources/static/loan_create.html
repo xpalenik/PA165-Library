@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="app_angularjs_datetime_picker">
 <head>
     <meta charset="utf-8">
     <title>User CRUD</title>
@@ -21,11 +21,13 @@
     <!-- MATERIAL DESIGN ICONIC FONT -->
     <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
-    <!-- DATE-PICKER -->
-    <link rel="stylesheet" href="vendor/date-picker/css/datepicker.min.css">
-
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Datepicker from https://github.com/kineticsocial/angularjs-datetime-picker -->
+    <link rel="stylesheet" href="angularjs-datetime-picker/angularjs-datetime-picker.css" />
+    <script src="angularjs-datetime-picker/angularjs-datetime-picker.js"></script>
+
 </head>
 
 <body>
@@ -53,9 +55,10 @@
             </div>
 
             <div class="form-row">
-                <div class="form-wrapper">
+                <div class="form-wrapper" >
                     <label for="">Borrowed at *</label>
-                    <input type="text" class="form-control" placeholder="Borrowed at" ng-required="true" name="registeredAt" id="registeredAt" ng-model="loan.registeredAt" />
+                    <span class="lnr lnr-calendar-full"></span>
+                    <input datetime-picker date-only date-format="yyyy-MM-dd" class="form-control datepicker-here" ng-model="loan.registeredAt" ng-required="true" placeholder="Borrowed at" name="registeredAt" id="registeredAt" ng-init="loan.registeredAt = '2020-06-09'"/>
                     <div ng-show="create_loan_form.registeredAt.$touched && create_loan_form.registeredAt.$invalid">
                         <small style="color:red; display: block; text-align: center;">Enter a valid date of loan</small>
                     </div>

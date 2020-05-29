@@ -366,6 +366,14 @@ app.service('LoanService',['$http', function ($http) {
         var book = {id:book_id};
         var user = {id:user_id};
 
+        registeredAt+='T00:00:00';
+        /* Note: we used LocalDateTime heavily at many places throughout the project. It might have been better to
+        use DateTime (or even better an Instant) instead. However, at this point it would require large refactoring
+        that might introduce unpredictable behaviour. Hence, I have decided to KISS it and append 'T00:00:00'.
+        I am aware library functions exist, but they as well might introduce bugs and have a steep learning curve.
+        At this time I am not aware of any simple solution that avoids large (read dangerous) refactoring.
+        */
+
         return $http({
             method: 'POST',
             url: 'rest/loans',
@@ -374,3 +382,5 @@ app.service('LoanService',['$http', function ($http) {
     }
 
 }]);
+
+var app_angularjs_datetime_picker = angular.module('app_angularjs_datetime_picker',['app', 'angularjs-datetime-picker']);

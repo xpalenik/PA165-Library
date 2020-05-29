@@ -58,7 +58,7 @@
                 <div class="form-wrapper" >
                     <label for="">Borrowed at *</label>
                     <span class="lnr lnr-calendar-full"></span>
-                    <input datetime-picker date-only date-format="yyyy-MM-dd" class="form-control datepicker-here" ng-model="loan.registeredAt" ng-required="true" placeholder="Borrowed at" name="registeredAt" id="registeredAt" ng-init="loan.registeredAt = '2020-06-09'"/>
+                    <input datetime-picker date-only type="date" date-format="yyyy-MM-dd" class="form-control datepicker-here" ng-model="loan.registeredAt" ng-required="true" placeholder="Borrowed at" name="registeredAt" id="registeredAt" ng-init="loan.registeredAt = '2020-06-09'"/>
                     <div ng-show="create_loan_form.registeredAt.$touched && create_loan_form.registeredAt.$invalid">
                         <small style="color:red; display: block; text-align: center;">Enter a valid date of loan</small>
                     </div>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>Create book</title>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+            background-color: lightblue;
+        }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="fonts/linearicons/style.css">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- DATE-PICKER -->
+    <link rel="stylesheet" href="vendor/date-picker/css/datepicker.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header ng-include="'header.html'"></header>
+<main ng-view></main>
+<div class="wrapper">
+    <div class="inner" ng-controller="BookController">
+        <form name="create_book_form" action="" novalidate>
+            <h3>Add a book</h3>
+            <div class="form-row">
+                <div class="form-wrapper">
+                    <label for="">Title</label>
+                    <input type="text" class="form-control" placeholder="Title" ng-required="true" name="title" id="title" ng-model="book.title">
+                    <div ng-show="create_book_form.title.$touched && create_book_form.title.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid title</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-wrapper">
+                    <label for="">Author</label>
+                    <input type="text" class="form-control" placeholder="Author" ng-required="true" name="author" id="author" ng-model="book.author" />
+                    <div ng-show="create_book_form.author.$touched && create_book_form.author.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid author</small>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" data-text="Add book" ng-click="addBook(book.title, book.author)" ng-disabled="create_book_form.$invalid">
+                <span>Add book</span>
+            </button>
+
+            <br/>
+
+            <p style="color: green; font-size: 15px;">{{message}}</p>
+            <p style="color: red; font-size: 15px;">{{errorMessage}}</p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

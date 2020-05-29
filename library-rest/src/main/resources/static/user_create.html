@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>Create user</title>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+            background-color: lightblue;
+        }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="fonts/linearicons/style.css">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- DATE-PICKER -->
+    <link rel="stylesheet" href="vendor/date-picker/css/datepicker.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header ng-include="'header.html'"></header>
+<main ng-view></main>
+<div class="wrapper">
+    <div class="inner" ng-controller="UserCRUDCtrl">
+        <form name="create_user_form" action="" novalidate>
+            <h3>Add a user</h3>
+            <div class="form-row">
+                <div class="form-wrapper">
+                    <label for="">First Name</label>
+                    <input type="text" class="form-control" placeholder="First Name" ng-required="true" name="firstName" id="firstName" ng-model="user.firstName">
+                    <div ng-show="create_user_form.firstName.$touched && create_user_form.firstName.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid first name</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-wrapper">
+                    <label for="">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last Name" ng-required="true" name="lastName" id="lastName" ng-model="user.lastName">
+                    <div ng-show="create_user_form.lastName.$touched && create_user_form.lastName.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid last name</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-wrapper">
+                    <label for="">Email</label>
+                    <input type="text" class="form-control" placeholder="Email" ng-required="true" name="email" id="email" ng-model="user.email">
+                    <div ng-show="create_user_form.email.$touched && create_user_form.email.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid email</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-wrapper">
+                    <label for="">Password</label>
+                    <input type="text" class="form-control" placeholder="Password" ng-required="true" name="password" id="password" ng-model="user.password">
+                    <div ng-show="create_user_form.password.$touched && create_user_form.password.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid email</small>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" data-text="Add user" ng-click="addUser(user.firstName, user.lastName, user.email, user.password)" ng-disabled="create_user_form.$invalid">
+                <span>Add user</span>
+            </button>
+
+            <br/>
+
+            <p style="color: green; font-size: 15px;">{{message}}</p>
+            <p style="color: red; font-size: 15px;">{{errorMessage}}</p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

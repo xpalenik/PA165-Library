@@ -59,6 +59,7 @@ app.controller('UserCRUDCtrl', ['$scope','UserCRUDService', function ($scope,Use
                     $scope.message = 'User deleted!';
                     $scope.user = null;
                     $scope.errorMessage='';
+                    $scope.delete_user_form.$setUntouched();
                 },
                 function error(response){
                     $scope.errorMessage = 'Error deleting user!';
@@ -126,6 +127,7 @@ app.controller('BookController',  ['$scope','BookService', function ($scope,Book
                         $scope.message = 'Book deleted!';
                         $scope.book = null;
                         $scope.errorMessage='';
+                        $scope.delete_book_form.$setUntouched();
                     },
                     function error(response){
                         $scope.errorMessage = 'Error deleting book!';

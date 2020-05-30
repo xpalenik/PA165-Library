@@ -2,7 +2,7 @@
 <html ng-app="app">
 <head>
     <meta charset="utf-8">
-    <title>Loan delete</title>
+    <title>Book delete</title>
     <script
             src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
     <script src="app.js"></script>
@@ -30,21 +30,21 @@
 <header ng-include="'header.html'"></header>
 <main ng-view></main>
 <div class="wrapper">
-    <div class="inner" ng-controller="LoanController">
-        <form name="delete_loan_form" action="" novalidate>
+    <div class="inner" ng-controller="BookController">
+        <form name="delete_book_form" action="" novalidate>
             <h3>Delete a loan</h3>
             <div class="form-row last">
                 <div class="form-wrapper">
-                    <label for="">Loan ID *</label>
-                    <input type="text" class="form-control" placeholder="Loan ID" ng-required="true" name="loan_id" id="loan_id" ng-model="loan.id">
-                    <div ng-show="delete_loan_form.loan_id.$touched && delete_loan_form.loan_id.$invalid">
-                        <small style="color:red; display: block; text-align: center;">Enter a valid loan ID</small>
+                    <label for="">Book ID *</label>
+                    <input type="text" class="form-control" placeholder="Book ID" ng-required="true" name="book_id" id="book_id" ng-model="book.id">
+                    <div ng-show="delete_book_form.book_id.$touched && delete_book_form.book_id.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid book ID not associated with any existing loan</small>
                     </div>
                 </div>
             </div>
 
-            <button type="button" data-text="Delete loan" ng-click="deleteLoan(loan.id)" ng-disabled="delete_loan_form.$invalid">
-                <span>Delete loan</span>
+            <button type="button" data-text="Delete book" ng-click="deleteBook(book.id)" ng-disabled="delete_book_form.$invalid">
+                <span>Delete book</span>
             </button>
 
             <br/>

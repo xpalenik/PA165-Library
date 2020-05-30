@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>User CRUD</title>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+            background-color: lightblue;
+        }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="fonts/linearicons/style.css">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- TABLE STYLE -->
+    <!-- it is a modified style, original at https://www.w3schools.com/w3css/4/w3.css -->
+    <style>
+        .w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;width:auto;display:table}.w3-table-all{border:1px solid #ccc}
+        .w3-bordered tr,.w3-table-all tr{border-bottom:1px solid #ddd}.w3-striped tbody tr:nth-child(even){background-color:#f1f1f1}
+        .w3-table-all tr:nth-child(odd){background-color:#fff}.w3-table-all tr:nth-child(even){background-color:#f1f1f1}
+        .w3-hoverable tbody tr:hover,.w3-ul.w3-hoverable li:hover{background-color:#ccc}.w3-centered tr th,.w3-centered tr td{text-align:center}
+        .w3-table td,.w3-table th,.w3-table-all td,.w3-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+        .w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{padding-left:16px}
+
+        .w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#2196F3!important}
+    </style>
+</head>
+
+<body>
+<header ng-include="'header.html'"></header>
+<main ng-view></main>
+<div class="wrapper">
+    <div class="" ng-controller="LoanController">
+        <form name="info_loan_form" action="" novalidate>
+            <h3>Get loan info</h3>
+            <div class="form-row last">
+                <div class="form-wrapper">
+                    <label for="">Loan ID *</label>
+                    <input type="text" class="form-control" placeholder="Loan ID" ng-required="true" name="loan_id" id="loan_id" ng-model="loan.id">
+                    <div ng-show="info_loan_form.loan_id.$touched && info_loan_form.loan_id.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid loan ID</small>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" data-text="Get loan info" ng-click="getLoan(loan.id)" ng-disabled="info_loan_form.$invalid">
+                <span>Get loan info</span>
+            </button>
+
+            <br/>
+
+            <table class="w3-table-all">
+                <tr>
+                    <td class="w3-blue">Loan ID</td><td>{{loan.id}}</td>
+                </tr>
+                <tr>
+                    <td class="w3-blue">Loaned at</td><td>{{loan.registeredAt}}</td>
+                </tr>
+                <tr>
+                    <td class="w3-blue">Returned at</td><td>{{loan.returnedAt}}</td>
+                </tr>
+                <tr>
+                    <td class="w3-blue">Return condition</td><td>{{loan.returnCondition}}</td>
+                </tr>
+            </table>
+
+            <br/>
+
+            <h2>Loaned to</h2>
+
+            <table class="w3-table-all">
+                <tr>
+                    <td class="w3-blue">First name</td><td>{{loan.user.firstName}}</td>
+                </tr>
+                <tr>
+                    <td class="w3-blue">Last name</td><td>{{loan.user.lastName}}</td>
+                </tr>
+                <tr>
+                    <td class="w3-blue">Email</td><td>{{loan.user.email}}</td>
+                </tr>
+                <tr>
+                    <td class="w3-blue">ID</td><td>{{loan.user.id}}</td>
+                </tr>
+            </table>
+
+            <br/>
+
+            <h2>Loaned book</h2>
+
+            <table class="w3-table-all">
+                <tr>
+                    <td class="w3-blue">Title</td><td>{{loan.book.title}}</td>
+                </tr>
+                <tr>
+                    <td class="w3-blue">Author</td><td>{{loan.book.author}}</td>
+                </tr>
+                <tr>
+                    <td class="w3-blue">ID</td><td>{{loan.book.id}}</td>
+                </tr>
+            </table>
+
+            <p style="color: green; font-size: 15px;">{{message}}</p>
+            <p style="color: red; font-size: 15px;">{{errorMessage}}</p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="app_angularjs_datetime_picker">
 <head>
     <meta charset="utf-8">
     <title>User CRUD</title>
@@ -12,74 +12,30 @@
             background-color: lightblue;
         }
     </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="fonts/linearicons/style.css">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Datepicker from https://github.com/kineticsocial/angularjs-datetime-picker -->
+    <link rel="stylesheet" href="angularjs-datetime-picker/angularjs-datetime-picker.css" />
+    <script src="angularjs-datetime-picker/angularjs-datetime-picker.js"></script>
+
 </head>
+
 <body>
 <header ng-include="'header.html'"></header>
 <main ng-view></main>
 
 
-<div ng-controller="LoanController">
-    <table>
-        <tr>
-            <td width="100">Loan ID:</td>
-            <td><input type="text" id="id" ng-model="loan.id" /></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td width="100">Borrowed at:</td>
-            <td><input type="text" id="registeredAt" ng-model="loan.registeredAt" /></td>
-        </tr>
-        <tr>
-            <td width="100">Borrowed to:</td>
-            <td><input type="text" id="user_firstName" ng-model="loan.user.firstName" /></td>
-            <td><input type="text" id="user_lastName" ng-model="loan.user.lastName" /></td>
-            <td><input type="text" id="user_email" ng-model="loan.user.email" /></td>
-        </tr>
-        <tr>
-            <td width="100">Booked item:</td>
-            <td><input type="text" id="book_title" ng-model="loan.book.title" /></td>
-            <td style="text-align: center;">written by</td>
-            <td><input type="text" id="user_author" ng-model="loan.book.author" /></td>
-        </tr>
-        <tr>
-            <td width="100">Returned at:</td>
-            <td><input type="text" id="returnedAt" ng-model="loan.returnedAt" /></td>
-        </tr>
-        <tr>
-            <td width="100">Returned condition:</td>
-            <td><input type="text" id="returnCondition" ng-model="loan.returnCondition" /></td>
-        </tr>
-        <tr>
-            <td width="100">Loaned book ID:</td>
-            <td><input type="text" id="book_id" ng-model="loan.book_id" /></td>
-        </tr>
-        <tr>
-            <td width="100">Loaned user ID:</td>
-            <td><input type="text" id="user_id" ng-model="loan.user_id" /></td>
-        </tr>
-    </table>
 
-    <br />
-
-    <a ng-click="getLoan(loan.id)">Get Loan info</a>
-    <a ng-click="addLoan(loan.book_id, loan.user_id, loan.registeredAt, loan.returnedAt, loan.returnCondition)">Add Loan</a>
-    <a ng-click="deleteLoan(loan.id)">Delete Loan</a>
-    <a ng-click="getAllLoans()">Get all Loans</a>
-
-    <p style="color: green">{{message}}</p>
-    <p style="color: red">{{errorMessage}}</p>
-
-    <br />
-
-    <div ng-repeat="loan in loans">
-        Id: {{loan.id}} <br />
-        Borrowed book: {{loan.book}} <br />
-        Borrowed to user: {{loan.user}} <br />
-        Borrowed at: {{loan.registeredAt}} <br />
-        Returned at: {{loan.returnedAt}} <br />
-        Return condition: {{loan.returnCondition}} <br />
-        <br /><br />
-    </div>
-</div>
+<h1>Welcome to library admin</h1>
 </body>
 </html>

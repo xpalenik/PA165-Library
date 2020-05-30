@@ -307,6 +307,7 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
                         $scope.message = 'Loan deleted!';
                         $scope.loan = null;
                         $scope.errorMessage = '';
+                        $scope.delete_loan_form.$setUntouched();
                     },
                     function error(response) {
                         $scope.errorMessage = 'Error deleting loan!';

@@ -6,9 +6,9 @@ import cz.muni.fi.pa165.library.services.BookService;
 import cz.muni.fi.pa165.library.services.MappingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 /**
@@ -20,13 +20,11 @@ import java.util.List;
 public class BookFacadeImpl implements BookFacade {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookFacadeImpl.class);
 
-    private final MappingService mappingService;
-    private final BookService bookService;
+    @Autowired
+    private MappingService mappingService;
 
-    public BookFacadeImpl(MappingService mappingService, BookService bookService) {
-        this.mappingService = mappingService;
-        this.bookService = bookService;
-    }
+    @Autowired
+    private BookService bookService;
 
     @Override
     public long createBook(BookDTO book) {

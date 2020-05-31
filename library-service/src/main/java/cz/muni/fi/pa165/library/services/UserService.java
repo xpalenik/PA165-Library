@@ -26,19 +26,6 @@ public class UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
-    public UserService() {
-
-    }
-
-    /**
-     * class constructor
-     *
-     * @param userRepository UserDAO
-     */
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     /**
      * method is looking for specific User by id
      *

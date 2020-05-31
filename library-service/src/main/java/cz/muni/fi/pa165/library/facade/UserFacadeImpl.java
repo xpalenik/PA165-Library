@@ -25,11 +25,6 @@ public class UserFacadeImpl implements UserFacade {
     @Autowired
     private MappingService mappingService;
 
-    public UserFacadeImpl(MappingService mappingService, UserService userService) {
-        this.mappingService = mappingService;
-        this.userService = userService;
-    }
-
     @Override
     public UserDTO findById(long id) {
         User user = userService.findById(id);

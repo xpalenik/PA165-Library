@@ -11,7 +11,6 @@ import cz.muni.fi.pa165.library.services.SingleLoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -23,15 +22,10 @@ import java.util.Optional;
 public class LoanFacadeImpl implements LoanFacade{
 
     @Autowired
-    private final MappingService mappingService;
+    private MappingService mappingService;
 
     @Autowired
-    private final SingleLoanService singleLoanService;
-
-    public LoanFacadeImpl(MappingService mappingService, SingleLoanService singleLoanService) {
-        this.mappingService = mappingService;
-        this.singleLoanService = singleLoanService;
-    }
+    private SingleLoanService singleLoanService;
 
     @Override
     public long borrowBook(SingleLoanDTO singleLoanInfo) {

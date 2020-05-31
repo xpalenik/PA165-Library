@@ -66,10 +66,10 @@
                     <td class="w3-blue">Loan ID</td><td>{{loan.id}}</td>
                 </tr>
                 <tr>
-                    <td class="w3-blue">Loaned at</td><td>{{loan.registeredAt}}</td>
+                    <td class="w3-blue">Loaned at</td><td>{{loan.registeredAt | date:'d. M. yyyy'}}</td>
                 </tr>
                 <tr>
-                    <td class="w3-blue">Returned at</td><td>{{loan.returnedAt}}</td>
+                    <td class="w3-blue">Returned at</td><td>{{loan.returnedAt | date:'d. M. yyyy'}}</td>
                 </tr>
                 <tr>
                     <td class="w3-blue">Return condition</td><td>{{loan.returnCondition}}</td>

@@ -4,8 +4,8 @@ import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.repositories.SingleLoanRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +21,8 @@ import java.util.Optional;
 @Service
 public class SingleLoanService {
 
+    @Autowired
     private SingleLoanRepository singleLoanRepository;
-
-    /**
-     * Constructor.
-     * injects repository class
-     * @param singleLoanRepository (required)
-     */
-    public SingleLoanService(SingleLoanRepository singleLoanRepository) {
-        this.singleLoanRepository = singleLoanRepository;
-    }
 
     /**
      * Returns loan if exists, search also loans

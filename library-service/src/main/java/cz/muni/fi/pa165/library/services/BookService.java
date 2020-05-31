@@ -4,9 +4,9 @@ import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.repositories.BookRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,11 +20,8 @@ import java.util.stream.Collectors;
 public class BookService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookService.class);
 
+    @Autowired
     private BookRepository bookRepository;
-
-    public BookService(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     public long createBook(Book book) {
         LOGGER.info("Creating book {}.", book);

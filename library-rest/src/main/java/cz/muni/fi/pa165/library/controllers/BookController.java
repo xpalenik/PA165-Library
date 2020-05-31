@@ -4,9 +4,9 @@ import cz.muni.fi.pa165.library.dto.BookDTO;
 import cz.muni.fi.pa165.library.facade.BookFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -15,11 +15,8 @@ public class BookController extends AbstractController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 
-    private final BookFacade bookFacade;
-
-    public BookController(BookFacade bookFacade) {
-        this.bookFacade = bookFacade;
-    }
+    @Autowired
+    private BookFacade bookFacade;
 
     @PostMapping(value = "/books")
     public long createBook(@RequestBody BookDTO book) {

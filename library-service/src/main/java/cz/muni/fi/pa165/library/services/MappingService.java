@@ -3,8 +3,8 @@ package cz.muni.fi.pa165.library.services;
 import com.github.dozermapper.core.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,12 +18,8 @@ public class MappingService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MappingService.class);
 
-    private final Mapper dozer;
-
-
-    public MappingService(Mapper dozer) {
-        this.dozer = dozer;
-    }
+    @Autowired
+    private Mapper dozer;
 
     public <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
         List<T> mappedCollection = new ArrayList<>();

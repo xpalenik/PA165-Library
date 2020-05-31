@@ -1,28 +1,22 @@
 package cz.muni.fi.pa165.library.facade;
 
 import cz.muni.fi.pa165.library.dto.BookDTO;
-import cz.muni.fi.pa165.library.dto.LoanDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
-
 import java.util.List;
 
 /** @author Martin Páleník 359817 */
 public interface LoanFacade {
 
-    public long borrowBook(SingleLoanDTO singleLoanInfo);
-    public void returnBook(SingleLoanDTO returnInfo);
-
-    // TODO implement these 2 only if time permits (low priority)
-    // public List<Long> borrowBooks(LoanDTO loans);
-    // public void returnBooks(LoanDTO loans);
+    long borrowBook(SingleLoanDTO singleLoanInfo);
+    void returnBook(SingleLoanDTO returnInfo);
 
     /**
      * For the given user return all his loans (current or past).
      * Answers "what a member borrowed and when".
      * @return list of loans for the given user
      */
-    public List<SingleLoanDTO> getLoansForUser(UserDTO userDto);
+    List<SingleLoanDTO> getLoansForUser(UserDTO userDto);
 
     /**
      * For the given book return all its loans (current or past).
@@ -30,10 +24,10 @@ public interface LoanFacade {
      * Answers "what condition they returned the book in".
      * @return list of loans for the given book
      */
-    public List<SingleLoanDTO> getLoansForBook(BookDTO bookDto);
+    List<SingleLoanDTO> getLoansForBook(BookDTO bookDto);
 
-    public List<SingleLoanDTO> getAllSingleLoans();
-    public SingleLoanDTO getSingleLoanById(long id);
-    public Long count();
-    public void deleteById(long loanId);
+    List<SingleLoanDTO> getAllSingleLoans();
+    SingleLoanDTO getSingleLoanById(long id);
+    Long count();
+    void deleteById(long loanId);
 }

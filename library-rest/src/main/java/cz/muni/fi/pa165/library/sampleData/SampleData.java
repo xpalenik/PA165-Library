@@ -38,6 +38,7 @@ public class SampleData {
     private User user1 = new User("Katarina", "Hermanova", "kHermano@mail.com", true);
     private User user2 = new User("Martin", "Palenik", "mPalenik@mail.com", true);
     private User user3 = new User("New", "User", "onlyUser@mail.com", false);
+    private User user4 = new User("New", "Admin", "admin@mail.com", true);
 
     public void loadData() {
         bookService.createBook(book1);
@@ -50,6 +51,7 @@ public class SampleData {
         userService.addUser(user1, "kHermanoPass");
         userService.addUser(user2, "mPalenikPass");
         userService.addUser(user3, "onlyUserPass");
+        userService.addUser(user4, "admin");
 
         singleLoanService.createSingleLoan(new SingleLoan(book1, user2, LocalDateTime.now()));
         singleLoanService.createSingleLoan(new SingleLoan(book2, user2, LocalDateTime.now()));

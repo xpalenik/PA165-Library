@@ -339,6 +339,25 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
         }
     }
 
+    $scope.returnBook = function () {
+        if ($scope.loan != null && $scope.loan.id && $scope.loan.returnCondition) {
+            LoanService.returnBook($scope.loan.id, $scope.loan.returnCondition)
+                .then (function success(response){
+                        $scope.message = 'Book returned!';
+                        $scope.errorMessage = '';
+                        $scope.return_book_form.$setUntouched();
+                    },
+                    function error(response){
+                        $scope.errorMessage = 'Error returning book!';
+                        $scope.message = '';
+                    });
+        }
+        else {
+            $scope.errorMessage = 'Please enter Loan ID and condition of the book.';
+            $scope.message = '';
+        }
+    }
+
 }]);
 
 app.service('LoanService',['$http', function ($http) {
@@ -381,6 +400,14 @@ app.service('LoanService',['$http', function ($http) {
             method: 'POST',
             url: 'rest/loans',
             data: {book:book, user:user, registeredAt:registeredAt, returnedAt:returnedAt, returnCondition:returnCondition}
+        });
+    }
+
+    this.returnBook = function returnBook(loan_id, returnCondition){
+        return $http({
+            method: 'PUT',
+            url: 'rest/loan_update/'+loan_id,
+            data: {returnedAt:'2020-06-09T00:00:00.000', returnCondition:returnCondition}
         });
     }
 

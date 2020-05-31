@@ -29,6 +29,7 @@ public class SingleLoanController extends AbstractController {
 
     @PutMapping(value = "/loan_update/{id}")
     public void returnBook(@PathVariable long id, @RequestBody SingleLoanDTO returnInfo) {
+        returnInfo.setId(id);
         loanFacade.returnBook(returnInfo);
     }
 

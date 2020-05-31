@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>Return book</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="app.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="fonts/linearicons/style.css">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header ng-include="'header.html'"></header>
+<main ng-view></main>
+<div class="wrapper">
+    <div class="inner" ng-controller="LoanController">
+        <form name="return_book_form" action="" novalidate>
+            <h3>Return a book</h3>
+
+            <div class="form-row last">
+                <div class="form-wrapper">
+                    <label for="">Loan ID *</label>
+                    <input type="text" class="form-control" placeholder="Loan ID" ng-required="true" name="loan_id" id="loan_id" ng-model="loan.id">
+                    <div ng-show="return_book_form.loan_id.$touched && return_book_form.loan_id.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid loan ID</small>
+                    </div>
+                </div>
+                <div class="form-wrapper">
+                    <label for="">Return condition *</label>
+                    <input type="text" class="form-control" placeholder="Return condition" ng-required="true" name="return_condition" id="return_condition" ng-model="loan.returnCondition">
+                    <div ng-show="return_book_form.return_condition.$touched && return_book_form.return_condition.$invalid">
+                        <small style="color:red; display: block; text-align: center;">Enter a valid return condition</small>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" data-text="Return book" ng-click="returnBook(loan.id, loan.returnCondition)" ng-disabled="return_book_form.$invalid">
+                <span>Return book</span>
+            </button>
+
+            <br/>
+
+            <p style="color: green; font-size: 15px;">{{message}}</p>
+            <p style="color: red; font-size: 15px;">{{errorMessage}}</p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

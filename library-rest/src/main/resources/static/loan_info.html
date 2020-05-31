@@ -41,8 +41,8 @@
 <body>
 <header ng-include="'header.html'"></header>
 <main ng-view></main>
-<div class="wrapper">
-    <div class="" ng-controller="LoanController">
+<div class="wrapper" style="background: darkgrey; height: 1000px;">
+    <div class="inner" ng-controller="LoanController" style="top: 47%;">
         <form name="info_loan_form" action="" novalidate>
             <h3>Get loan info</h3>
             <div class="form-row last">
@@ -58,6 +58,9 @@
             <button type="button" data-text="Get loan info" ng-click="getLoan(loan.id)" ng-disabled="info_loan_form.$invalid">
                 <span>Get loan info</span>
             </button>
+
+            <p style="color: green; font-size: 15px;">{{message}}</p>
+            <p style="color: red; font-size: 15px;">{{errorMessage}}</p>
 
             <br/>
 
@@ -111,8 +114,6 @@
                 </tr>
             </table>
 
-            <p style="color: green; font-size: 15px;">{{message}}</p>
-            <p style="color: red; font-size: 15px;">{{errorMessage}}</p>
         </form>
     </div>
 </div>

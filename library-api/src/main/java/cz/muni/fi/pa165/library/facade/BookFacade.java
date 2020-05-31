@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.library.facade;
 
 import cz.muni.fi.pa165.library.dto.BookDTO;
-
 import java.util.List;
 
 /**

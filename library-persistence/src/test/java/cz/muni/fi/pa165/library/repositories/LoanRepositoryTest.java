@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 

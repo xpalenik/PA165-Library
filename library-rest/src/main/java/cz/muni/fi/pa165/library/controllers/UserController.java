@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.library.controllers;
 import cz.muni.fi.pa165.library.dto.UserDTO;
 import cz.muni.fi.pa165.library.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import java.util.List;
  * Github katHermanova
  */
 @RestController
-@Transactional
 public class UserController extends AbstractController {
 
     @Autowired

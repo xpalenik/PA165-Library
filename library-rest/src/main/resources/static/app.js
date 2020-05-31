@@ -286,6 +286,7 @@ app.controller('LoanController',  ['$scope','LoanService', function ($scope,Loan
                         $scope.loan.id = id;
                         $scope.message = '';
                         $scope.errorMessage = '';
+                        $scope.info_loan_form.$setUntouched();
                     },
                     function error(response) {
                         $scope.message = '';

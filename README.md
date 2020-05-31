@@ -10,6 +10,7 @@ To start the web application use following commands:
 - `mvn spring-boot:run`
 - in your browser go to "http://localhost:8080/pa165"
 - to log in use email and password one of the added librarian:
+        - 'admin@mail.com', password: 'admin'
         - 'kHermano@mail.com', password: 'kHermanoPass'
         - 'mPalenik@mail.com', password: 'mPalenikPass'
         

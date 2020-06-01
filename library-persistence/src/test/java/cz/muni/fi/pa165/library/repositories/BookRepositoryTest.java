@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -30,12 +29,10 @@ public class BookRepositoryTest {
 
         bookRepository.save(book1);
 
-        Book foundBook = bookRepository.findAll().get(0);
-        long foundCount = bookRepository.count();
-
+        Assert.assertNotNull(book1.getId());
         Assert.assertTrue(bookRepository.existsById(book1.getId()));
-        Assert.assertEquals(1, foundCount);
-        Assert.assertEquals(book1, foundBook);
+        Assert.assertEquals(1, bookRepository.count());
+        Assert.assertEquals(Arrays.asList(book1), bookRepository.findAll());
     }
 
     @Test
@@ -46,11 +43,10 @@ public class BookRepositoryTest {
         bookRepository.save(book1);
         bookRepository.save(book2);
 
-        long foundCount = bookRepository.count();
-        List<Book> foundBooks = bookRepository.findAll();
-
-        Assert.assertEquals(2, foundCount);
-        Assert.assertEquals(foundBooks, Arrays.asList(book1, book2));
+        Assert.assertNotNull(book1.getId());
+        Assert.assertNotNull(book2.getId());
+        Assert.assertEquals(2, bookRepository.count());
+        Assert.assertEquals(Arrays.asList(book1, book2), bookRepository.findAll());
     }
 
     @Test
@@ -60,11 +56,8 @@ public class BookRepositoryTest {
 
         bookRepository.saveAll(Arrays.asList(book1, book2));
 
-        long foundCount = bookRepository.count();
-        List<Book> foundBooks = bookRepository.findAll();
-
-        Assert.assertEquals(2, foundCount);
-        Assert.assertEquals(foundBooks, Arrays.asList(book1, book2));
+        Assert.assertEquals(2, bookRepository.count());
+        Assert.assertEquals(Arrays.asList(book1, book2), bookRepository.findAll());
     }
 
     @Test
@@ -84,11 +77,8 @@ public class BookRepositoryTest {
         bookRepository.saveAll(Arrays.asList(book1, book2));
         bookRepository.delete(book1);
 
-        long foundCount = bookRepository.count();
-        List<Book> foundBooks = bookRepository.findAll();
-
-        Assert.assertEquals(1, foundCount);
-        Assert.assertEquals(foundBooks, Arrays.asList(book2));
+        Assert.assertEquals(1, bookRepository.count());
+        Assert.assertEquals(Arrays.asList(book2), bookRepository.findAll());
     }
 
     @Test
@@ -97,13 +87,12 @@ public class BookRepositoryTest {
         Book book2 = new Book("1984", "George Orwell");
 
         bookRepository.saveAll(Arrays.asList(book1, book2));
+        Assert.assertEquals(2, bookRepository.count());
+
         bookRepository.deleteAll(Arrays.asList(book1));
 
-        long foundCount = bookRepository.count();
-        List<Book> foundBooks = bookRepository.findAll();
-
-        Assert.assertEquals(1, foundCount);
-        Assert.assertEquals(foundBooks, Arrays.asList(book2));
+        Assert.assertEquals(1, bookRepository.count());
+        Assert.assertEquals(Arrays.asList(book2), bookRepository.findAll());
     }
 
     @Test(expected = DataAccessException.class)

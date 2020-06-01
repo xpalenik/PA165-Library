@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
-import java.util.List;
-import static org.hamcrest.MatcherAssert.assertThat;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
- * @author Petr Janik 485122
+ * @author Petr Janik 485122 && Katarina Hermanova 433511
  * @since 29.03.2020
  */
 @RunWith(SpringRunner.class)
@@ -30,78 +31,97 @@ public class SingleLoanRepositoryTest {
     private SingleLoanRepository singleLoanRepository;
 
     @Test
-    public void createSingleLoan() {
-        SingleLoan singleLoan = new SingleLoan();
-
-        Book book = createTestBookAnimalFarm();
+    public void createSingleLoanAndDeletingIt() {
+        Book book = new Book("Animal farm", "George Orwell");
         entityManager.persist(book);
 
-        User user = createTestUserPeter();
+        User user = new User("Peter", "Griffin", "mail@mail.com", false);
+        user.setPasswordHash("password");
         entityManager.persist(user);
 
-        singleLoan.setBook(book);
-        singleLoan.setUser(user);
-        singleLoan.setRegisteredAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        SingleLoan singleLoan = new SingleLoan(book, user, LocalDateTime.of(2020, 1, 1, 12, 0));
+        singleLoanRepository.save(singleLoan);
 
-        entityManager.persist(singleLoan);
+        Assert.assertNotNull(singleLoan.getId());
+        Assert.assertTrue(singleLoanRepository.existsById(singleLoan.getId()));
+        Assert.assertEquals(Arrays.asList(singleLoan), singleLoanRepository.findAll());
+        Assert.assertEquals(1, singleLoanRepository.count());
 
-        List<SingleLoan> singleLoans = singleLoanRepository.findAll();
+        singleLoanRepository.delete(singleLoan);
 
-        assertThat(singleLoans, CoreMatchers.hasItems(singleLoan));
+        Assert.assertEquals(Arrays.asList(), singleLoanRepository.findAll());
     }
 
     @Test
-    public void multipleSingleLoansForUser() {
-        Book animalFarm = createTestBookAnimalFarm();
-        Book book1984 = createTestBook1984();
+    public void multipleSingleLoansForUserAndDeletingThem() {
+        Book animalFarm = new Book("Animal farm", "George Orwell");
+        Book book1984 = new Book("1984", "George Orwell");
         entityManager.persist(animalFarm);
         entityManager.persist(book1984);
 
-        User user = createTestUserPeter();
+        User user = new User("Peter", "Griffin", "mail@mail.com", false);
+        user.setPasswordHash("password");
         entityManager.persist(user);
 
-        SingleLoan singleLoan = new SingleLoan();
-        singleLoan.setBook(animalFarm);
-        singleLoan.setUser(user);
-        singleLoan.setRegisteredAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        SingleLoan singleLoan = new SingleLoan(animalFarm, user, LocalDateTime.of(2020, 1, 1, 12, 0));
+        SingleLoan secondLoan = new SingleLoan(book1984, user, LocalDateTime.of(2020, 1, 1, 12, 0));
         entityManager.persist(singleLoan);
-
-        SingleLoan secondLoan = new SingleLoan();
-        secondLoan.setBook(book1984);
-        secondLoan.setUser(user);
-        secondLoan.setRegisteredAt(LocalDateTime.of(2020, 1, 1, 12, 0));
         entityManager.persist(secondLoan);
 
-        List<SingleLoan> singleLoans = singleLoanRepository.findAll();
+        Assert.assertNotNull(singleLoan.getId());
+        Assert.assertNotNull(secondLoan.getId());
+        Assert.assertTrue(singleLoanRepository.existsById(singleLoan.getId()));
+        Assert.assertTrue(singleLoanRepository.existsById(secondLoan.getId()));
+        Assert.assertEquals(Arrays.asList(singleLoan, secondLoan), singleLoanRepository.findAll());
+        Assert.assertEquals(2, singleLoanRepository.count());
 
-        assertThat(singleLoans, CoreMatchers.hasItems(singleLoan, secondLoan));
+        singleLoanRepository.deleteAll();
+
+        Assert.assertEquals(Arrays.asList(), singleLoanRepository.findAll());
     }
 
     @Test(expected = DataAccessException.class)
-    public void saveNullThrowsDataAccessException(){
+    public void saveNull(){
         singleLoanRepository.save(null);
     }
 
-    private Book createTestBookAnimalFarm() {
-        Book book = new Book();
-        book.setAuthor("George Orwell");
-        book.setTitle("Animal farm");
-        return book;
+    @Test(expected = DataAccessException.class)
+    public void saveAllNull(){
+        singleLoanRepository.saveAll(null);
     }
 
-    private Book createTestBook1984() {
-        Book book = new Book();
-        book.setAuthor("George Orwell");
-        book.setTitle("1984");
-        return book;
+    @Test(expected = DataAccessException.class)
+    public void testDeleteNull() {
+        singleLoanRepository.delete(null);
     }
 
-    private User createTestUserPeter() {
-        User user = new User();
-        user.setFirstName("Peter");
-        user.setLastName("Griffin");
-        user.setEmail("mail@mail.com");
-        user.setPasswordHash("password");
-        return user;
+    @Test(expected = DataAccessException.class)
+    public void testDeleteAllNull() {
+        singleLoanRepository.deleteAll(null);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testDeleteByNonExistingId() {
+        singleLoanRepository.deleteById(Long.MAX_VALUE);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testFindByIdNull() {
+        singleLoanRepository.findById(null);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testDeleteByIdNull() {
+        singleLoanRepository.deleteById(null);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testExistsByIdNull() {
+        singleLoanRepository.existsById(null);
+    }
+
+    @Test
+    public void testFindByNonExistingId() {
+        Assert.assertEquals(Optional.empty(), singleLoanRepository.findById(Long.MAX_VALUE));
     }
 }

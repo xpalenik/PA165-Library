@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * @author Petr Janik 485122
@@ -66,5 +67,22 @@ public class Book {
 
     public void setSingleLoans(Collection<SingleLoan> singleLoans) {
         this.singleLoans = singleLoans;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (!(o instanceof Book))
+            return false;
+        Book other = (Book) o;
+        return title.equals(other.getTitle()) && author.equals(other.getAuthor());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author);
     }
 }

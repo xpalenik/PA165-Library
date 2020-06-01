@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import javax.persistence.EntityManager;
 
+//content of tests inspired from https://thorben-janssen.com/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class UserEqualsTest {

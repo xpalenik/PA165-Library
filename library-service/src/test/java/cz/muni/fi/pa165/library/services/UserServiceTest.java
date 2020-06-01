@@ -54,7 +54,12 @@ public class UserServiceTest {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
         User user2 = new User("K", "Her", "kHerm@mail.com", true);
 
-        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user));
+        Mockito.when(
+                userRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(user)
+        );
+
         userService.addUser(user2, "password");
     }
 
@@ -100,7 +105,11 @@ public class UserServiceTest {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
         String firstName = user.getFirstName();
 
-        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user));
+        Mockito.when(
+                userRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(user)
+        );
 
         Assert.assertEquals(Arrays.asList(user), userService.findByFirstName(firstName));
     }
@@ -111,7 +120,11 @@ public class UserServiceTest {
         User user2 = new User("Kat", "Her", "kHerm2@mail.com", true);
         String firstName = user.getFirstName();
 
-        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user, user2));
+        Mockito.when(
+                userRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(user, user2)
+        );
 
         Assert.assertEquals(Arrays.asList(user, user2), userService.findByFirstName(firstName));
     }
@@ -121,7 +134,11 @@ public class UserServiceTest {
         User user = new User("Kat", "Herman", "kHerm@mail.com", true);
         String lastName = user.getLastName();
 
-        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user));
+        Mockito.when(
+                userRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(user)
+        );
 
         Assert.assertEquals(Arrays.asList(user), userService.findByLastName(lastName));
     }
@@ -132,7 +149,11 @@ public class UserServiceTest {
         User user2 = new User("K", "Herman", "kHerm2@mail.com", true);
         String lastName = user.getLastName();
 
-        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user, user2));
+        Mockito.when(
+                userRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(user, user2)
+        );
 
         Assert.assertEquals(Arrays.asList(user, user2), userService.findByLastName(lastName));
     }
@@ -143,7 +164,11 @@ public class UserServiceTest {
         User user2 = new User("K", "Her", "kHerm2@mail.com", true);
         User user3 = new User("Another", "User", "anotUser@mail.com", false);
 
-        Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(user, user2, user3));
+        Mockito.when(
+                userRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(user, user2, user3)
+        );
 
         Assert.assertEquals(Arrays.asList(user, user2), userService.findAllLibrarians());
     }

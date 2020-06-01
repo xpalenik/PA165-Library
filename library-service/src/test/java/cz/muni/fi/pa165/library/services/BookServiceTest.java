@@ -30,7 +30,11 @@ public class BookServiceTest {
     public void testCreateBook() {
         Book book = new Book("Animal Farm", "George Orwell");
 
-        Mockito.when(bookRepository.save(book)).thenReturn(book);
+        Mockito.when(
+                bookRepository.save(book)
+        ).thenReturn(
+                 book
+        );
 
         Assert.assertNotNull(bookService.createBook(book));
     }
@@ -50,7 +54,11 @@ public class BookServiceTest {
         Book book = new Book("Animal Farm", "George Orwell");
         String author = book.getAuthor();
 
-        Mockito.when(bookRepository.findAll()).thenReturn(Arrays.asList(book));
+        Mockito.when(
+                bookRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(book)
+        );
 
         Assert.assertEquals(Arrays.asList(book), bookService.findByAuthor(author));
     }
@@ -61,7 +69,11 @@ public class BookServiceTest {
         Book book2 = new Book("Another Title", "George Orwell");
         String author = book.getAuthor();
 
-        Mockito.when(bookRepository.findAll()).thenReturn(Arrays.asList(book, book2));
+        Mockito.when(
+                bookRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(book, book2)
+        );
 
         Assert.assertEquals(Arrays.asList(book, book2), bookService.findByAuthor(author));
     }
@@ -71,7 +83,11 @@ public class BookServiceTest {
         Book book = new Book("Animal Farm", "George Orwell");
         String title = book.getTitle();
 
-        Mockito.when(bookRepository.findAll()).thenReturn(Arrays.asList(book));
+        Mockito.when(
+                bookRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(book)
+        );
 
         Assert.assertEquals(Arrays.asList(book), bookService.findByTitle(title));
     }
@@ -82,7 +98,11 @@ public class BookServiceTest {
         Book book2 = new Book("Animal Farm", "Another Author");
         String title = book.getTitle();
 
-        Mockito.when(bookRepository.findAll()).thenReturn(Arrays.asList(book, book2));
+        Mockito.when(
+                bookRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(book, book2)
+        );
 
         Assert.assertEquals(Arrays.asList(book, book2), bookService.findByTitle(title));
     }
@@ -92,7 +112,11 @@ public class BookServiceTest {
         Book book = new Book("Animal Farm", "George Orwell");
         Book book2 = new Book("Another Title", "Another Author");
 
-        Mockito.when(bookRepository.findAll()).thenReturn(Arrays.asList(book, book2));
+        Mockito.when(
+                bookRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(book, book2)
+        );
 
         Assert.assertEquals(Arrays.asList(book, book2), bookService.findAll());
     }
@@ -102,7 +126,11 @@ public class BookServiceTest {
         Book book = new Book("Animal Farm", "George Orwell");
         book.setId(1);
 
-        Mockito.when(bookRepository.findById(book.getId())).thenReturn(Optional.of(book));
+        Mockito.when(
+                bookRepository.findById(book.getId())
+        ).thenReturn(
+                Optional.of(book)
+        );
 
         Assert.assertEquals(book.getId(), bookService.deleteBook(book.getId()));
     }

@@ -82,7 +82,11 @@ public class SingleLoanServiceTest {
         long created_id = singleLoanService.createSingleLoan(singleLoan);
         Assert.assertNotNull(created_id);
 
-        Mockito.when(singleLoanRepository.findById(created_id)).thenReturn(Optional.of(singleLoan));
+        Mockito.when(
+                singleLoanRepository.findById(created_id)
+        ).thenReturn(
+                Optional.of(singleLoan)
+        );
 
         SingleLoan justSaved = singleLoanService.findById(created_id).get();
         Assert.assertEquals(justSaved, singleLoan);
@@ -110,7 +114,11 @@ public class SingleLoanServiceTest {
     public void testFindById() {
         setSingleLoan();
 
-        Mockito.when(singleLoanRepository.findById(singleLoan.getId())).thenReturn(Optional.of(singleLoan));
+        Mockito.when(
+                singleLoanRepository.findById(singleLoan.getId())
+        ).thenReturn(
+                Optional.of(singleLoan)
+        );
 
         Assert.assertEquals(Optional.of(singleLoan), singleLoanService.findById(singleLoan.getId()));
     }
@@ -119,7 +127,11 @@ public class SingleLoanServiceTest {
     public void testFindAll() {
         setTwoSingleLoans();
 
-        Mockito.when(singleLoanRepository.findAll()).thenReturn(Arrays.asList(singleLoan, singleLoan2));
+        Mockito.when(
+                singleLoanRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(singleLoan, singleLoan2)
+        );
 
         Assert.assertEquals(Arrays.asList(singleLoan, singleLoan2), singleLoanService.findAll());
     }
@@ -128,7 +140,11 @@ public class SingleLoanServiceTest {
     public void testGetLoansForUser() {
         setTwoSingleLoans();
 
-        Mockito.when(singleLoanRepository.findAll()).thenReturn(Arrays.asList(singleLoan, singleLoan2));
+        Mockito.when(
+                singleLoanRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(singleLoan, singleLoan2)
+        );
 
         Assert.assertEquals(Arrays.asList(singleLoan, singleLoan2), singleLoanService.getLoansForUser(user));
     }
@@ -148,7 +164,11 @@ public class SingleLoanServiceTest {
         singleLoan2.setReturnedAt(LocalDateTime.MAX);
         singleLoan2.setReturnCondition("damaged");
 
-        Mockito.when(singleLoanRepository.findAll()).thenReturn(Arrays.asList(singleLoan, singleLoan2));
+        Mockito.when(
+                singleLoanRepository.findAll()
+        ).thenReturn(
+                Arrays.asList(singleLoan, singleLoan2)
+        );
 
         Assert.assertEquals(Arrays.asList(singleLoan, singleLoan2), singleLoanService.getLoansForBook(book));
     }

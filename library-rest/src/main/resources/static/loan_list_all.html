@@ -47,8 +47,8 @@
                 <td>{{loan.book.title}}</td>
                 <td>{{loan.user.firstName}}&nbsp;{{loan.user.lastName}}</td>
                 <td>{{loan.registeredAt | date:'d. M. yyyy'}}</td>
-                <td>{{loan.returnedAt | date:'d. M. yyyy'}}</td>
-                <td>{{loan.returnCondition}}</td>
+                <td ng-init="loan.returnedAt ? loan.returnedAt = loan.returnedAt : loan.returnedAt ='not returned yet'">{{loan.returnedAt | date:'d. M. yyyy'}}</td>
+                <td ng-init="loan.returnCondition ? loan.returnCondition = loan.returnCondition : loan.returnCondition = '---'">{{loan.returnCondition}}</td>
             </tr>
         </table>
 

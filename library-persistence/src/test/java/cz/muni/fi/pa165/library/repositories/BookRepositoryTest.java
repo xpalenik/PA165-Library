@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Katarína Hermanová
@@ -23,25 +24,28 @@ public class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
 
-    private Book book1;
-    private Book book2;
-
     @Test
     public void testAddOneBook() {
-        setBook1();
+        Book book1 = new Book("Animal Farm", "George Orwell");
+
         bookRepository.save(book1);
+
         Book foundBook = bookRepository.findAll().get(0);
         long foundCount = bookRepository.count();
 
+        Assert.assertTrue(bookRepository.existsById(book1.getId()));
         Assert.assertEquals(1, foundCount);
         Assert.assertEquals(book1, foundBook);
     }
 
     @Test
     public void testAddingTwoBooks() {
-        setTwoBooks();
+        Book book1 = new Book("Animal Farm", "George Orwell");
+        Book book2 = new Book("1984", "George Orwell");
+
         bookRepository.save(book1);
         bookRepository.save(book2);
+
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
@@ -51,8 +55,11 @@ public class BookRepositoryTest {
 
     @Test
     public void testAddingTwoBooksInList() {
-        setTwoBooks();
+        Book book1 = new Book("Animal Farm", "George Orwell");
+        Book book2 = new Book("1984", "George Orwell");
+
         bookRepository.saveAll(Arrays.asList(book1, book2));
+
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
@@ -62,7 +69,7 @@ public class BookRepositoryTest {
 
     @Test
     public void testGetBookById() {
-        setBook1();
+        Book book1 = new Book("Animal Farm", "George Orwell");
         bookRepository.save(book1);
         long foundId = bookRepository.findById(book1.getId()).get().getId();
 
@@ -71,9 +78,12 @@ public class BookRepositoryTest {
 
     @Test
     public void testDeletingBook() {
-        setTwoBooks();
+        Book book1 = new Book("Animal Farm", "George Orwell");
+        Book book2 = new Book("1984", "George Orwell");
+
         bookRepository.saveAll(Arrays.asList(book1, book2));
         bookRepository.delete(book1);
+
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
@@ -83,9 +93,12 @@ public class BookRepositoryTest {
 
     @Test
     public void testDeletingBookInList() {
-        setTwoBooks();
+        Book book1 = new Book("Animal Farm", "George Orwell");
+        Book book2 = new Book("1984", "George Orwell");
+
         bookRepository.saveAll(Arrays.asList(book1, book2));
         bookRepository.deleteAll(Arrays.asList(book1));
+
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
@@ -94,20 +107,47 @@ public class BookRepositoryTest {
     }
 
     @Test(expected = DataAccessException.class)
-    public void saveNullThrowsDataAccessException(){
+    public void saveNull(){
         bookRepository.save(null);
     }
 
-    private void setBook1() {
-        book1 = new Book();
-        book1.setTitle("Animal Farm");
-        book1.setAuthor("George Orwell");
+    @Test(expected = DataAccessException.class)
+    public void saveAllNull(){
+        bookRepository.saveAll(null);
     }
 
-    private void setTwoBooks() {
-        setBook1();
-        book2 = new Book();
-        book2.setTitle("1984");
-        book2.setAuthor("George Orwell");
+    @Test(expected = DataAccessException.class)
+    public void testDeleteNull() {
+        bookRepository.delete(null);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testDeleteAllNull() {
+        bookRepository.deleteAll(null);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testDeleteByNonExistingId() {
+        bookRepository.deleteById(Long.MAX_VALUE);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testFindByIdNull() {
+        bookRepository.findById(null);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testDeleteByIdNull() {
+        bookRepository.deleteById(null);
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testExistsByIdNull() {
+        bookRepository.existsById(null);
+    }
+
+    @Test
+    public void testFindByNonExistingId() {
+        Assert.assertEquals(Optional.empty(), bookRepository.findById(Long.MAX_VALUE));
     }
 }

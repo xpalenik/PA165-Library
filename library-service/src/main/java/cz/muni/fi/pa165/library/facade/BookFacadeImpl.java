@@ -9,10 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Petr Janik 485122
+ * @author Petr Janik 485122 && Katarina Hermanova 433511
  * @since 06.04.2020
  */
 @Service
@@ -41,19 +43,43 @@ public class BookFacadeImpl implements BookFacade {
     @Override
     public List<BookDTO> findAllBooks() {
         LOGGER.info("Finding all books.");
-        return mappingService.mapTo(bookService.findAll(), BookDTO.class);
+        List<BookDTO> resultDto = new ArrayList<>();
+
+        for (Book result : bookService.findAll()) {
+            resultDto.add(
+                    mappingService.mapTo(result, BookDTO.class)
+            );
+        }
+
+        return resultDto;
     }
 
     @Override
     public List<BookDTO> findByTitle(String title) {
         LOGGER.info("Finding all books containing {} in title.", title);
-        return mappingService.mapTo(bookService.findByTitle(title), BookDTO.class);
+        List<BookDTO> resultDto = new ArrayList<>();
+
+        for (Book result : bookService.findByTitle(title)) {
+            resultDto.add(
+                    mappingService.mapTo(result, BookDTO.class)
+            );
+        }
+
+        return resultDto;
     }
 
     @Override
     public List<BookDTO> findByAuthor(String author) {
         LOGGER.info("Finding all books containing {} as an author.", author);
-        return mappingService.mapTo(bookService.findByAuthor(author), BookDTO.class);
+        List<BookDTO> resultDto = new ArrayList<>();
+
+        for (Book result : bookService.findByAuthor(author)) {
+            resultDto.add(
+                    mappingService.mapTo(result, BookDTO.class)
+            );
+        }
+
+        return resultDto;
     }
 
     @Override

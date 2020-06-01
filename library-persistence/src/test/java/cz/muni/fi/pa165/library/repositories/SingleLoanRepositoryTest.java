@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.library.repositories;
 import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
-import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

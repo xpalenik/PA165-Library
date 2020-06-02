@@ -9,12 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
-import javax.persistence.PersistenceException;
+import java.util.Arrays;
 import java.util.Optional;
-import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresentAndIs;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Martin Páleník 359817
@@ -33,46 +29,65 @@ public class UserRepositoryTest {
     @Test
     public void findById() {
         // given
-        User martin = createTestUserMartin();
-        entityManager.persist(martin);
+        User martin = new User("Martin", "Novak", "mail@mail.com", false);
+        martin.setPasswordHash("password");
+        userRepository.save(martin);
 
         // then
-        assertThat(userRepository.findById(martin.getId()), isPresentAndIs(martin));
+        Assert.assertNotNull(martin.getId());
+        Assert.assertTrue(userRepository.existsById(martin.getId()));
+        Assert.assertEquals(Optional.of(martin), userRepository.findById(martin.getId()));
     }
 
     @Test
     public void findAll() {
         // given
-        User martin = createTestUserMartin();
-        entityManager.persist(martin);
+        User martin = new User("Martin", "Novak", "mail@mail.com", false);
+        martin.setPasswordHash("password");
+        userRepository.save(martin);
 
-        User librarian = createTestUserBoris();
-        entityManager.persist(librarian);
+        User librarian = new User("Boris", "Chan", "boris@mail.com", true);
+        librarian.setPasswordHash("password");
+        userRepository.save(librarian);
 
-        assertThat(userRepository.findAll(), containsInAnyOrder(martin, librarian));
+        Assert.assertNotNull(martin.getId());
+        Assert.assertNotNull(librarian.getId());
+        Assert.assertEquals(2, userRepository.count());
+        Assert.assertEquals(Arrays.asList(martin, librarian), userRepository.findAll());
     }
 
     @Test
     public void deleteById() {
         // given
-        User martin = createTestUserMartin();
-        entityManager.persist(martin);
+        User martin = new User("Martin", "Novak", "mail@mail.com", false);
+        martin.setPasswordHash("password");
+        userRepository.save(martin);
 
-        User librarian = createTestUserBoris();
-        entityManager.persist(librarian);
+        User librarian = new User("Boris", "Chan", "boris@mail.com", true);
+        librarian.setPasswordHash("password");
+        userRepository.save(librarian);
+
+        Assert.assertNotNull(martin.getId());
+        Assert.assertNotNull(librarian.getId());
+        Assert.assertEquals(2, userRepository.count());
+        Assert.assertEquals(Arrays.asList(martin, librarian), userRepository.findAll());
 
         userRepository.deleteById(librarian.getId());
 
-        assertThat(userRepository.findAll(), containsInAnyOrder(martin));
+        Assert.assertEquals(1, userRepository.count());
+        Assert.assertEquals(Arrays.asList(martin), userRepository.findAll());
     }
 
-    @Test
+    @Test(expected = DataAccessException.class)
     public void testAddingUsersWithSameEmail() {
-        User martin = createTestUserMartin();
-        entityManager.persist(martin);
-        User boris = createTestUserBoris();
-        boris.setEmail(martin.getEmail());
-        assertThrows(PersistenceException.class, () -> entityManager.persist(boris));
+        User martin = new User("Martin", "Novak", "mail@mail.com", false);
+        martin.setPasswordHash("password");
+        userRepository.save(martin);
+
+        User boris = new User("Boris", "Chan", martin.getEmail(), true);
+        boris.setPasswordHash("password");
+
+        userRepository.save(boris);
     }
 
     @Test(expected = DataAccessException.class)
@@ -118,23 +133,5 @@ public class UserRepositoryTest {
     @Test
     public void testFindByNonExistingId() {
         Assert.assertEquals(Optional.empty(), userRepository.findById(Long.MAX_VALUE));
-    }
-
-    private User createTestUserMartin() {
-        User martin = new User();
-        martin.setFirstName("Martin");
-        martin.setLastName("Novak");
-        martin.setEmail("mail@mail.com");
-        martin.setPasswordHash("password");
-        return martin;
-    }
-
-    private User createTestUserBoris() {
-        User boris = new User();
-        boris.setFirstName("Boris");
-        boris.setLastName("Chan");
-        boris.setEmail("boris@mail.com");
-        boris.setPasswordHash("password");
-        return boris;
     }
 }

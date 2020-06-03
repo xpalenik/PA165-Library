@@ -10,6 +10,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.Arrays;
 
+/**
+ * @author Katarína Hermanová
+ * UČO 433511
+ * Github katHermanova
+ *
+ * custom implementation of loading user-specific data during authentication
+ */
 public class LibraryUserDetailsService implements UserDetailsService {
 
     @Autowired

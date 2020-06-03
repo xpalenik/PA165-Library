@@ -5,6 +5,8 @@ import java.util.Objects;
 /**
  * @author Petr Janik 485122
  * @since 06.04.2020
+ *
+ * Data transfer object
  */
 public class BookDTO {
     private long id;

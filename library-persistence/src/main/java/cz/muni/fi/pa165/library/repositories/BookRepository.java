@@ -8,8 +8,15 @@ import java.util.List;
 /**
  * @author Petr Janik 485122
  * @since 09.03.2020
+ *
+ * Data access object interface
  */
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
+
+    /**
+     *
+     * @return list of all existing books
+     */
     List<Book> findAll();
 }

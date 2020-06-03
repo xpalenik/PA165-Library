@@ -6,6 +6,8 @@ import java.util.Objects;
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
+ *
+ * Data transfer object
  */
 public class UserDTO {
     private long id;

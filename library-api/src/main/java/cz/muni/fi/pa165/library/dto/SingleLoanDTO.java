@@ -3,7 +3,10 @@ package cz.muni.fi.pa165.library.dto;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/** @author Martin Páleník 359817 */
+/** @author Martin Páleník 359817
+ *
+ * Data transfer object
+ * */
 public class SingleLoanDTO {
 
     private long id;

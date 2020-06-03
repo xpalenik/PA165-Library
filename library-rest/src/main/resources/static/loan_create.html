@@ -3,15 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>Create loan</title>
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
     <script src="app.js"></script>
-    <style>
-        a {
-            cursor: pointer;
-            background-color: lightblue;
-        }
-    </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -39,14 +32,14 @@
             <h3>Create a loan</h3>
             <div class="form-row">
                 <div class="form-wrapper">
-                    <label for="">Book ID *</label>
+                    <label for="">Book ID * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="book_list_all.html">Find</a></label>
                     <input type="text" class="form-control" placeholder="Book ID" ng-required="true" name="book_id" id="book_id" ng-model="loan.book_id">
                     <div ng-show="create_loan_form.book_id.$touched && create_loan_form.book_id.$invalid">
                         <small style="color:red; display: block; text-align: center;">Enter a valid book ID</small>
                     </div>
                 </div>
                 <div class="form-wrapper">
-                    <label for="">User ID *</label>
+                    <label for="">User ID * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="user_list_all.html">Find</a></label>
                     <input type="text" class="form-control" placeholder="User ID" ng-required="true" name="user_id" id="user_id" ng-model="loan.user_id">
                     <div ng-show="create_loan_form.user_id.$touched && create_loan_form.user_id.$invalid">
                         <small style="color:red; display: block; text-align: center;">Enter a valid user ID</small>

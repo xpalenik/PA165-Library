@@ -108,6 +108,15 @@ public class SingleLoanService {
         return bookLoans;
     }
 
+    /**
+     * Return a book for an existing loan.
+     * Records the provided time of return
+     * and conditon of the returned book.
+     * @param singleLoan
+     * @param returnedAt
+     * @param returnCondition
+     * @return id of the created loan
+     */
     public void returnBook(SingleLoan singleLoan, LocalDateTime returnedAt, String returnCondition){
         singleLoan.setReturnedAt(returnedAt);
         singleLoan.setReturnCondition(returnCondition);

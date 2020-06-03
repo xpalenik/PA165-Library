@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
+ *
+ * security configuration
  */
 @Configuration
 @EnableWebSecurity

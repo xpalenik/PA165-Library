@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
+ *
+ * Creates initial data
  */
 @Component
 @Transactional

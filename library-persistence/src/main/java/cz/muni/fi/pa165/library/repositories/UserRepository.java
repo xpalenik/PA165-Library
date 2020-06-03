@@ -14,5 +14,10 @@ import java.util.List;
  */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
+
+    /**
+     *
+     * @return list of all existing users
+     */
     List<User> findAll();
 }

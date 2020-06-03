@@ -11,6 +11,8 @@ import javax.annotation.PostConstruct;
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
+ *
+ * Loads initial data to DB
  */
 @Configuration
 @Import(MappingService.class)

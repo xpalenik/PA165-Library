@@ -306,3 +306,14 @@ button[disabled="disabled"]{
   opacity: 0.4;
   cursor: not-allowed !important;
 }
+
+/* w3-* has been borrowed from https://www.w3schools.com/w3css/4/w3.css */
+
+.w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;width:100%;display:table;width: auto;margin: auto;}.w3-table-all{border:1px solid #ccc}
+.w3-bordered tr,.w3-table-all tr{border-bottom:1px solid #ddd}.w3-striped tbody tr:nth-child(even){background-color:#f1f1f1}
+.w3-table-all tr:nth-child(odd){background-color:#fff}.w3-table-all tr:nth-child(even){background-color:#f1f1f1}
+.w3-hoverable tbody tr:hover,.w3-ul.w3-hoverable li:hover{background-color:#ccc}.w3-centered tr th,.w3-centered tr td{text-align:center}
+.w3-table td,.w3-table th,.w3-table-all td,.w3-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+.w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{padding-left:16px}
+
+.w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#2196F3!important}
